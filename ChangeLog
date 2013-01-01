@@ -1,0 +1,21 @@
+2012-10-21: Ver. 0.1-3
+  * Change to apecm and apecma.
+  * Switch to pbdMPI.
+  * rlecuyer is added.
+  * MixSim is added to generate data for simulation.
+  * Add load.balance functions.
+  * Fix .GlobalEnv problem.
+  * Fix .Last.lib problem.
+
+======================== Log Before Release ===================================
+2012-02-07:
+  * Add K-means, manual, and guide for release.
+
+2012-01-23:
+  * Add aecm, apecm1, and apecm2 and part of C code to boost computing.
+
+2012-01-04:
+  * Initial the package for release.
+
+2011-09-13:
+  * Initial code.

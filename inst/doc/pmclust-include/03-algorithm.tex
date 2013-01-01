@@ -1,0 +1,40 @@
+\section[Algorithm]{Algorithm}
+\label{sec:algorithm}
+\addcontentsline{toc}{section}{\thesection. Algorithm}
+
+Five algorithms are implemented in this packages including:
+EM~\citep{Dempster1977}, AECM~\citep{Meng1997}, APECM~\citep{Chen2011},
+APECMa~\citep{Chen2012a}, and K-means~\citep{Lloyd1982}.
+The EM-like algorithms (EM, AECM, APECM, and APECMa) are for model-based
+clusterings~\citep{Fraley2002},
+while K-means is a distance based clustering algorithm.
+
+In general, AECM, APECM, and APECMa will have quick convergent rate in terms
+of few iterations than EM. Since the more E-steps is updated,
+the more log likelihood is increased.
+But, AECM and APECMa may take long computing time
+than EM if the M-step has analytic solutions. In this situation, the majority
+of computing time in one iteration mostly spend on the E-step. So, the more
+E-steps called, the more time spent for an entire iteration.
+
+While the analytic solutions are not available for the M-step, the
+optimization routines are required for maximization of complete log
+likelihoods. Note that the solutions only exists in some simplified cases,
+and is not solvable in general.
+In this situation, the M-step may slow down hugely
+EM iterations and cost more computing time than the E-step.
+Considering faster convergent rate, like AECM or APECM,
+is a better choice~\citep{Chen2011}.
+
+The APECMa takes benefits in both of computing time and convergent rate.
+In the first situation, APECMa has the same order of E-step computations
+as the EM has, so it can converge faster than EM and has less computing time.
+In the second situation, APECMa has a similar convergent rate as AECM
+and APECMa, so it can converge as efficient as the both algorithms and
+has less computing time among all other EM-like algorithms.
+
+The K-means probably is the fast among all algorithms since it is restricted
+in a very simple model. However, the initialization procedure~\citep{Maitra2009}
+based on this algorithm may capture the skeleton of data, and may boost
+the EM-like algorithms and improve convergent results.
+

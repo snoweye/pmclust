@@ -1,0 +1,6 @@
+ex_em		pmclust		An example of EM algorithm.
+ex_aecm		pmclust		An example of AECM algorithm.
+ex_apecm	pmclust		An example of APECM algorithm.
+ex_apecma	pmclust		An example of APECMa algorithm.
+ex_kmeans	pmclust		An example of K-means algorithm.
+ex_MixSim	pmclust		An example of utilizing MixSim.

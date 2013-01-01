@@ -1,0 +1,62 @@
+
+{\color{red} \bf Warning:} This document is written to explain the major functions of
+\pkg{pmclust}~\citep{Chen2012pmclustpackage}, version 0.1-3.
+Every effort will be made to insure future versions are consistent with
+these instructions, but new features in later versions may not be explained
+in this document.
+
+
+\section[Introduction]{Introduction}
+\label{sec:introduction}
+\addcontentsline{toc}{section}{\thesection. Introduction}
+
+This is a quick guide to the package \pkg{pmclust} for
+parallel model-based clustering.
+We will cover how to perform parallel EM algorithm in 
+a single program multiple data (SPMD) programming model,
+and a master and workers programming model.
+The main function \code{em.step} will cluster
+data in to $K$ different groups based on a finite mixture Gaussian
+model with unstructured dispersions.
+
+Information about the detail functionality of this package,
+and any changes in future versions can be found on our website
+``Programming with Big Data in R'' at
+\url{http://r-pbd.org/}.
+More discussions about parallel computing in \proglang{R}~\citep{Rcore}
+can be found in \citet{Schmidberger2009}.
+The system requirement for \pkg{pmclust} is described next.
+In Section~\ref{sec:example}, examples are demonstrated.
+In Section~\ref{sec:algorithm}, algorithms implemented in \pkg{pmclust}
+are introduced. In Section~\ref{sec:discussion}, a few performance issues
+are discussed.
+
+
+
+
+\subsection[System Requirement]{System Requirement}
+\label{sec:system_requirement}
+\addcontentsline{toc}{subsection}{\thesubsection. System Requirement}
+
+The \pkg{pmclust} is mainly developed and tested under Linux operating systems
+(\url{http://en.wikipedia.org/wiki/Linux}).
+The major computing environment for \pkg{pmclust} requires MPI systems
+(\url{http://en.wikipedia.org/wiki/Message_Passing_Interface}), such as
+LAM/MPI (\url{http://www.lam-mpi.org/}) or
+OpenMPI (\url{http://www.open-mpi.org/}).
+Both of SPMD and master and workers programming models are also tested.
+
+Other operating systems such as Mac or Windows are also possible to run the
+\pkg{pmclust} if MPI systems and \pkg{pbdMPI}~\citep{Chen2012pbdMPIpackage}
+are correctly installed, and the instruction can be found in
+the vignette of \pkg{pbdMPI}~\citep{Chen2012pbdMPIvignette}.
+For master and workers models,
+it is also possible to run the \pkg{pmclust} within \pkg{Rmpi}~\citep{Yu2010}
+via \pkg{pbdMPI}.
+
+Note that \pkg{Rmpi}~\citep{Yu2010}
+requires more complicated settings for running on
+some MPI systems under the mater and workers programming model.
+See \pkg{Rmpi}'s website for details at
+\url{http://www.stats.uwo.ca/faculty/yu/Rmpi/}.
+

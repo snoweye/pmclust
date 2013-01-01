@@ -1,0 +1,39 @@
+\section[Discussion]{Discussion}
+\label{sec:discussion}
+\addcontentsline{toc}{section}{\thesection. Discussion}
+
+In Section~\ref{sec:spmd}, we saw the example about model-based clustering
+which is performed using SPMD programming model.
+The four workers have their own data which are different across all workers,
+while the workers know some information commonly owned by all others.
+For example, MPI environment information are all recognized by all workers,
+and all workers communicate inside the MPI world based on this information.
+Also, information about data structure is also commonly know by all workers.
+
+The workers simultaneously compute sufficient statistics based on part of data,
+and exchange the statistics with all other workers.
+These sufficient statistics gathered from all other workers
+need to be aggregated for the entire dataset.
+Then, the iteration of EM algorithm will update the parameters
+based on these information.
+Note that the communication is only occurred in the M-step and the
+entire E-step can be done by workers locally.
+
+The computing performance is dominated by the amount of exchanges especially
+for computing on distributed large datasets.
+The more iterations are computed, the more communications are required.
+A parallelized algorithm should aim to reduce extra efforts for
+communications, but the parallel design should not increase difficulties
+of original algorithm.
+So, the better algorithm such as APECM-like algorithms can provide
+less iterations to convergence and obtain results more efficiently.
+
+The ideas of parallelization can be found in~\citet{Chen2012a},
+and the similar idea can benefit other statistical methods when
+applied to large datasets.
+See more SPMD examples on the website
+``High Performance Statistical Computing''~\citep{hpsc2012} at
+\url{http://thirteen-01.stat.iastate.edu/snoweye/hpsc/}.
+See more applications on the website
+``Programming with Big Data in R'' at
+\url{http://r-pbd.org/}.

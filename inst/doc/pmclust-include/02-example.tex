@@ -1,0 +1,198 @@
+\section[Examples]{Example}
+\label{sec:example}
+\addcontentsline{toc}{section}{\thesection. Example}
+
+The \pkg{pmclust} is a package of \proglang{R}~\citep{Rcore} and
+designed in the single program multiple data (SPMD)
+programming model, so there is no need to spawn workers from the master node
+as the usual way of \pkg{Rmpi}~\citep{Yu2010}.
+The \pkg{pmclust} fully uses the resource
+of processors by running jobs on all workers,
+i.e. each workers do the their own jobs and communicate with others.
+However, it is possible to run the package in the master and workers mode,
+i.e. the master assignes jobs to workers or itself, and manages communications.
+
+
+\subsection[Single Program Multiple Data]{Single Program Multiple Data}
+\label{sec:spmd}
+\addcontentsline{toc}{subsection}{\thesubsection. Single Program Multiple Data}
+
+A simulation example is given along with the \pkg{pmclust} package
+assuming run on four processors by executing the following under the
+MPI environment.
+The following command will quickly provide a simple example of \pkg{pmclust}
+which estimates parameters by the EM algorithm~\citep{Dempster1977}.
+\begin{Command}
+mpiexec -np 4 Rscript -e "demo(ex_em,'pmclust',ask=F,echo=F)"
+\end{Command}
+Other examples are \code{ex_aecm}, \code{ex_apecm1}, \code{ex_apecm2}, and
+\code{ex_kmeans}.
+Note that one can have one job, but run on a machine which has four processors.
+On the other hand, one can have four jobs, but run on a machine which has only
+one processor.
+
+This demo will launch four jobs/workers to simulate a small dataset and then
+perform the EM algorithm to estimate parameters and cluster the data.
+The data have $N = 20,000$ observations $\vect{x}_n$ ($n = 1, 2, \ldots, N$)
+generated from a true model, and each worker takes $5,000$ observations.
+Settings of the model are two clusters ($K = 2$)
+on a 2D plane ($p = 2$), i.e.
+$$
+\vect{X}_n \overset{iid}{\sim}
+\eta_1 \mbox{MVN}_2(\vect{\mu}_1, \vect{\Sigma}_1) +
+\eta_2 \mbox{MVN}_2(\vect{\mu}_2, \vect{\Sigma}_2)
+$$
+where the mixing proportions are
+$\eta_1 = 0.4$ and $\eta_2 = 0.6$, the centers are
+$\vect{\mu}_1 = (6, 7)^\prime$ and $\vect{\mu}_2 = (8, 9)^\prime$,
+and the dispersions are
+$$
+\vect{\Sigma}_1 =
+\left(
+\begin{array}{cc}
+1/6 & 0 \\
+0   & 1/7 \\
+\end{array}
+\right)
+\mbox{ and }
+\vect{\Sigma}_2 =
+\left(
+\begin{array}{cc}
+1/8 & 0 \\
+0   & 1/9 \\
+\end{array}
+\right).
+$$
+
+The output will be similar as the following.
+Note that the classification id's are exchangible, so the mixing proportion
+gives the order of new id. For example, the next result gives
+id exchanges rleated to the true id's.
+i.e. $\hat{\eta}_1 = 0.5999045$ and $\hat{\eta}_2 = 0.4000955$.
+Therefore, the $\hat{\vect{\mu}}$'s and
+$\hat{\vect{\Sigma}}$'s are all switched.
+\begin{CodeOutput}
+=====
+Method: em
+Convergence: 1  iter: 4  abs.err: 0.001067232  rel.err: 3.607484e-08
+logL: -29583.84
+K: 2
+
+ETA:
+[1] 0.5999045 0.4000955
+
+MU:
+         [,1]     [,2]
+[1,] 8.000351 6.002414
+[2,] 8.998864 7.003725
+
+SIGMA:
+            [,1]        [,2]
+[1,] 0.124692616 0.166987201
+[2,] 0.001135919 0.001845902
+[3,] 0.001135919 0.001845902
+[4,] 0.111299586 0.142091610
+=====
+   user  system elapsed
+  0.372   0.088   2.049
+\end{CodeOutput}
+
+
+\subsection[Master and Workers]{Master and Workers}
+\label{sec:master_workers}
+\addcontentsline{toc}{subsection}{\thesubsection. Master and Slaves}
+The same simulation demonstrated in Section~\ref{sec:spmd} can be run
+inside \proglang{R}, rather than through shell commands.
+The same SPMD code can be run in the master and workers model as the usual way
+of \pkg{Rmpi} with a few required adjustments.
+
+The following example provides a quick way to run SPMD code under master
+and workers mode or interactive mode of \proglang{R}. The simplified steps are 
+\begin{enumerate}
+\item Save parallel scripts in a file, say ``ex\_demo.r''.
+\item Broadcast \code{source("ex_demo.r")} to all workers.
+\item Run \code{source("ex_demo.r")} on the master.
+\end{enumerate}
+Be careful, the \code{source}
+function on the master should go after the calls to
+the workers. Otherwise, the \proglang{R} console may lose the controls due to
+the MPI blocking calls.
+The philosophy here is treating the master as one of the workers, but it
+has to command other workers to work first befor burning itself.
+
+These are the adjusted script from the simulation in Section~\ref{sec:spmd},
+and let's save them in the file ``ex\_demo.r''.
+\begin{Code}[title=SPMD R Script]
+### Setup mpi environment.
+library(pmclust, quiet = TRUE)
+comm.set.seed(123, diff = TRUE)
+
+### Generate an example data.
+N.allspmds <- rep(5000, comm.size())
+N.spmd <- 5000
+N.K.spmd <- c(2000, 3000)
+N <- 5000 * comm.size()
+p <- 2
+K <- 2
+data.spmd <- generate.basic(N.allspmds, N.spmd, N.K.spmd, N, p, K)
+X.spmd <- data.spmd$X.spmd
+
+### Run clustering.
+PARAM.org <- set.global(K = K)      # Setting global variables.
+PARAM.org <- initial.em(PARAM.org)  # Initialization.
+PARAM.new <- em.step(PARAM.org)     # Run EM.
+em.update.class()                   # Update classifications.
+mb.print(PARAM.new, CHECK)          # Print results.
+
+### Print run time.
+comm.print(proc.time())
+finalize(quit.mpi = FALSE)          # Avoid kill Rmpi.
+\end{Code}
+
+Note that currently OpenMPI is not able to spawn workers as LAM/MPI, but
+\pkg{Rmpi} provides a file \code{Rprofile} to take care this procedure.
+Rename and save this file as \code{.Rprofile} at the working directory,
+and launch \proglang{R} by \code{mpiexec} to envoke workers.
+An example is given along with the \pkg{Rmpi} package, and
+see the \pkg{Rmpi}'s website for details at
+\url{http://www.stats.uwo.ca/faculty/yu/Rmpi/}.
+
+Under the OpenMPI system, the above script can be run
+inside \proglang{R} as the following, and provide the same results as
+in Section~\ref{sec:spmd}.
+\begin{Code}[title=Master/Workers]
+bash$ mpiexec -np 4 R --no-save -q
+###
+### Some messages will show the workers are running.
+### The "spawn" is no needed for OpenMPI anymore.
+###
+R> # library(Rmpi)                     # Require for LAM/MPI.
+R> # mpi.spawn.Rslaves()               # Require for LAM/MPI.
+
+R> mpi.bcast.cmd(source("ex_demo.r"))  # Workers go first.
+R> source("ex_demo.r")                 # Master runs.
+\end{Code}
+
+
+
+
+\subsection[More Examples]{More Examples}
+\label{sec:more_examples}
+\addcontentsline{toc}{subsection}{\thesubsection. More Examples}
+
+Note that the example in the Section~\ref{sec:spmd}
+only utilizes a very simple function
+\code{generate.basic} to demonstrate a random dataset for testing.
+A more general function \code{generage.MixSim} utilizes the function
+\code{MixSim} from the package \pkg{MixSim}~\citep{Melnykov2012}
+providing different conditions of overlaps for simulation studies.
+
+It is also more appropriate to utilize the function \code{MixSim} for
+evaulating performace of algorithms developed in the \pkg{pmclust}
+as described in the next Section~\ref{sec:algorithm}.
+The other simple example is also provided in the \pkg{pmclust} and
+can be run with
+\begin{Command}
+mpiexec -np 4 Rscript -e "demo(ex_MixSim,'pmclust',ask=F,echo=F)"
+\end{Command}
+More performance comparision can be found in~\citet{Chen2012a}.
