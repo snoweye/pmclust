@@ -1,41 +1,41 @@
 ### This file contains major functions for EM iterations.
 
 ### CM-step.
-cm.step.spmd.ETA <- function(PARAM){
+cm.step.dmat.ETA <- function(PARAM){
   ### MLE For ETA
   PARAM$ETA <- .pmclustEnv$Z.colSums / sum(.pmclustEnv$Z.colSums)
   PARAM$log.ETA <- log(PARAM$ETA)
   PARAM
-} # End of cm.step.spmd.ETA().
+} # End of cm.step.dmat.ETA().
 
-cm.step.spmd.MU <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+cm.step.dmat.MU <- function(PARAM){
+  X.dmat <- get("X.dmat", envir = .GlobalEnv)
 
   p <- PARAM$p
 
   for(i.k in 1:PARAM$K){
     ### MLE for MU
-    tmp.MU <- colSums(X.spmd * .pmclustEnv$Z.spmd[, i.k]) /
-              .pmclustEnv$Z.colSums[i.k]
-    PARAM$MU[, i.k] <- spmd.allreduce.double(tmp.MU, double(p), op = "sum")
+    B <- base.pdsweep(dx = X.dmat, vec = .pmclustEnv$Z.dmat[, i.k],
+                      MARGIN = 1L, FUN = "*")
+    PARAM$MU[, i.k] <- colSums(B) / .pmclustEnv$Z.colSums[i.k]
   }
 
   PARAM
-} # End of cm.step.spmd.MU().
+} # End of cm.step.dmat.MU().
 
-cm.step.spmd.SIGMA <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+cm.step.dmat.SIGMA <- function(PARAM){
+  X.dmat <- get("X.dmat", envir = .GlobalEnv)
 
-  N.spmd <- nrow(X.spmd)
+  N <- nrow(X.dmat)
 
   p <- PARAM$p
   p.2 <- p * p
   for(i.k in 1:PARAM$K){
     if(PARAM$U.check[[i.k]]){
-      B <- W.plus.y(X.spmd, -PARAM$MU[, i.k], N.spmd, p) *
-           sqrt(.pmclustEnv$Z.spmd[, i.k] / .pmclustEnv$Z.colSums[i.k])
-      tmp.SIGMA <- crossprod(B)
-      tmp.SIGMA <- spmd.allreduce.double(tmp.SIGMA, double(p.2), op = "sum") 
+      B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
+                        MARGIN = 2L, FUN = "-") *
+           sqrt(.pmclustEnv$Z.dmat[, i.k] / .pmclustEnv$Z.colSums[i.k])
+      tmp.SIGMA <- as.matrix(crossprod(B))
       dim(tmp.SIGMA) <- c(p, p)
 
       tmp.U <- decompsigma(tmp.SIGMA)
@@ -52,11 +52,11 @@ cm.step.spmd.SIGMA <- function(PARAM){
   }
 
   PARAM
-} # End of cm.step.spmd.SIGMA().
+} # End of cm.step.dmat.SIGMA().
 
 
 ### AECM-step.
-aecm.step.spmd <- function(PARAM.org){
+aecm.step.dmat <- function(PARAM.org){
   .pmclustEnv$CHECK <- list(method = "aecm", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
@@ -68,7 +68,7 @@ aecm.step.spmd <- function(PARAM.org){
     if(! exists("SAVE.iter", envir = .pmclustEnv)){
       .pmclustEnv$SAVE.param <- NULL
       .pmclustEnv$SAVE.iter <- NULL
-      .pmclustEnv$CLASS.iter.org <- unlist(apply(.pmclustEnv$Z.spmd, 1,
+      .pmclustEnv$CLASS.iter.org <- unlist(apply(.pmclustEnv$Z.dmat, 1,
                                                  which.max))
     }
   }
@@ -80,7 +80,7 @@ aecm.step.spmd <- function(PARAM.org){
       time.start <- proc.time()
     }
 
-    PARAM.new <- try(aecm.onestep.spmd(PARAM.org))
+    PARAM.new <- try(aecm.onestep.dmat(PARAM.org))
     if(class(PARAM.new) == "try-error"){
       comm.cat("Results of previous iterations are returned.\n", quiet = TRUE)
       .pmclustEnv$CHECK$convergence <- 99
@@ -99,9 +99,8 @@ aecm.step.spmd <- function(PARAM.org){
       tmp.time <- proc.time() - time.start
 
       .pmclustEnv$SAVE.param <- c(.pmclustEnv$SAVE.param, PARAM.new)
-      CLASS.iter.new <- unlist(apply(.pmclustEnv$Z.spmd, 1, which.max))
+      CLASS.iter.new <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.max))
       tmp <- as.double(sum(CLASS.iter.new != .pmclustEnv$CLASS.iter.org))
-      tmp <- spmd.allreduce.double(tmp, double(1), op = "sum")
       tmp.all <- c(tmp / PARAM.new$N, PARAM.new$logL,
                    PARAM.new$logL - PARAM.org$logL,
                    (PARAM.new$logL - PARAM.org$logL) / PARAM.org$logL)
@@ -115,27 +114,27 @@ aecm.step.spmd <- function(PARAM.org){
   }
 
   PARAM.new
-} # End of aecm.step.spmd().
+} # End of aecm.step.dmat().
 
-aecm.onestep.spmd <- function(PARAM){
+aecm.onestep.dmat <- function(PARAM){
 #  if(COMM.RANK == 0){
 #    Rprof(filename = "aecm.Rprof", append = TRUE)
 #  }
 
-  PARAM <- cm.step.spmd.ETA(PARAM)
-  e.step.spmd(PARAM, update.logL = FALSE)
+  PARAM <- cm.step.dmat.ETA(PARAM)
+  e.step.dmat(PARAM, update.logL = FALSE)
 
-  PARAM <- cm.step.spmd.MU(PARAM)
-  e.step.spmd(PARAM, update.logL = FALSE)
+  PARAM <- cm.step.dmat.MU(PARAM)
+  e.step.dmat(PARAM, update.logL = FALSE)
 
-  PARAM <- cm.step.spmd.SIGMA(PARAM)
-  e.step.spmd(PARAM, update.logL = TRUE)
+  PARAM <- cm.step.dmat.SIGMA(PARAM)
+  e.step.dmat(PARAM, update.logL = TRUE)
 
 #  if(COMM.RANK == 0){
 #    Rprof(NULL)
 #  }
 
-  PARAM$logL <- logL.step.spmd()
+  PARAM$logL <- logL.step.dmat()
 
   if(.pmclustEnv$CONTROL$debug > 0){
     comm.cat(">>aecm.onestep: ", format(Sys.time(), "%H:%M:%S"),
@@ -143,7 +142,7 @@ aecm.onestep.spmd <- function(PARAM){
                          sprintf("%-30.15f", PARAM$logL), "\n",
              sep = "", quiet = TRUE)
     if(.pmclustEnv$CONTROL$debug > 4){
-      logL <- indep.logL(PARAM)
+      logL <- indep.logL.dmat(PARAM)
       comm.cat("  >>indep.logL: ", sprintf("%-30.15f", logL), "\n", sep = "")
     }
     if(.pmclustEnv$CONTROL$debug > 20){
@@ -152,5 +151,5 @@ aecm.onestep.spmd <- function(PARAM){
   }
 
   PARAM
-} # End of aecm.onestep.spmd().
+} # End of aecm.onestep.dmat().
 

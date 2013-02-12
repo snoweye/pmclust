@@ -34,7 +34,7 @@ initial.center.spmd <- function(PARAM, MU = NULL){
     .pmclustEnv$Z.spmd[, i.k] <- -rowSums(B * B)
   }
 
-  .pmclustEnv$CLASS.spmd <- apply(.pmclustEnv$Z.spmd, 1, which.max)
+  .pmclustEnv$CLASS.spmd <- unlist(apply(.pmclustEnv$Z.spmd, 1, which.max))
 
   PARAM
 } # End of initial.center.spmd().

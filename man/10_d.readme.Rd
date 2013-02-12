@@ -34,10 +34,10 @@
                                           from 1 to K \cr
              \code{COMM.RANK}        \tab rank of current processor, obtained
                                           from
-                                          \code{\link[pbdMPI]{comm.rank}}\cr
+                                          \code{comm.rank} of pbdMPI\cr
              \code{COMM.SIZE}        \tab total processors in MPI world,
                                           obtained from
-                                          \code{\link[pbdMPI]{comm.size}}\cr
+                                          \code{comm.size} of pbdMPI\cr
              \code{\link{CONTROL}}   \tab controls for EM iterations \cr
              \code{\link{PARAM}}     \tab set or parameters \cr
              \code{SAVE.param}       \tab (debug only)

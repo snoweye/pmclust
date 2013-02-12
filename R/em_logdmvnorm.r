@@ -12,10 +12,11 @@ logdmvnorm <- function(PARAM, i.k){
 #    A <- backsolve(U, B, upper.tri = TRUE, transpose = TRUE)
 #    distval <- colSums(A * A)
     B <- W.plus.y(X.spmd, -PARAM$MU[, i.k], nrow(X.spmd), ncol(X.spmd))
-    B <- B %*% backsolve(U, diag(PARAM$p))
+    B <- B %*% backsolve(U, diag(1, PARAM$p))
     distval <- rowSums(B * B)
     .pmclustEnv$W.spmd[, i.k] <- -(.pmclustEnv$p.times.logtwopi + logdet +
                                    distval) * 0.5
 #  }
+  invisible()
 } # End of logdmvnorm().
 

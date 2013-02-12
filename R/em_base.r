@@ -7,6 +7,7 @@ e.step.spmd <- function(PARAM, update.logL = TRUE){
   }
 
   update.expectation(PARAM, update.logL = update.logL)
+  invisible()
 } # End of e.step.spmd().
 
 ### z_nk / sum_k z_n might have numerical problems if z_nk all underflowed.
@@ -29,7 +30,8 @@ update.expectation <- function(PARAM, update.logL = TRUE){
     if(tmp.flag == 1){
       tmp.scale <- max(tmp.spmd) - .pmclustEnv$CONTROL$exp.max / K
     } else{
-      tmp.scale <- apply(tmp.spmd, 1, max) - .pmclustEnv$CONTROL$exp.max / K
+      tmp.scale <- unlist(apply(tmp.spmd, 1, max)) -
+                   .pmclustEnv$CONTROL$exp.max / K
     }
     .pmclustEnv$Z.spmd[tmp.id,] <- exp(tmp.spmd - tmp.scale)
   }
@@ -53,6 +55,8 @@ update.expectation <- function(PARAM, update.logL = TRUE){
                                             tmp.scale
     }
   }
+
+  invisible()
 } # End of update.expectation().
 
 
@@ -99,10 +103,10 @@ m.step.spmd <- function(PARAM){
 
 
 ### log likelihood.
-logL.step <- function(){
+logL.step.spmd <- function(){
   tmp.logL <- sum(.pmclustEnv$W.spmd.rowSums)
   spmd.allreduce.double(tmp.logL, double(1), op = "sum")
-} # End of logL.step().
+} # End of logL.step.spmd().
 
 
 ### Check log likelihood convergence.
@@ -208,7 +212,7 @@ em.onestep.spmd <- function(PARAM){
 #    Rprof(NULL)
 #  }
 
-  PARAM$logL <- logL.step()
+  PARAM$logL <- logL.step.spmd()
 
   if(.pmclustEnv$CONTROL$debug > 0){
     comm.cat(">>em.onestep: ", format(Sys.time(), "%H:%M:%S"),
@@ -233,5 +237,6 @@ em.onestep <- em.onestep.spmd
 ### Obtain classifications.
 em.update.class.spmd <- function(){
   .pmclustEnv$CLASS.spmd <- unlist(apply(.pmclustEnv$Z.spmd, 1, which.max))
+  invisible()
 } # End of em.update.class.spmd().
 

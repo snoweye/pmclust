@@ -11,8 +11,8 @@ X.spmd <- data.spmd$X.spmd
 
 ### Run clustering.
 PARAM.org <- set.global(K = K)          # Set global storages.
-# PARAM.org <- initial.em(PARAM.org)    # One initial.
-PARAM.org <- initial.RndEM(PARAM.org)   # Ten initials by default.
+ PARAM.org <- initial.em(PARAM.org)    # One initial.
+# PARAM.org <- initial.RndEM(PARAM.org)   # Ten initials by default.
 PARAM.new <- apecma.step(PARAM.org)     # Run APECMa.
 em.update.class()                       # Get classification.
 

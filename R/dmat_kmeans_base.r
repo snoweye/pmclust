@@ -1,46 +1,34 @@
 ### This file provides functions for kmeans.
 
-kmeans.e.step.spmd <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
-
-  nrow <- nrow(X.spmd)
-  ncol <- ncol(X.spmd)
-
+kmeans.e.step.dmat <- function(PARAM){
+  X.dmat <- get("X.dmat", envir = .GlobalEnv)
   for(i.k in 1:PARAM$K){
-    B <- W.plus.y(X.spmd, -PARAM$MU[, i.k], nrow, ncol)
-    .pmclustEnv$Z.spmd[, i.k] <- sqrt(rowSums(B * B))
+    # B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))			# bug
+    # .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))			# bug
+    B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
+                      MARGIN = 2L, FUN = "-")
+    .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))
   }
   invisible()
-} # End of kmeans.e.step.spmd().
+} # End of kmeans.e.step.dmat().
 
-kmeans.m.step.spmd <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
-
+kmeans.m.step.dmat <- function(PARAM){
+  X.dmat <- get("X.dmat", envir = .GlobalEnv)
   for(i.k in 1:PARAM$K){
-    id <- .pmclustEnv$CLASS.spmd == i.k
-    tmp.n.id <- as.double(sum(id))
-    tmp.n.id <- spmd.allreduce.double(tmp.n.id, double(1), op = "sum")
-
-    if(tmp.n.id > 0){
-      tmp.sum <- colSums(matrix(X.spmd[id, ], ncol = PARAM$p))
-    } else{
-      tmp.sum <- rep(0.0, PARAM$p)
-    }
-    tmp.sum <- spmd.allreduce.double(tmp.sum, double(PARAM$p), op = "sum")
-
-    PARAM$MU[, i.k] <- tmp.sum / tmp.n.id
+    # id <- .pmclustEnv$CLASS == i.k					# bug
+    # PARAM$MU[, i.k] <- colMeans(X.dmat[id,])				# bug
+    id <- which(.pmclustEnv$CLASS == i.k)
+    PARAM$MU[, i.k] <- colMeans(X.dmat[id,])
   } 
-
   PARAM
-} # End of kmeans.m.step.spmd().
+} # End of kmeans.m.step.dmat().
 
-kmeans.logL.step.spmd <- function(){
-  tmp <- unlist(apply(.pmclustEnv$Z.spmd, 1, which.min))
-  tmp.diff <- sum(.pmclustEnv$CLASS.spmd != tmp)
-
-  .pmclustEnv$CLASS.spmd <- tmp
-  spmd.allreduce.integer(as.integer(tmp.diff), integer(1), op = "sum")
-} # End of kmeans.logL.step.spmd().
+kmeans.logL.step.dmat <- function(){
+  tmp <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
+  tmp.diff <- sum(.pmclustEnv$CLASS != tmp)
+  .pmclustEnv$CLASS <- tmp
+  as.integer(tmp.diff)
+} # End of kmeans.logL.step.dmat().
 
 check.kmeans.convergence <- function(PARAM.org, PARAM.new, i.iter){
     abs.err <- PARAM.new$logL
@@ -66,7 +54,7 @@ check.kmeans.convergence <- function(PARAM.org, PARAM.new, i.iter){
          convergence = convergence)
 } # End of check.kmeans.convergence().
 
-kmeans.step.spmd <- function(PARAM.org){
+kmeans.step.dmat <- function(PARAM.org){
   .pmclustEnv$CHECK <- list(method = "kmeans", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
@@ -77,7 +65,7 @@ kmeans.step.spmd <- function(PARAM.org){
     if(! exists("SAVE.iter", envir = .pmclustEnv)){
       .pmclustEnv$SAVE.param <- NULL
       .pmclustEnv$SAVE.iter <- NULL
-      .pmclustEnv$CLASS.iter.org <- unlist(apply(.pmclustEnv$Z.spmd, 1,
+      .pmclustEnv$CLASS.iter.org <- unlist(apply(.pmclustEnv$Z.dmat, 1,
                                                  which.min))
     }
   }
@@ -89,7 +77,7 @@ kmeans.step.spmd <- function(PARAM.org){
       time.start <- proc.time()
     }
 
-    PARAM.new <- kmeans.onestep.spmd(PARAM.org)
+    PARAM.new <- kmeans.onestep.dmat(PARAM.org)
 
     .pmclustEnv$CHECK <- check.kmeans.convergence(PARAM.org, PARAM.new, i.iter)
 
@@ -103,9 +91,8 @@ kmeans.step.spmd <- function(PARAM.org){
       tmp.time <- proc.time() - time.start
 
       .pmclustEnv$SAVE.param <- c(.pmclustEnv$SAVE.param, PARAM.new)
-      CLASS.iter.new <- unlist(apply(.pmclustEnv$Z.spmd, 1, which.min))
-      tmp <- as.double(sum(CLASS.iter.new != .pmclustEnv$CLASS.iter.org))
-      tmp <- spmd.allreduce.double(tmp, double(1), op = "sum")
+      CLASS.iter.new <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
+      tmp <- sum(CLASS.iter.new != .pmclustEnv$CLASS.iter.org)
       tmp.all <- c(tmp / PARAM.new$N, PARAM.new$logL,
                    PARAM.new$logL - PARAM.org$logL,
                    (PARAM.new$logL - PARAM.org$logL) / PARAM.org$logL)
@@ -119,21 +106,21 @@ kmeans.step.spmd <- function(PARAM.org){
   }
 
   PARAM.new
-} # End of kmeans.step.spmd().
+} # End of kmeans.step.dmat().
 
-kmeans.onestep.spmd <- function(PARAM){
+kmeans.onestep.dmat <- function(PARAM){
 #  if(.pmclustEnv$COMM.RANK == 0){
 #    Rprof(filename = "kmeans.Rprof", append = TRUE)
 #  }
 
-  PARAM <- kmeans.m.step.spmd(PARAM)
-  kmeans.e.step.spmd(PARAM)
+  PARAM <- kmeans.m.step.dmat(PARAM)
+  kmeans.e.step.dmat(PARAM)
 
 #  if(.pmclustEnv$COMM.RANK == 0){
 #    Rprof(NULL)
 #  }
 
-  PARAM$logL <- kmeans.logL.step.spmd()
+  PARAM$logL <- kmeans.logL.step.dmat()
 
   if(.pmclustEnv$CONTROL$debug > 0){
     comm.cat(">>kmeans.onestep: ", format(Sys.time(), "%H:%M:%S"),
@@ -141,16 +128,16 @@ kmeans.onestep.spmd <- function(PARAM){
                          sprintf("%-30d", PARAM$logL), "\n",
              sep = "", quiet = TRUE)
     if(.pmclustEnv$CONTROL$debug > 10){
-      mb.print(PARAM, .pmclustEnv$CHECK)
+      mb.print.dmat(PARAM, .pmclustEnv$CHECK)
     }
   }
 
   PARAM
-} # End of kmeans.onestep.spmd().
+} # End of kmeans.onestep.dmat().
 
 
-kmeans.update.class.spmd <- function(){
-  .pmclustEnv$CLASS.spmd <- unlist(apply(.pmclustEnv$Z.spmd, 1, which.min))
+kmeans.update.class.dmat <- function(){
+  .pmclustEnv$CLASS <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
   invisible()
-} # End of kmeans.update.class.spmd().
+} # End of kmeans.update.class.dmat().
 

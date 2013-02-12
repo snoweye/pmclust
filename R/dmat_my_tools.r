@@ -1,25 +1,30 @@
 ### This function initializes global variables.
-set.global <- function(K = 2, PARAM = NULL,
-    method = c("em", "aecm", "apecm", "apecma", "kmeans"),
+set.global.dmat <- function(K = 2, PARAM = NULL,
+    method = c("em.dmat", "aecm.dmat", "apecm.dmat",
+               "apecma.dmat", "kmeans.dmat"),
     RndEM.iter = 10){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(! is.ddmatrix(X.dmat)){
+    stop("X.dmat is not a ddmatrix.")
+  }
+  CTXT <- ctxt(X.dmat)
 
   ### Get data information.
-  N.spmd <- nrow(X.spmd)
-  N.allspmds <- spmd.allgather.integer(as.integer(N.spmd),
-                                       integer(spmd.comm.size()))
-  N <- sum(N.allspmds)
-  p <- ncol(X.spmd)
+  N <- nrow(X.dmat)
+  p <- ncol(X.dmat)
 
   ### Set parameters.
   if(is.null(PARAM)){
-    PARAM <- list(N = N, p = p, K = K, ETA = rep(1 / K, K),
-                  log.ETA = rep(-log(K), K), MU = NULL,
-                  SIGMA = rep(list(diag(1.0, p)), K),
+    PARAM <- list(N = N, p = p, K = K,
+                  ETA = NULL, log.ETA = NULL, MU = NULL, SIGMA = NULL,
                   U = rep(list(), K),
                   U.check = rep(TRUE, K),
                   logL = NULL,
                   min.N.CLASS = min(c((p + 1) * p * 0.5 + 1, N / K * 0.2)))
+    PARAM$ETA <- rep(1/K, K)
+    PARAM$log.ETA <- rep(-log(K), K) 
+    PARAM$MU <- matrix(0, p, K)
+    PARAM$SIGMA <- rep(list(diag(1.0, p)), K)
   } else{
     PARAM$N <- N
     K <- PARAM$K
@@ -38,14 +43,16 @@ set.global <- function(K = 2, PARAM = NULL,
 
   .pmclustEnv$p.times.logtwopi <- p * log(2 * pi)
 
-  .pmclustEnv$Z.spmd <- matrix(0.0, nrow = N.spmd, ncol = K)
-  .pmclustEnv$Z.colSums <- rep(0.0, K)
+  .pmclustEnv$Z.dmat <- matrix(0, N, K)
+  .pmclustEnv$Z.colSums <- colSums(.pmclustEnv$Z.dmat)
 
-  .pmclustEnv$W.spmd <- matrix(0.0, nrow = N.spmd, ncol = K)
-  .pmclustEnv$W.spmd.rowSums <- rep(0.0, N.spmd)
+  .pmclustEnv$W.dmat <- matrix(0, N, K)
+  .pmclustEnv$W.dmat.rowSums <- rowSums(.pmclustEnv$W.dmat)
 
-  .pmclustEnv$U.spmd <- matrix(0.0, nrow = N.spmd, ncol = K)
-  .pmclustEnv$CLASS.spmd <- rep(0, N.spmd)
+  .pmclustEnv$U.dmat <- matrix(0, N, K)
+
+  .pmclustEnv$CLASS <- rep(0, N)
+
   .pmclustEnv$CHECK <- list(method = method[1], i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
 
@@ -59,5 +66,5 @@ set.global <- function(K = 2, PARAM = NULL,
   }
 
   PARAM
-} # End of set.global().
+} # End of set.global.dmat().
 

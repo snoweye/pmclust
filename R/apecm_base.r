@@ -36,7 +36,8 @@ ape.update.expectation <- function(PARAM, update.logL = TRUE){
     if(tmp.flag == 1){
       tmp.scale <- max(tmp.spmd) - .pmclustEnv$CONTROL$exp.max / K
     } else{
-      tmp.scale <- apply(tmp.spmd, 1, max) - .pmclustEnv$CONTROL$exp.max / K
+      tmp.scale <- unlist(apply(tmp.spmd, 1, max)) -
+                   .pmclustEnv$CONTROL$exp.max / K
     }
     .pmclustEnv$Z.spmd[tmp.id,] <- exp(tmp.spmd - tmp.scale)
   }
@@ -52,7 +53,7 @@ ape.update.expectation <- function(PARAM, update.logL = TRUE){
   .pmclustEnv$Z.colSums <- colSums(.pmclustEnv$Z.spmd)
   .pmclustEnv$Z.colSums <- spmd.allreduce.double(.pmclustEnv$Z.colSums,
                                                  double(K), op = "sum")
-} # End of update.expectation().
+} # End of ape.update.expectation().
 
 ape.update.expectation.k <- function(PARAM, i.k, update.logL = TRUE){
   X.spmd <- get("X.spmd", envir = .GlobalEnv)
@@ -75,7 +76,8 @@ ape.update.expectation.k <- function(PARAM, i.k, update.logL = TRUE){
     if(tmp.flag == 1){
       tmp.scale <- max(tmp.spmd) - .pmclustEnv$CONTROL$exp.max / K
     } else{
-      tmp.scale <- apply(tmp.spmd, 1, max) - .pmclustEnv$CONTROL$exp.max / K
+      tmp.scale <- unlist(apply(tmp.spmd, 1, max)) -
+                   .pmclustEnv$CONTROL$exp.max / K
     }
     .pmclustEnv$Z.spmd[tmp.id,] <- exp(tmp.spmd - tmp.scale)
   }
@@ -99,7 +101,7 @@ ape.update.expectation.k <- function(PARAM, i.k, update.logL = TRUE){
                                             tmp.scale
     }
   }
-} # End of ap1.update.expectation().
+} # End of ape.update.expectation.k().
 
 
 ### APECM-step.
@@ -184,7 +186,7 @@ apecm.onestep.spmd <- function(PARAM){
 #    Rprof(NULL)
 #  }
 
-  PARAM$logL <- logL.step()
+  PARAM$logL <- logL.step.spmd()
 
   if(.pmclustEnv$CONTROL$debug > 0){
     comm.cat(">>apecm.onestep: ", format(Sys.time(), "%H:%M:%S"),

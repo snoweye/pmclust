@@ -48,7 +48,7 @@ initial.em.spmd <- function(PARAM, MU = NULL){
 
   e.step.spmd(PARAM)
   PARAM <- em.onestep.spmd(PARAM)
-  PARAM$logL <- logL.step()
+  PARAM$logL <- logL.step.spmd()
   em.update.class.spmd()
 
   PARAM
@@ -68,7 +68,9 @@ initial.RndEM.spmd <- function(PARAM){
 
     N.CLASS <- get.N.CLASS(PARAM$K)
     if(any(N.CLASS < PARAM$min.N.CLASS)){
-      comm.cat("N.CLASS: ", N.CLASS, "\n", quiet = TRUE)
+      if(.pmclustEnv$CONTROL$debug > 0){
+        comm.cat("N.CLASS: ", N.CLASS, "\n", quiet = TRUE)
+      }
       next
     }
 
@@ -97,5 +99,5 @@ initial.RndEM.spmd <- function(PARAM){
   }
   PARAM <- initial.em.spmd(PARAM.save, MU = PARAM.save$MU)
   PARAM
-} # End of initial.RandRM.spmd().
+} # End of initial.RndEM.spmd().
 
