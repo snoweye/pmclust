@@ -54,9 +54,11 @@
   \emph{Statistical Analysis and Data Mining},
   \bold{4}, 567-578.
 
-  Chen, W.-C. and Ostrouchov, G. (2012)
-  \dQuote{Parallel Model-Based Clustering for Finite Mixture Gaussian Models},
-  \emph{(in preparation)}.
+  Chen, W.-C., Ostrouchov, G., Pugmire, D., Prabhat, M., and Wehner, M. (2013)
+  \dQuote{Exploring Multivariate Relationships in Large Spatio-Temporal
+          Data with Parallel Model-Based Clustering and Scalable Graphics},
+  \emph{Technometrics},
+  (revision).
 
   Dempster, A.P., Laird, N.M. and Rubin, D.B. (1977)
   \dQuote{Maximum Likelihood from Incomplete Data via the EM Algorithm},
@@ -81,17 +83,28 @@
   \code{\link{aecm.step}},
   \code{\link{apecm.step}}, \cr
   \code{\link{apecma.step}},
-  \code{\link{kmeans.step}}.
+  \code{\link{kmeans.step}}. \cr
+  \code{\link{em.step.dmat}},
+  \code{\link{aecm.step.dmat}},
+  \code{\link{apecm.step.dmat}}, \cr
+  \code{\link{apecma.step.dmat}},
+  \code{\link{kmeans.step.dmat}}.
 }
 \examples{
 \dontrun{
 ### Under command mode, run the demo with 2 processors by
 ### (Use Rscript.exe for windows system)
-mpiexec -np 2 Rscript -e 'demo(em,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(aecm,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(apecm,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(apecma,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(kmeans,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_em,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_aecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_apecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_apecma,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(ex_kmeans,"pmclust",ask=F,echo=F)'
+
+mpiexec -np 2 Rscript -e 'demo(dmat_em,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_aecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_apecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_apecma,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_kmeans,"pmclust",ask=F,echo=F)'
 }
 }
 \keyword{package}

@@ -195,7 +195,7 @@ em.onestep.dmat <- function(PARAM){
 
 ### Obtain classifications.
 em.update.class.dmat <- function(){
-  .pmclustEnv$CLASS <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.max))
+  .pmclustEnv$CLASS.dmat <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.max))
   invisible()
 } # End of em.update.class.dmat().
 

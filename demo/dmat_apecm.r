@@ -17,11 +17,10 @@ X.dmat <- redistribute(X.dmat, bldim = .BLDIM, ICTXT = 0)
 
 ### Run clustering.
 PARAM.org <- set.global.dmat(K = K)
-.pmclustEnv$CONTROL$debug <- 200
 PARAM.org <- initial.em.dmat(PARAM.org)
 PARAM.new <- apecm.step.dmat(PARAM.org)
 em.update.class.dmat()
-mb.print.dmat(PARAM.new, .pmclustEnv$CHECK)
+mb.print(PARAM.new, .pmclustEnv$CHECK)
 
 ### Get results.
 N.CLASS <- get.N.CLASS.dmat(K)

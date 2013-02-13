@@ -15,9 +15,9 @@ kmeans.e.step.dmat <- function(PARAM){
 kmeans.m.step.dmat <- function(PARAM){
   X.dmat <- get("X.dmat", envir = .GlobalEnv)
   for(i.k in 1:PARAM$K){
-    # id <- .pmclustEnv$CLASS == i.k					# bug
+    # id <- .pmclustEnv$CLASS.dmat == i.k				# bug
     # PARAM$MU[, i.k] <- colMeans(X.dmat[id,])				# bug
-    id <- which(.pmclustEnv$CLASS == i.k)
+    id <- which(.pmclustEnv$CLASS.dmat == i.k)
     PARAM$MU[, i.k] <- colMeans(X.dmat[id,])
   } 
   PARAM
@@ -25,8 +25,8 @@ kmeans.m.step.dmat <- function(PARAM){
 
 kmeans.logL.step.dmat <- function(){
   tmp <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
-  tmp.diff <- sum(.pmclustEnv$CLASS != tmp)
-  .pmclustEnv$CLASS <- tmp
+  tmp.diff <- sum(.pmclustEnv$CLASS.dmat != tmp)
+  .pmclustEnv$CLASS.dmat <- tmp
   as.integer(tmp.diff)
 } # End of kmeans.logL.step.dmat().
 
@@ -128,7 +128,7 @@ kmeans.onestep.dmat <- function(PARAM){
                          sprintf("%-30d", PARAM$logL), "\n",
              sep = "", quiet = TRUE)
     if(.pmclustEnv$CONTROL$debug > 10){
-      mb.print.dmat(PARAM, .pmclustEnv$CHECK)
+      mb.print(PARAM, .pmclustEnv$CHECK)
     }
   }
 
@@ -137,7 +137,7 @@ kmeans.onestep.dmat <- function(PARAM){
 
 
 kmeans.update.class.dmat <- function(){
-  .pmclustEnv$CLASS <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
+  .pmclustEnv$CLASS.dmat <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
   invisible()
 } # End of kmeans.update.class.dmat().
 

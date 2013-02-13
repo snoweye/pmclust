@@ -4,10 +4,17 @@
 \alias{apecm.step}
 \alias{apecma.step}
 \alias{kmeans.step}
+\alias{em.step.dmat}
+\alias{aecm.step.dmat}
+\alias{apecm.step.dmat}
+\alias{apecma.step.dmat}
+\alias{kmeans.step.dmat}
 \title{EM-like Steps for SPMD}
 \description{
   The EM-like algorithm for model-based clustering of finite mixture Gaussian
   models with unstructured dispersions.
+
+  \code{*.dmat}'s are ddmatrix versions.
 }
 \usage{
   em.step(PARAM.org)
@@ -15,6 +22,11 @@
   apecm.step(PARAM.org)
   apecma.step(PARAM.org)
   kmeans.step(PARAM.org)
+  em.step.dmat(PARAM.org)
+  aecm.step.dmat(PARAM.org)
+  apecm.step.dmat(PARAM.org)
+  apecma.step.dmat(PARAM.org)
+  kmeans.step.dmat(PARAM.org)
 }
 \arguments{
   \item{PARAM.org}{an original set of parameters generated
@@ -55,11 +67,11 @@
   \emph{Statistical Analysis and Data Mining},
   \bold{4}, 567-578.
 
-  Chen, W.-C., Ostrouchov, G., Pugmire, D., Prabhat, M., and Wehner, M. (2012)
-  \dQuote{Exploring Multivariate Relationships in Large Spatial
-    Data with Parallel Model-Based Clustering and Scalable Graphics},
+  Chen, W.-C., Ostrouchov, G., Pugmire, D., Prabhat, M., and Wehner, M. (2013)
+  \dQuote{Exploring Multivariate Relationships in Large Spatio-Temporal
+          Data with Parallel Model-Based Clustering and Scalable Graphics},
   \emph{Technometrics},
-  (submitted).
+  (revision).
 
   Dempster, A.P., Laird, N.M. and Rubin, D.B. (1977)
   \dQuote{Maximum Likelihood from Incomplete Data via the EM Algorithm},
@@ -81,7 +93,8 @@
 }
 \seealso{
   \code{\link{set.global}},
-  \code{\link{mb.print}}.
+  \code{\link{mb.print}},
+  \code{\link{set.global.dmat}}.
 }
 \examples{
 \dontrun{

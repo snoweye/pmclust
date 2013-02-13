@@ -1,13 +1,17 @@
 \name{get.N.CLASS}
 \alias{get.N.CLASS}
+\alias{get.N.CLASS.dmat}
 \title{Obtain Total Elements for Every Clusters}
 \description{
   This function will collect the total elements for every clusters
   from all processors that the all reduced calls with the sum operation
   will be performed.
+
+  \code{get.N.CLASS.dmat} is a ddmatrix version of \code{get.N.CLASS}.
 }
 \usage{
   get.N.CLASS(K)
+  get.N.CLASS.dmat(K)
 }
 \arguments{
   \item{K}{the total number of clusters.}
@@ -42,12 +46,21 @@
   \code{\link{aecm.step}},
   \code{\link{apecm.step}}, \cr
   \code{\link{apecma.step}},
-  \code{\link{kmeans.step}}.
+  \code{\link{kmeans.step}}. \cr
+  \code{\link{em.step.dmat}},
+  \code{\link{aecm.step.dmat}},
+  \code{\link{apecm.step.dmat}}, \cr
+  \code{\link{apecma.step.dmat}},
+  \code{\link{kmeans.step.dmat}}.
 }
 \examples{
 \dontrun{
 # Examples can be found in the help pages of em.step(),
 # aecm.step(), apecm.step(), and apecma.step().
+
+# Examples for ddmatrix version can be found in the help pages of
+# em.step.dmat(), aecm.step.dmat(), apecm.step.dmat(), and
+# apecma.step.dmat().
 }
 }
 \keyword{programming}

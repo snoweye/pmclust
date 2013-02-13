@@ -2,13 +2,14 @@ useDynLib(pmclust)
 
 import(methods, MASS, MixSim, rlecuyer, pbdMPI, pbdSLAP, pbdBASE, pbdDMAT)
 
- exportPattern("^[[:alpha:]]+")
+# exportPattern("^[[:alpha:]]+")
 # exportPattern("^[\\.]")
 
 export(
   ### Readme function.
   "readme",
 
+### SPMD functions.
   ### Global objects.
   "set.global",
 
@@ -25,7 +26,7 @@ export(
   "apecma.step",
   "em.update.class",
   
-  ### EM utility functions
+  ### EM utility functions.
   "em.onestep",
   "e.step",
   "m.step",
@@ -35,12 +36,38 @@ export(
   "kmeans.step",
   "kmeans.update.class",
 
-  ### Example functions
+  ### Example functions.
   "generate.basic",
   "generate.MixSim",
 
-  ### Utility functions
+  ### Utility functions.
   "get.N.CLASS",
-  "mb.print"
+  "mb.print",
+
+### DMAT functions.
+  ### Readme function.
+  "readme.dmat",
+
+  ### Global objects.
+  "set.global.dmat",
+
+  ### Initial functions.
+  "initial.em.dmat",
+  "initial.RndEM.dmat",
+  "initial.center.dmat",
+
+  ### EM methods.
+  "em.step.dmat",
+  "aecm.step.dmat",
+  "apecm.step.dmat",
+  "apecma.step.dmat",
+  "em.update.class.dmat",
+  
+  ### K-means.
+  "kmeans.step.dmat",
+  "kmeans.update.class.dmat",
+
+  ### Utility functions.
+  "get.N.CLASS.dmat"
 )
 

@@ -22,7 +22,7 @@ initial.center.dmat <- function(PARAM, MU = NULL){
     .pmclustEnv$Z.dmat[, i.k] <- -rowSums(B * B)
   }
 
-  .pmclustEnv$CLASS <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.max))
+  .pmclustEnv$CLASS.dmat <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.max))
 
   PARAM
 } # End of initial.center.dmat().

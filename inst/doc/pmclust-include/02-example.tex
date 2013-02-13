@@ -10,7 +10,7 @@ The \pkg{pmclust} fully uses the resource
 of processors by running jobs on all workers,
 i.e. each workers do the their own jobs and communicate with others.
 However, it is possible to run the package in the master and workers mode,
-i.e. the master assignes jobs to workers or itself, and manages communications.
+i.e. the master assigns jobs to workers or itself, and manages communications.
 
 
 \subsection[Single Program Multiple Data]{Single Program Multiple Data}
@@ -65,9 +65,9 @@ $$
 $$
 
 The output will be similar as the following.
-Note that the classification id's are exchangible, so the mixing proportion
+Note that the classification id's are exchangeable, so the mixing proportion
 gives the order of new id. For example, the next result gives
-id exchanges rleated to the true id's.
+id exchanges related to the true id's.
 i.e. $\hat{\eta}_1 = 0.5999045$ and $\hat{\eta}_2 = 0.4000955$.
 Therefore, the $\hat{\vect{\mu}}$'s and
 $\hat{\vect{\Sigma}}$'s are all switched.
@@ -118,7 +118,7 @@ function on the master should go after the calls to
 the workers. Otherwise, the \proglang{R} console may lose the controls due to
 the MPI blocking calls.
 The philosophy here is treating the master as one of the workers, but it
-has to command other workers to work first befor burning itself.
+has to command other workers to work first before burning itself.
 
 These are the adjusted script from the simulation in Section~\ref{sec:spmd},
 and let's save them in the file ``ex\_demo.r''.
@@ -188,11 +188,33 @@ A more general function \code{generage.MixSim} utilizes the function
 providing different conditions of overlaps for simulation studies.
 
 It is also more appropriate to utilize the function \code{MixSim} for
-evaulating performace of algorithms developed in the \pkg{pmclust}
+evaluating performance of algorithms developed in the \pkg{pmclust}
 as described in the next Section~\ref{sec:algorithm}.
 The other simple example is also provided in the \pkg{pmclust} and
 can be run with
 \begin{Command}
 mpiexec -np 4 Rscript -e "demo(ex_MixSim,'pmclust',ask=F,echo=F)"
 \end{Command}
-More performance comparision can be found in~\citet{Chen2012a}.
+More performance comparison can be found in~\citet{Chen2012a}.
+
+Further, \code{X.spmd} may be replaced by \code{X.dmat} in a \code{ddmatrix}
+format (block-cyclic) for larger datasets and gaining performance
+improvement. The main corresponding functions are given in the
+Table~\ref{tab:dmat}. The details of block-cyclic (\code{X.dmat}) can be found
+in the pbdR
+vignettes~\citep{Chen2012pbdSLAPvignette,Schmidt2012pbdBASEvignette,
+Schmidt2012pbdDMATvignette}.
+\begin{table}[h!bt]
+\centering
+\caption{The functions for \code{ddmatrix}}
+\label{tab:dmat}
+\begin{tabular}{lll} \hline \hline
+\code{ddmatrix}  & SPMD        & Algorithm \\ \hline
+em.step.dmat     & em.step     & EM        \\
+aecm.step.dmat   & aecm.step   & AECM      \\
+apecm.step.dmat  & apecm.step  & APECM     \\
+apecma.step.dmat & apecma.step & APECMa    \\
+kmeans.step.dmat & kmeans.step & Kmeans    \\ \hline \hline
+\end{tabular}
+\end{table}
+

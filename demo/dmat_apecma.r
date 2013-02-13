@@ -20,7 +20,7 @@ PARAM.org <- set.global.dmat(K = K)
 PARAM.org <- initial.em.dmat(PARAM.org)
 PARAM.new <- apecma.step.dmat(PARAM.org)
 em.update.class.dmat()
-mb.print.dmat(PARAM.new, .pmclustEnv$CHECK)
+mb.print(PARAM.new, .pmclustEnv$CHECK)
 
 ### Get results.
 N.CLASS <- get.N.CLASS.dmat(K)

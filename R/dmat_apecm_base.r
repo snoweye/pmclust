@@ -178,7 +178,7 @@ apecm.onestep.dmat <- function(PARAM){
                          sprintf("%-30.15f", PARAM$logL), "\n",
              sep = "", quiet = TRUE)
     if(.pmclustEnv$CONTROL$debug > 4){
-      logL <- indep.logL(PARAM)
+      logL <- indep.logL.dmat(PARAM)
       comm.cat("  >>indep.logL: ", sprintf("%-30.15f", logL), "\n",
                sep = "", quiet = TRUE)
     }

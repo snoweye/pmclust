@@ -1,3 +1,7 @@
+2013-02-04: Ver. 0.1-4
+  * Add dmat_* functions/methods to fully utilize pbdR capability.
+  * Add demo and man for dmat_* methods.
+
 2012-10-21: Ver. 0.1-3
   * Change to apecm and apecma.
   * Switch to pbdMPI.

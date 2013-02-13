@@ -51,7 +51,7 @@ set.global.dmat <- function(K = 2, PARAM = NULL,
 
   .pmclustEnv$U.dmat <- matrix(0, N, K)
 
-  .pmclustEnv$CLASS <- rep(0, N)
+  .pmclustEnv$CLASS.dmat <- rep(0, N)
 
   .pmclustEnv$CHECK <- list(method = method[1], i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)

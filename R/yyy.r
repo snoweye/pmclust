@@ -1,5 +1,6 @@
 ### For exporting NAMESPACE
 
+### SPMD
 initial.em <- initial.em.spmd
 initial.RndEM <- initial.RndEM.spmd
 initial.center <- initial.center.spmd

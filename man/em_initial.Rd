@@ -1,18 +1,26 @@
-\name{Initial Center}
+\name{Initialization}
 \alias{initial.RndEM}
 \alias{initial.em}
 \alias{initial.center}
+\alias{initial.RndEM.dmat}
+\alias{initial.em.dmat}
+\alias{initial.center.dmat}
 \title{Initialization for EM-like Algorithms}
 \description{
   These functions implement initialization of EM-like algorithms
   for model-based clustering based on \code{\link{X.spmd}}, and
   initialization of K-means algorithm by randomly picking samples
   from data based on \code{\link{X.spmd}}.
+
+  \code{*.dmat}'s are ddmatrix versions.
 }
 \usage{
   initial.RndEM(PARAM)
   initial.em(PARAM, MU = NULL)
   initial.center(PARAM, MU = NULL)
+  initial.RndEM.dmat(PARAM)
+  initial.em.dmat(PARAM, MU = NULL)
+  initial.center.dmat(PARAM, MU = NULL)
 }
 \arguments{
   \item{PARAM}{an original set of parameters generated
@@ -78,12 +86,22 @@
   \code{\link{aecm.step}}, \cr
   \code{\link{apecm.step}},
   \code{\link{apecma.step}},
-  \code{\link{kmeans.step}},
+  \code{\link{kmeans.step}}. \cr
+  \code{\link{set.global.dmat}},
+  \code{\link{em.step.dmat}},
+  \code{\link{aecm.step.dmat}}, \cr
+  \code{\link{apecm.step.dmat}},
+  \code{\link{apecma.step.dmat}},
+  \code{\link{kmeans.step.dmat}}.
 }
 \examples{
 \dontrun{
 # Examples can be found in the help page of em.step(),
 # aecm.step(), apecm.step(), apecma.step(), and kmeans.step().
+
+# Examples for ddmatrix version can be found in the help pages of
+# em.step.dmat(), aecm.step.dmat(), apecm.step.dmat(), and
+# apecma.step.dmat().
 }
 }
 \keyword{initialization}

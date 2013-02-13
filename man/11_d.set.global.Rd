@@ -2,14 +2,22 @@
 \alias{set.global}
 \alias{X.spmd}
 \alias{.pmclustEnv}
-\title{Set Global Variables According to the global matrix X.spmd}
+\alias{set.global.dmat}
+\alias{X.dmat}
+\title{Set Global Variables According to the global matrix X.spmd or X.dmat}
 \description{
   This function will set several sets of variables globally in the
   environment \code{.pmclustEnv} according to the global matrix \code{X.spmd}.
+
+  \code{set.global.dmat} is a ddmatrix version of \code{set.global}.
 }
 \usage{
   set.global(K = 2, PARAM = NULL,
       method = c("em", "aecm", "apecm", "apecma", "kmeans"),
+      RndEM.iter = 10)
+  set.global(K = 2, PARAM = NULL,
+      method = c("em.dmat", "aecm.dmat", "apecm.dmat",
+                 "apecma.dmat", "kmeans.dmat"),
       RndEM.iter = 10)
 }
 \arguments{
@@ -22,10 +30,14 @@
   \item{RndEM.iter}{number of RndEM iterations.}
 }
 \details{
-  WARNING: a global variable named \code{X.spmd} should be set before
-  calling this function where \code{X.spmd} is a matrix containing data
+  WARNING: A global variable named \code{X.spmd} should be set before
+  calling \code{set.global} where \code{X.spmd} is a matrix containing data
   with dimension \code{N.spmd * p}. i.e. \code{N.spmd} observations and
   \code{p} variables.
+
+  WARNING: A global variable named \code{X.dmat} should be set before
+  calling \code{set.global.dmat} where \code{X.dmat} is a \code{ddmatrix}
+  (in block-cyclic format) containing data with dimension \code{N * p}.
 }
 \value{
   A new set of \code{\link{PARAM}} will be returned and several global
@@ -35,6 +47,9 @@
   \code{.pmclustEnv}.
 
   Use \code{\link{readme}} to see all global variables set by this function.
+
+  Use \code{\link{readme.dmat}} to see all global variables of ddmatrix version
+  set by this function.
 }
 \references{
   High Performance Statistical Computing (HPSC) Website:
@@ -50,12 +65,20 @@
   \code{\link{em.step}},
   \code{\link{aecm.step}},
   \code{\link{apecm.step}}, \cr
-  \code{\link{apecma.step}}.
+  \code{\link{apecma.step}}. \cr
+  \code{\link{em.step.dmat}},
+  \code{\link{aecm.step.dmat}},
+  \code{\link{apecm.step.dmat}}, \cr
+  \code{\link{apecma.step.dmat}}.
 }
 \examples{
 \dontrun{
 # Examples can be found in the help pages of em.step(),
 # aecm.step(), apecm.step(), and apecma.step().
+
+# Examples for ddmatrix version can be found in the help pages of
+# em.step.dmat(), aecm.step.dmat(), apecm.step.dmat(), and
+# apecma.step.dmat().
 }
 }
 \keyword{global variables}

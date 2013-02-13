@@ -20,7 +20,7 @@ PARAM.org <- set.global.dmat(K = K)
 PARAM.org <- initial.center.dmat(PARAM.org)
 PARAM.new <- kmeans.step.dmat(PARAM.org)
 kmeans.update.class.dmat()
-mb.print.dmat(PARAM.new, .pmclustEnv$CHECK)
+mb.print(PARAM.new, .pmclustEnv$CHECK)
 
 ### Get results.
 N.CLASS <- get.N.CLASS.dmat(K)

@@ -4,3 +4,8 @@ ex_apecm	pmclust		An example of APECM algorithm.
 ex_apecma	pmclust		An example of APECMa algorithm.
 ex_kmeans	pmclust		An example of K-means algorithm.
 ex_MixSim	pmclust		An example of utilizing MixSim.
+dmat_em		pmclust		A ddmatrix example of EM algorithm.
+dmat_aecm	pmclust		A ddmatrix example of AECM algorithm.
+dmat_apecm	pmclust		A ddmatrix example of APECM algorithm.
+dmat_apecma	pmclust		A ddmatrix example of APECMa algorithm.
+dmat_kmeans	pmclust		A ddmatrix example of K-means algorithm.
