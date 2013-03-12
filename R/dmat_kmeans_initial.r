@@ -15,14 +15,11 @@ initial.center.dmat <- function(PARAM, MU = NULL){
   }
 
   for(i.k in 1:PARAM$K){
-    # B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))			# bug
-    # .pmclustEnv$Z.dmat[, i.k] <- -rowSums(B * B)			# bug
-    B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
-                      MARGIN = 2L, FUN = "-")
-    .pmclustEnv$Z.dmat[, i.k] <- -rowSums(B * B)
+     B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
+     .pmclustEnv$Z.dmat[, i.k] <- -rowSums(B * B)
   }
 
-  .pmclustEnv$CLASS.dmat <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.max))
+  .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
 
   PARAM
 } # End of initial.center.dmat().

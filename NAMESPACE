@@ -50,6 +50,7 @@ export(
 
   ### Global objects.
   "set.global.dmat",
+  "as.dmat",
 
   ### Initial functions.
   "initial.em.dmat",

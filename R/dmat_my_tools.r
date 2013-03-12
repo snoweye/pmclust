@@ -7,7 +7,7 @@ set.global.dmat <- function(K = 2, PARAM = NULL,
   if(! is.ddmatrix(X.dmat)){
     stop("X.dmat is not a ddmatrix.")
   }
-  CTXT <- ctxt(X.dmat)
+  CTXT <- ictxt(X.dmat)
 
   ### Get data information.
   N <- nrow(X.dmat)
@@ -43,15 +43,15 @@ set.global.dmat <- function(K = 2, PARAM = NULL,
 
   .pmclustEnv$p.times.logtwopi <- p * log(2 * pi)
 
-  .pmclustEnv$Z.dmat <- matrix(0, N, K)
+  .pmclustEnv$Z.dmat <- ddmatrix(0, N, K)
   .pmclustEnv$Z.colSums <- colSums(.pmclustEnv$Z.dmat)
 
-  .pmclustEnv$W.dmat <- matrix(0, N, K)
+  .pmclustEnv$W.dmat <- ddmatrix(0, N, K)
   .pmclustEnv$W.dmat.rowSums <- rowSums(.pmclustEnv$W.dmat)
 
-  .pmclustEnv$U.dmat <- matrix(0, N, K)
+  .pmclustEnv$U.dmat <- ddmatrix(0, N, K)
 
-  .pmclustEnv$CLASS.dmat <- rep(0, N)
+  .pmclustEnv$CLASS.dmat <- ddmatrix(0, N, 1)
 
   .pmclustEnv$CHECK <- list(method = method[1], i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)

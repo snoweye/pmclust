@@ -21,7 +21,7 @@ Description: The pmclust aims to utilize model-based clustering (unsupervised)
         and examples.
 License: GPL (>= 2)
 URL: http://r-pbd.org/
-Packaged: 2013-02-13 18:42:22 UTC; snoweye
+Packaged: 2013-03-12 17:14:32 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   George Ostrouchov [aut]
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>

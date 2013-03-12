@@ -20,10 +20,13 @@ logdmvnorm.dmat <- function(PARAM, i.k){
     #                                distval) * 0.5
 
     ### DMAT
-    B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
-                      MARGIN = 2L, FUN = "-")
+    B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
     C <- backsolve(U, diag(1, PARAM$p))
-    B <- B %*% as.ddmatrix(C, bldim = bldim(B), ICTXT = ctxt(B))
+str(X.dmat)
+tmp <- as.ddmatrix(C, bldim = bldim(B), ICTXT = ictxt(B))
+str(tmp)
+comm.stop()
+    B <- B %*% as.ddmatrix(C, bldim = bldim(B), ICTXT = ictxt(B))
     distval <- rowSums(B * B)
     .pmclustEnv$W.dmat[, i.k] <- -(.pmclustEnv$p.times.logtwopi + logdet +
                                    distval) * 0.5

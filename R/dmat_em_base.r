@@ -17,7 +17,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   N <- nrow(X.dmat)
   K <- PARAM$K
 
-  .pmclustEnv$U.dmat <- W.plus.y(.pmclustEnv$W.dmat, PARAM$log.ETA, N, K)
+  .pmclustEnv$U.dmat <- sweep(.pmclustEnv$W.dmat, 2, as.vector(PARAM$log.ETA))
   .pmclustEnv$Z.dmat <- exp(.pmclustEnv$U.dmat)
 
   tmp.id <- rowSums(.pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min) == K |
@@ -30,8 +30,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
     if(tmp.flag == 1){
       tmp.scale <- max(tmp.dmat) - .pmclustEnv$CONTROL$exp.max / K
     } else{
-      tmp.scale <- unlist(apply(tmp.dmat, 1, max)) -
-                   .pmclustEnv$CONTROL$exp.max / K
+      tmp.scale <- apply(tmp.dmat, 1, max) - .pmclustEnv$CONTROL$exp.max / K
     }
     .pmclustEnv$Z.dmat[tmp.id,] <- exp(tmp.dmat - tmp.scale)
   }
@@ -39,13 +38,13 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   .pmclustEnv$W.dmat.rowSums <- rowSums(.pmclustEnv$Z.dmat)
 
   .pmclustEnv$Z.dmat <- .pmclustEnv$Z.dmat / .pmclustEnv$W.dmat.rowSums
-  .pmclustEnv$Z.colSums <- colSums(.pmclustEnv$Z.dmat)
+  .pmclustEnv$Z.dmat.colSums <- colSums(.pmclustEnv$Z.dmat)
 
   if(update.logL){
     .pmclustEnv$W.dmat.rowSums <- log(.pmclustEnv$W.dmat.rowSums)
     if(tmp.flag){
-      .pmclustEnv$W.dmat.rowSums[tmp.id] <- .pmclustEnv$W.dmat.rowSums[tmp.id] +
-                                            tmp.scale
+      .pmclustEnv$W.dmat.rowSums[tmp.id] <-
+        .pmclustEnv$W.dmat.rowSums[tmp.id] + tmp.scale
     }
   }
   invisible()
@@ -57,22 +56,22 @@ m.step.dmat <- function(PARAM){
   X.dmat <- get("X.dmat", envir = .GlobalEnv)
 
   ### MLE For ETA
-  PARAM$ETA <- .pmclustEnv$Z.colSums / sum(.pmclustEnv$Z.colSums)
+  PARAM$ETA <- as.vector(.pmclustEnv$Z.dmat.colSums /
+                         sum(.pmclustEnv$Z.dmat.colSums))
   PARAM$log.ETA <- log(PARAM$ETA)
 
   p <- PARAM$p
   p.2 <- p * p
   for(i.k in 1:PARAM$K){
     ### MLE for MU
-    B <- base.pdsweep(dx = X.dmat, vec = .pmclustEnv$Z.dmat[, i.k],
-                      MARGIN = 1L, FUN = "*")
-    PARAM$MU[, i.k] <- colSums(B) / .pmclustEnv$Z.colSums[i.k]
+    B <- colSums(X.dmat * .pmclustEnv$Z.dmat[, i.k]) /
+         .pmclustEnv$Z.dmat.colSums[i.k]
+    PARAM$MU[, i.k] <- as.vector(B)
 
     ### MLE for SIGMA
     if(PARAM$U.check[[i.k]]){
-      B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
-                        MARGIN = 2L, FUN = "-") *
-           sqrt(.pmclustEnv$Z.dmat[, i.k] / .pmclustEnv$Z.colSums[i.k])
+      B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
+           sqrt(.pmclustEnv$Z.dmat[, i.k] / .pmclustEnv$Z.dmat.colSums[i.k])
       tmp.SIGMA <- as.matrix(crossprod(B))
       dim(tmp.SIGMA) <- c(p, p)
 
@@ -195,7 +194,7 @@ em.onestep.dmat <- function(PARAM){
 
 ### Obtain classifications.
 em.update.class.dmat <- function(){
-  .pmclustEnv$CLASS.dmat <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.max))
+  .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
   invisible()
 } # End of em.update.class.dmat().
 

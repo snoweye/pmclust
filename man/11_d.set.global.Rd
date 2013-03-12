@@ -15,7 +15,7 @@
   set.global(K = 2, PARAM = NULL,
       method = c("em", "aecm", "apecm", "apecma", "kmeans"),
       RndEM.iter = 10)
-  set.global(K = 2, PARAM = NULL,
+  set.global.dmat(K = 2, PARAM = NULL,
       method = c("em.dmat", "aecm.dmat", "apecm.dmat",
                  "apecma.dmat", "kmeans.dmat"),
       RndEM.iter = 10)

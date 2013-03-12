@@ -3,10 +3,7 @@
 kmeans.e.step.dmat <- function(PARAM){
   X.dmat <- get("X.dmat", envir = .GlobalEnv)
   for(i.k in 1:PARAM$K){
-    # B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))			# bug
-    # .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))			# bug
-    B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
-                      MARGIN = 2L, FUN = "-")
+    B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
     .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))
   }
   invisible()
@@ -15,16 +12,14 @@ kmeans.e.step.dmat <- function(PARAM){
 kmeans.m.step.dmat <- function(PARAM){
   X.dmat <- get("X.dmat", envir = .GlobalEnv)
   for(i.k in 1:PARAM$K){
-    # id <- .pmclustEnv$CLASS.dmat == i.k				# bug
-    # PARAM$MU[, i.k] <- colMeans(X.dmat[id,])				# bug
-    id <- which(.pmclustEnv$CLASS.dmat == i.k)
-    PARAM$MU[, i.k] <- colMeans(X.dmat[id,])
+    tmp <- colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,])
+    PARAM$MU[, i.k] <- as.vector(tmp)
   } 
   PARAM
 } # End of kmeans.m.step.dmat().
 
 kmeans.logL.step.dmat <- function(){
-  tmp <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
+  tmp <- apply(.pmclustEnv$Z.dmat, 1, which.min)
   tmp.diff <- sum(.pmclustEnv$CLASS.dmat != tmp)
   .pmclustEnv$CLASS.dmat <- tmp
   as.integer(tmp.diff)
@@ -65,8 +60,7 @@ kmeans.step.dmat <- function(PARAM.org){
     if(! exists("SAVE.iter", envir = .pmclustEnv)){
       .pmclustEnv$SAVE.param <- NULL
       .pmclustEnv$SAVE.iter <- NULL
-      .pmclustEnv$CLASS.iter.org <- unlist(apply(.pmclustEnv$Z.dmat, 1,
-                                                 which.min))
+      .pmclustEnv$CLASS.iter.org <- apply(.pmclustEnv$Z.dmat, 1, which.min)
     }
   }
 
@@ -91,7 +85,7 @@ kmeans.step.dmat <- function(PARAM.org){
       tmp.time <- proc.time() - time.start
 
       .pmclustEnv$SAVE.param <- c(.pmclustEnv$SAVE.param, PARAM.new)
-      CLASS.iter.new <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
+      CLASS.iter.new <- apply(.pmclustEnv$Z.dmat, 1, which.min)
       tmp <- sum(CLASS.iter.new != .pmclustEnv$CLASS.iter.org)
       tmp.all <- c(tmp / PARAM.new$N, PARAM.new$logL,
                    PARAM.new$logL - PARAM.org$logL,
@@ -137,7 +131,7 @@ kmeans.onestep.dmat <- function(PARAM){
 
 
 kmeans.update.class.dmat <- function(){
-  .pmclustEnv$CLASS.dmat <- unlist(apply(.pmclustEnv$Z.dmat, 1, which.min))
+  .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.min)
   invisible()
 } # End of kmeans.update.class.dmat().
 

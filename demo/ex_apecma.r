@@ -24,5 +24,4 @@ N.CLASS <- get.N.CLASS(K)
 comm.cat("# of class:", N.CLASS, "\n")
 
 ### Print run time and quit Rmpi.
-# comm.print(proc.time())
 finalize()
