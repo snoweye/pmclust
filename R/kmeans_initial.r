@@ -29,8 +29,6 @@ initial.center.spmd <- function(PARAM, MU = NULL){
     PARAM$MU <- MU
   }
 
-comm.print(PARAM$MU)
-
   for(i.k in 1:PARAM$K){
     B <- W.plus.y(X.spmd, -PARAM$MU[, i.k], nrow(X.spmd), ncol(X.spmd))
     .pmclustEnv$Z.spmd[, i.k] <- -rowSums(B * B)

@@ -22,11 +22,11 @@ logdmvnorm.dmat <- function(PARAM, i.k){
     ### DMAT
     B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
     C <- backsolve(U, diag(1, PARAM$p))
-str(X.dmat)
-tmp <- as.ddmatrix(C, bldim = bldim(B), ICTXT = ictxt(B))
-str(tmp)
-comm.stop()
-    B <- B %*% as.ddmatrix(C, bldim = bldim(B), ICTXT = ictxt(B))
+#str(X.dmat)
+#tmp <- as.ddmatrix(C, bldim = bldim(B), ICTXT = ICTXT(B))
+#str(tmp)
+#comm.stop()
+    B <- B %*% as.ddmatrix(C, bldim = bldim(B), ICTXT = ICTXT(B))
     distval <- rowSums(B * B)
     .pmclustEnv$W.dmat[, i.k] <- -(.pmclustEnv$p.times.logtwopi + logdet +
                                    distval) * 0.5

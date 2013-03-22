@@ -25,30 +25,6 @@ kmeans.logL.step.dmat <- function(){
   as.integer(tmp.diff)
 } # End of kmeans.logL.step.dmat().
 
-check.kmeans.convergence <- function(PARAM.org, PARAM.new, i.iter){
-    abs.err <- PARAM.new$logL
-    rel.err <- abs.err / PARAM.new$N
-    convergence <- 0
-
-    if(i.iter > .pmclustEnv$CONTROL$max.iter){
-      convergence <- 2
-    } else if(abs.err == 0 || rel.err < .pmclustEnv$CONTROL$rel.err){
-      convergence <- 1
-    }
-
-    if(.pmclustEnv$CONTROL$debug > 1){
-      comm.cat("  check.em.convergence:",
-               " abs: ", abs.err,
-               ", rel: ", rel.err,
-               ", conv: ", convergence, "\n",
-               sep = "", quiet = TRUE)
-    }
-
-    list(method = .pmclustEnv$CHECK$method,
-         iter = i.iter, abs.err = abs.err, rel.err = rel.err,
-         convergence = convergence)
-} # End of check.kmeans.convergence().
-
 kmeans.step.dmat <- function(PARAM.org){
   .pmclustEnv$CHECK <- list(method = "kmeans", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)

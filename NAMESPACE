@@ -58,11 +58,11 @@ export(
   "initial.center.dmat",
 
   ### EM methods.
-  "em.step.dmat",
-  "aecm.step.dmat",
-  "apecm.step.dmat",
-  "apecma.step.dmat",
-  "em.update.class.dmat",
+#  "em.step.dmat",
+#  "aecm.step.dmat",
+#  "apecm.step.dmat",
+#  "apecma.step.dmat",
+#  "em.update.class.dmat",
   
   ### K-means.
   "kmeans.step.dmat",

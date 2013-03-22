@@ -7,7 +7,7 @@ set.global.dmat <- function(K = 2, PARAM = NULL,
   if(! is.ddmatrix(X.dmat)){
     stop("X.dmat is not a ddmatrix.")
   }
-  CTXT <- ictxt(X.dmat)
+  CTXT <- ICTXT(X.dmat)
 
   ### Get data information.
   N <- nrow(X.dmat)

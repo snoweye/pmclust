@@ -1,6 +1,6 @@
 Package: pmclust
 Version: 0.1-4
-Date: 2013-02-14
+Date: 2013-03-18
 Title: Parallel Model-Based Clustering
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
@@ -21,7 +21,7 @@ Description: The pmclust aims to utilize model-based clustering (unsupervised)
         and examples.
 License: GPL (>= 2)
 URL: http://r-pbd.org/
-Packaged: 2013-03-12 17:14:32 UTC; snoweye
+Packaged: 2013-03-22 14:03:06 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   George Ostrouchov [aut]
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
