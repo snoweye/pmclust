@@ -1,7 +1,6 @@
 \name{Update Class of EM or Kmenas Results}
 \alias{em.update.class}
 \alias{kmeans.update.class}
-\alias{em.update.class.dmat}
 \alias{kmeans.update.class.dmat}
 \title{Update CLASS.spmd Based on the Final Iteration}
 \description{
@@ -13,7 +12,6 @@
 \usage{
   em.update.class()
   kmeans.update.class()
-  em.update.class.dmat()
   kmeans.update.class.dmat()
 }
 \details{
@@ -40,20 +38,15 @@
   \code{\link{apecm.step}}, \cr
   \code{\link{apecma.step}},
   \code{\link{kmeans.step}}. \cr
-  \code{\link{em.step.dmat}},
-  \code{\link{aecm.step.dmat}},
-  \code{\link{apecm.step.dmat}}, \cr
-  \code{\link{apecma.step.dmat}},
   \code{\link{kmeans.step.dmat}}.
 }
 \examples{
 \dontrun{
 # Examples can be found in the help pages of em.step(),
-# aecm.step(), apecm.step(), and apecma.step().
+# aecm.step(), apecm.step(), apecma.step(), and kmeans.step().
 
 # Examples for ddmatrix version can be found in the help pages of
-# em.step.dmat(), aecm.step.dmat(), apecm.step.dmat(), and
-# apecma.step.dmat().
+# kmeans.step.dmat().
 }
 }
 \keyword{programming}

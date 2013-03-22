@@ -1,7 +1,6 @@
 ### This function initializes global variables.
 set.global.dmat <- function(K = 2, PARAM = NULL,
-    method = c("em.dmat", "aecm.dmat", "apecm.dmat",
-               "apecma.dmat", "kmeans.dmat"),
+    method = c("kmeans.dmat"),
     RndEM.iter = 10){
   X.dmat <- get("X.dmat", envir = .GlobalEnv)
   if(! is.ddmatrix(X.dmat)){

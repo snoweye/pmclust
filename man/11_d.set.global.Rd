@@ -16,8 +16,7 @@
       method = c("em", "aecm", "apecm", "apecma", "kmeans"),
       RndEM.iter = 10)
   set.global.dmat(K = 2, PARAM = NULL,
-      method = c("em.dmat", "aecm.dmat", "apecm.dmat",
-                 "apecma.dmat", "kmeans.dmat"),
+      method = c("kmeans.dmat"),
       RndEM.iter = 10)
 }
 \arguments{
@@ -65,20 +64,15 @@
   \code{\link{em.step}},
   \code{\link{aecm.step}},
   \code{\link{apecm.step}}, \cr
-  \code{\link{apecma.step}}. \cr
-  \code{\link{em.step.dmat}},
-  \code{\link{aecm.step.dmat}},
-  \code{\link{apecm.step.dmat}}, \cr
-  \code{\link{apecma.step.dmat}}.
+  \code{\link{apecma.step}}.
 }
 \examples{
 \dontrun{
 # Examples can be found in the help pages of em.step(),
-# aecm.step(), apecm.step(), and apecma.step().
+# aecm.step(), apecm.step(), apecma.step(), and kmeans.step().
 
 # Examples for ddmatrix version can be found in the help pages of
-# em.step.dmat(), aecm.step.dmat(), apecm.step.dmat(), and
-# apecma.step.dmat().
+# kmeans.step.dmat().
 }
 }
 \keyword{global variables}

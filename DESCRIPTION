@@ -1,11 +1,12 @@
 Package: pmclust
 Version: 0.1-4
-Date: 2013-03-18
+Date: 2013-03-22
 Title: Parallel Model-Based Clustering
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
-Depends: R (>= 2.13.0), methods, MASS, MixSim, rlecuyer, pbdMPI,
-        pbdSLAP, pbdBASE, pbdDMAT
+Depends: R (>= 2.14.0), methods, MASS, MixSim, rlecuyer, pbdMPI (>=
+        0.1-6), pbdSLAP (>= 0.1-5), pbdBASE (>= 0.2-1), pbdDMAT (>=
+        0.2-1)
 LazyLoad: yes
 LazyData: yes
 Description: The pmclust aims to utilize model-based clustering (unsupervised)
@@ -21,7 +22,10 @@ Description: The pmclust aims to utilize model-based clustering (unsupervised)
         and examples.
 License: GPL (>= 2)
 URL: http://r-pbd.org/
-Packaged: 2013-03-22 14:03:06 UTC; snoweye
+BugReports: http://group.r-pbd.org/
+MailingList: Please send questions and comments regarding pbdR to
+        RBigData@gmail.com
+Packaged: 2013-03-22 20:17:01 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   George Ostrouchov [aut]
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>

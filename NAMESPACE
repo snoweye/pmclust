@@ -53,8 +53,8 @@ export(
   "as.dmat",
 
   ### Initial functions.
-  "initial.em.dmat",
-  "initial.RndEM.dmat",
+#  "initial.em.dmat",
+#  "initial.RndEM.dmat",
   "initial.center.dmat",
 
   ### EM methods.

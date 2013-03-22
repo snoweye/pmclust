@@ -1,12 +1,12 @@
 \name{as.dmat}
 \alias{as.dmat}
-\title{ Convert X.spmd to X.dmat}
+\title{Convert X.spmd to X.dmat}
 \description{
   This function will convert a matrix of format from
   SPDM row-major to ddmatrix.
 }
 \usage{
-  as.dmat(X.spmd, bldim = .BLDIM, ICTXT = .ICTXT, comm = .SPMD.CT$comm)
+  as.dmat(X.spmd, bldim = c(2, 2), ICTXT = 0, comm = .SPMD.CT$comm)
 }
 \arguments{
   \item{X.spmd}{an input dataset of format SPMD row-major to be converted.}
@@ -35,16 +35,11 @@
   Wei-Chen Chen \email{wccsnow@gmail.com} and George Ostrouchov.
 }
 \seealso{
-  \code{\link{em.step.dmat}},
-  \code{\link{aecm.step.dmat}},
-  \code{\link{apecm.step.dmat}}, \cr
-  \code{\link{apecma.step.dmat}},
   \code{\link{kmeans.step.dmat}}.
 }
 \examples{
 \dontrun{
-# Examples can be found in the help pages of em.step.dmat(),
-# aecm.step.dmat(), apecm.step.dmat(), apecma.step.dmat(), and
+# Examples can be found in the help pages of
 # kmeans.step.dmat().
 }
 }

@@ -11,8 +11,11 @@ indep.logL.dmat <- function(PARAM){
 
   ret <- matrix(0, nrow = nrow, ncol = PARAM$K)
   for(i.k in 1:PARAM$K){
-    tmp.X <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
-                          MARGIN = 2L, FUN = "-")
+    ### bug
+    #tmp.X <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
+    #                      MARGIN = 2L, FUN = "-")
+    comm.stop("Not implemented yet.")
+    B <- NULL
     tmp.X <- as.matrix(tmp.X)
 
     tmp.S <- PARAM$SIGMA[[i.k]]

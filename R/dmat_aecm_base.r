@@ -15,8 +15,11 @@ cm.step.dmat.MU <- function(PARAM){
 
   for(i.k in 1:PARAM$K){
     ### MLE for MU
-    B <- base.pdsweep(dx = X.dmat, vec = .pmclustEnv$Z.dmat[, i.k],
-                      MARGIN = 1L, FUN = "*")
+    ### bug
+    #B <- base.pdsweep(dx = X.dmat, vec = .pmclustEnv$Z.dmat[, i.k],
+    #                  MARGIN = 1L, FUN = "*")
+    comm.stop("Not implemented yet.")
+    B <- NULL
     PARAM$MU[, i.k] <- colSums(B) / .pmclustEnv$Z.colSums[i.k]
   }
 
@@ -32,9 +35,12 @@ cm.step.dmat.SIGMA <- function(PARAM){
   p.2 <- p * p
   for(i.k in 1:PARAM$K){
     if(PARAM$U.check[[i.k]]){
-      B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
-                        MARGIN = 2L, FUN = "-") *
-           sqrt(.pmclustEnv$Z.dmat[, i.k] / .pmclustEnv$Z.colSums[i.k])
+      ### bug
+      #B <- base.pdsweep(dx = X.dmat, vec = PARAM$MU[, i.k],
+      #                  MARGIN = 2L, FUN = "-") *
+      #     sqrt(.pmclustEnv$Z.dmat[, i.k] / .pmclustEnv$Z.colSums[i.k])
+      comm.stop("Not implemented yet.")
+      B <- NULL
       tmp.SIGMA <- as.matrix(crossprod(B))
       dim(tmp.SIGMA) <- c(p, p)
 
