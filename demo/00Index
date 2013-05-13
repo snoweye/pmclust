@@ -9,3 +9,7 @@ dmat_aecm	pmclust		A ddmatrix example of AECM algorithm.
 dmat_apecm	pmclust		A ddmatrix example of APECM algorithm.
 dmat_apecma	pmclust		A ddmatrix example of APECMa algorithm.
 dmat_kmeans	pmclust		A ddmatrix example of K-means algorithm.
+iris_spmdr	pmclust		iris example in SPMD row-major format.
+iris_common	pmclust		iris example in common on all processors.
+iris_single	pmclust		iris example in a single processor.
+iris_dmat	pmclust		iris example in ddmatrix.

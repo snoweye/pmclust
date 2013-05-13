@@ -8,10 +8,10 @@
 \usage{
   pmclust(X, K,
     algorithm = c("em", "aecm", "apecm", "apecma"),
-    MU = NULL, RndEM.iter = 10, CONTROL = NULL,
+    MU = NULL, RndEM.iter = 10, CONTROL = list(debug = 0),
     method.own.X = c("spmdr", "common", "single"),
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
-  pkmeans(X, K, MU = NULL, CONTROL = NULL,
+  pkmeans(X, K, MU = NULL, CONTROL = list(debug = 0),
     method.own.X = c("spmdr", "common", "single"),
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
 }

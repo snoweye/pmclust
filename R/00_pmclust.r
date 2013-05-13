@@ -74,7 +74,7 @@ pmclust.internal <- function(X, K,
 
 pmclust <- function(X, K,
     algorithm = c("em", "aecm", "apecm", "apecma"),
-    MU = NULL, RndEM.iter = 10, CONTROL = NULL,
+    MU = NULL, RndEM.iter = 10, CONTROL = list(debug = 0),
     method.own.X = c("spmdr", "common", "single"),
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
   ret <- pmclust.internal(X, K,
@@ -90,7 +90,7 @@ pmclust <- function(X, K,
 } # end of pmclust().
 
 
-pkmeans <- function(X, K, MU = NULL, CONTROL = NULL,
+pkmeans <- function(X, K, MU = NULL, CONTROL = list(debug = 0),
     method.own.X = c("spmdr", "common", "single"),
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
   algorithm <- "kmeans"

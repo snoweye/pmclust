@@ -13,6 +13,10 @@ convert.data <- function(X, method.own.X = c("spmdr", "common", "single"),
   } else{
     # for a spmd matrix.
 
+    if(is.null(X)){
+      X <- matrix(0, nrow = 0, ncol = 0)
+    }
+
     if(method.own.X[1] == "spmdr"){
       # For spmd row-major
 
@@ -50,7 +54,8 @@ convert.data <- function(X, method.own.X = c("spmdr", "common", "single"),
         }
       }
 
-      p <- spmd.bcast.integer(p, rank.source = rank.own.X, comm = comm)
+      p <- spmd.bcast.integer(as.integer(p), rank.source = rank.own.X,
+                              comm = comm)
       if(p == -1){
         comm.stop("X should be a matrix in rank 0.")
       } else{

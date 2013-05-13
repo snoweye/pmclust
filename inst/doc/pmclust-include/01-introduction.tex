@@ -1,7 +1,7 @@
 
 {\color{red} \bf Warning:} This document is written to explain the major
 functions of
-\pkg{pmclust}~\citep{Chen2012pmclustpackage}, version 0.1-4.
+\pkg{pmclust}~\citep{Chen2012pmclustpackage}, version 0.1-5.
 Every effort will be made to insure future versions are consistent with
 these instructions, but new features in later versions may not be explained
 in this document.
@@ -60,4 +60,34 @@ requires more complicated settings for running on
 some MPI systems under the mater and workers programming model.
 See \pkg{Rmpi}'s website for details at
 \url{http://www.stats.uwo.ca/faculty/yu/Rmpi/}.
+
+
+
+
+\subsection[Quick Start]{Quick Start}
+\label{sec:quick}
+\addcontentsline{toc}{subsection}{\thesubsection. Quick Start}
+
+There are four quick examples utilizing {\it iris} dataset~\citep{Fisher1936}
+in different data distributed format to demonstrate several algorithms
+including parallel model-based clustering and parallel K-means.
+\begin{Command}
+mpiexec -np 2 Rscript -e "demo(iris_spmdr,'pmclust',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(iris_common,'pmclust',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(iris_single,'pmclust',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(iris_dmat,'pmclust',ask=F,echo=F)"
+\end{Command}
+The examples cluster the {\it iris} data into 3 clusters where
+{\it iris} has 150 observations and 4 variables.
+Algorithm details are in Sections~\ref{sec:example} and~\ref{sec:algorithm}.
+
+Each of these commands will run \code{pmclust()} and \code{pkmeans()} on
+a matrix \code{X.std} in four formats.
+\code{spmdr} is SPMD row-major format,
+\code{common} assumes \code{X.std} commonly exists on all processors,
+\code{single} assumes \code{X.std} only exists on rank 0 by default, and
+\code{dmat} assumes \code{X.std} is a \code{ddmatrix}.
+See \pkg{pbdDEMO}~\citep{Schmidt2013pbdDEMOpackage} and it's
+vignette~\citep{Schmidt2013pbdDEMOvignette}
+for more details of \code{spmdr} and \code{ddmatrix}.
 
