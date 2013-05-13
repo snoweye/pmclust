@@ -2,7 +2,9 @@
 ### These will majorly update .pmclustEnv$W.spmd.
 
 logdmvnorm.dmat <- function(PARAM, i.k){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(exists("X.dmat", envir = .pmclustEnv)){
+    X.dmat <- get("X.dmat", envir = .pmclustEnv)
+  }
 
 #  for(i.k in 1:PARAM$K){
 #    U <- chol(PARAM$SIGMA[[i.k]])

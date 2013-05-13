@@ -19,7 +19,9 @@ cm.step.spmd.ETA.MU.SIGMA.k <- function(PARAM, i.k){
 } # End of cm.step.spmd.ETA.MU.SIGMA.k().
 
 cm.step.spmd.MU.SIGMA.k <- function(PARAM, i.k){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   p <- PARAM$p
   p.2 <- p * p

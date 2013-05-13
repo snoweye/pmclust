@@ -9,8 +9,6 @@ cm.step.dmat.ETA <- function(PARAM){
 } # End of cm.step.dmat.ETA().
 
 cm.step.dmat.MU <- function(PARAM){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
-
   p <- PARAM$p
 
   for(i.k in 1:PARAM$K){
@@ -27,10 +25,7 @@ cm.step.dmat.MU <- function(PARAM){
 } # End of cm.step.dmat.MU().
 
 cm.step.dmat.SIGMA <- function(PARAM){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
-
-  N <- nrow(X.dmat)
-
+  N <- PARAM$N
   p <- PARAM$p
   p.2 <- p * p
   for(i.k in 1:PARAM$K){

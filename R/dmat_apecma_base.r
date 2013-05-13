@@ -19,8 +19,6 @@ cm.step.dmat.ETA.MU.SIGMA.k <- function(PARAM, i.k){
 } # End of cm.step.dmat.ETA.MU.SIGMA.k().
 
 cm.step.dmat.MU.SIGMA.k <- function(PARAM, i.k){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
-
   p <- PARAM$p
   p.2 <- p * p
 

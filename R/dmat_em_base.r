@@ -12,9 +12,7 @@ e.step.dmat <- function(PARAM, update.logL = TRUE){
 
 ### z_nk / sum_k z_n might have numerical problems if z_nk all underflowed.
 update.expectation.dmat <- function(PARAM, update.logL = TRUE){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
-
-  N <- nrow(X.dmat)
+  N <- PARAM$N
   K <- PARAM$K
 
   .pmclustEnv$U.dmat <- sweep(.pmclustEnv$W.dmat, 2, as.vector(PARAM$log.ETA))
@@ -53,7 +51,9 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
 
 ### M-step.
 m.step.dmat <- function(PARAM){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(exists("X.dmat", envir = .pmclustEnv)){
+    X.dmat <- get("X.dmat", envir = .pmclustEnv)
+  }
 
   ### MLE For ETA
   PARAM$ETA <- as.vector(.pmclustEnv$Z.dmat.colSums /

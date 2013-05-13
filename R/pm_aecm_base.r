@@ -9,7 +9,9 @@ cm.step.spmd.ETA <- function(PARAM){
 } # End of cm.step.spmd.ETA().
 
 cm.step.spmd.MU <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   p <- PARAM$p
 
@@ -24,7 +26,9 @@ cm.step.spmd.MU <- function(PARAM){
 } # End of cm.step.spmd.MU().
 
 cm.step.spmd.SIGMA <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   N.spmd <- nrow(X.spmd)
 

@@ -2,7 +2,9 @@
 ### Note that Inf, -Inf, NA, NaN is drop from the summation.
 
 indep.logL.dmat <- function(PARAM){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(exists("X.dmat", envir = .pmclustEnv)){
+    X.dmat <- get("X.dmat", envir = .pmclustEnv)
+  }
 
   nrow <- nrow(X.dmat)
   ncol <- ncol(X.dmat)

@@ -12,7 +12,9 @@ e.step.spmd <- function(PARAM, update.logL = TRUE){
 
 ### z_nk / sum_k z_n might have numerical problems if z_nk all underflowed.
 update.expectation <- function(PARAM, update.logL = TRUE){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   N <- nrow(X.spmd)
   K <- PARAM$K
@@ -62,7 +64,9 @@ update.expectation <- function(PARAM, update.logL = TRUE){
 
 ### M-step.
 m.step.spmd <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   ### MLE For ETA
   PARAM$ETA <- .pmclustEnv$Z.colSums / sum(.pmclustEnv$Z.colSums)

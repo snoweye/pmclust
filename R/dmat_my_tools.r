@@ -1,8 +1,19 @@
 ### This function initializes global variables.
-set.global.dmat <- function(K = 2, PARAM = NULL,
+set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
     method = c("kmeans.dmat"),
     RndEM.iter = 10){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(is.null(X.dmat)){
+    if(exists("X.dmat", envir = .pmclustEnv)){
+      X.dmat <- get("X.dmat", envir = .pmclustEnv)
+    } else{
+      if(! exists("X.dmat", envir = .GlobalEnv)){
+        comm.stop("A global X.dmat does not exist.")
+      }
+    }
+  } else{
+    .pmclustEnv$X.dmat <- X.dmat
+  }
+
   if(! is.ddmatrix(X.dmat)){
     stop("X.dmat is not a ddmatrix.")
   }

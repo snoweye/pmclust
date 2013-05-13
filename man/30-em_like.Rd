@@ -60,8 +60,8 @@
   \bold{4}, 567-578.
 
   Chen, W.-C., Ostrouchov, G., Pugmire, D., Prabhat, M., and Wehner, M. (2013)
-  \dQuote{Exploring Multivariate Relationships in Large Spatio-Temporal
-          Data with Parallel Model-Based Clustering and Scalable Graphics},
+  \dQuote{A Parallel EM Algorithm for Model-Based Clustering with
+          Application to Explore Large Spatio-Temporal Data},
   \emph{Technometrics},
   (revision).
 

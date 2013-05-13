@@ -17,7 +17,9 @@ ape.step.spmd.k <- function(PARAM, i.k, update.logL = TRUE){
 
 ### z_nk / sum_k z_n might have numerical problems if z_nk all underflowed.
 ape.update.expectation <- function(PARAM, update.logL = TRUE){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   N <- nrow(X.spmd)
   K <- PARAM$K
@@ -56,7 +58,9 @@ ape.update.expectation <- function(PARAM, update.logL = TRUE){
 } # End of ape.update.expectation().
 
 ape.update.expectation.k <- function(PARAM, i.k, update.logL = TRUE){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   N <- nrow(X.spmd)
   K <- PARAM$K

@@ -12,16 +12,18 @@
   \code{set.global.dmat} is a ddmatrix version of \code{set.global}.
 }
 \usage{
-  set.global(K = 2, PARAM = NULL,
+  set.global(K = 2, X.spmd = NULL, PARAM = NULL,
       method = c("em", "aecm", "apecm", "apecma", "kmeans"),
       RndEM.iter = 10)
-  set.global.dmat(K = 2, PARAM = NULL,
+  set.global.dmat(K = 2, X.dmat = NULL, PARAM = NULL,
       method = c("kmeans.dmat"),
       RndEM.iter = 10)
 }
 \arguments{
   \item{K}{an original set of parameters generated
            by \code{set.global}.}
+  \item{X.spmd}{an input spmd matrix.}
+  \item{X.dmat}{an input \code{ddmatrix}.}
   \item{PARAM}{an original set of parameters generated
                by \code{set.global}.}
   \item{method}{an original set of parameters generated
@@ -37,6 +39,10 @@
   WARNING: A global variable named \code{X.dmat} should be set before
   calling \code{set.global.dmat} where \code{X.dmat} is a \code{ddmatrix}
   (in block-cyclic format) containing data with dimension \code{N * p}.
+
+  \code{X.spmd} and \code{X.dmat} are supposed to exist in \code{.GlobalEnv}.
+  If not, they should be as an input object and will be copied into
+  \code{.pmclustEnv} which is less efficient.
 }
 \value{
   A new set of \code{\link{PARAM}} will be returned and several global

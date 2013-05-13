@@ -1,8 +1,18 @@
 ### This function initializes global variables.
-set.global <- function(K = 2, PARAM = NULL,
+set.global <- function(K = 2, X.spmd = NULL, PARAM = NULL,
     method = c("em", "aecm", "apecm", "apecma", "kmeans"),
     RndEM.iter = 10){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(is.null(X.spmd)){
+    if(exists("X.spmd", envir = .pmclustEnv)){
+      X.spmd <- get("X.spmd", envir = .pmclustEnv)
+    } else{
+      if(! exists("X.spmd", envir = .GlobalEnv)){
+        comm.stop("A global X.spmd does not exist.")
+      }
+    }
+  } else{
+    .pmclustEnv$X.spmd <- X.spmd
+  }
 
   ### Get data information.
   N.spmd <- nrow(X.spmd)

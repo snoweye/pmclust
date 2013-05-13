@@ -24,14 +24,14 @@
   LazyLoad: \tab yes\cr
 }
 
-  The main function is \code{\link{em.step}} implementing the
+  The main function is \code{\link{pmclust}} implementing the
   parallel EM algorithm for mixture multivariate Gaussian models
   with unstructured dispersions. This function groups a data matrix
   \code{\link{X.spmd}} into \code{K} clusters where \code{\link{X.spmd}} is
-  potentially huge and taken from the global environment
-  \code{\link{.pmclustEnv}}.
+  potentially huge and taken from the global environment \code{.GlobalEnv}
+  or \code{\link{.pmclustEnv}}.
 
-  Other main functions \code{\link{aecm.step}},
+  Other main functions \code{\link{em.step}}, \code{\link{aecm.step}},
   \code{\link{apecm.step}}, and
   \code{\link{apecma.step}} may provide better performance than the
   \code{\link{em.step}} in terms of computing time and convergent
@@ -55,8 +55,8 @@
   \bold{4}, 567-578.
 
   Chen, W.-C., Ostrouchov, G., Pugmire, D., Prabhat, M., and Wehner, M. (2013)
-  \dQuote{Exploring Multivariate Relationships in Large Spatio-Temporal
-          Data with Parallel Model-Based Clustering and Scalable Graphics},
+  \dQuote{A Parallel EM Algorithm for Model-Based Clustering with
+          Application to Explore Large Spatio-Temporal Data},
   \emph{Technometrics},
   (revision).
 

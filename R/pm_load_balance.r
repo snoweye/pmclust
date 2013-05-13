@@ -65,7 +65,7 @@ balance.info <- function(X.spmd, comm = .SPMD.CT$comm,
 
 
 load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
-    spmd.major = 1, method = c("block.cyclic", "block0")){
+    spmd.major = 1){
   COMM.RANK <- spmd.comm.rank(comm)
   if(is.null(bal.info)){
     bal.info <- balance.info(X.spmd, comm = comm, spmd.major = spmd.major)

@@ -2,7 +2,9 @@
 ### Note that Inf, -Inf, NA, NaN is drop from the summation.
 
 indep.logL <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   nrow <- nrow(X.spmd)
   ncol <- ncol(X.spmd)

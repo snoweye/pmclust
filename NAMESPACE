@@ -6,10 +6,14 @@ import(methods, MASS, MixSim, rlecuyer, pbdMPI, pbdSLAP, pbdBASE, pbdDMAT)
 # exportPattern("^[\\.]")
 
 export(
+### General functions.
+  "pmclust",
+  "pkmeans",
+
+### SPMD functions.
   ### Readme function.
   "readme",
 
-### SPMD functions.
   ### Global objects.
   "set.global",
 
@@ -72,3 +76,5 @@ export(
   "get.N.CLASS.dmat"
 )
 
+S3method(print, pmclust)
+S3method(print, pkmeans)

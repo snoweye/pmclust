@@ -17,9 +17,7 @@ ape.step.dmat.k <- function(PARAM, i.k, update.logL = TRUE){
 
 ### z_nk / sum_k z_n might have numerical problems if z_nk all underflowed.
 ape.update.expectation.dmat <- function(PARAM, update.logL = TRUE){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
-
-  N <- nrow(X.dmat)
+  N <- PARAM$N
   K <- PARAM$K
 
   .pmclustEnv$W.dmat <- W.plus.y(.pmclustEnv$W.dmat, PARAM$log.ETA, N, K)
@@ -49,9 +47,7 @@ ape.update.expectation.dmat <- function(PARAM, update.logL = TRUE){
 } # End of ape.update.expectation.dmat().
 
 ape.update.expectation.k.dmat <- function(PARAM, i.k, update.logL = TRUE){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
-
-  N <- nrow(X.dmat)
+  N <- PARAM$N
   K <- PARAM$K
 
   .pmclustEnv$W.dmat[, i.k] <- W.plus.y.k(.pmclustEnv$W.dmat, PARAM$log.ETA,

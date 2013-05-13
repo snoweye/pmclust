@@ -1,7 +1,10 @@
 # This file gives a simple initialization.
 
 initial.center.dmat <- function(PARAM, MU = NULL){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(exists("X.dmat", envir = .pmclustEnv)){
+    X.dmat <- get("X.dmat", envir = .pmclustEnv)
+  }
+
   if(! is.ddmatrix(X.dmat)){
     stop("X.dmat is not a ddmatrix.")
   }

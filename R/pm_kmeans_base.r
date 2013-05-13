@@ -1,7 +1,9 @@
 ### This file provides functions for kmeans.
 
 kmeans.e.step.spmd <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   nrow <- nrow(X.spmd)
   ncol <- ncol(X.spmd)
@@ -14,7 +16,9 @@ kmeans.e.step.spmd <- function(PARAM){
 } # End of kmeans.e.step.spmd().
 
 kmeans.m.step.spmd <- function(PARAM){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   for(i.k in 1:PARAM$K){
     id <- .pmclustEnv$CLASS.spmd == i.k

@@ -1,0 +1,25 @@
+### Convert X.dmat to X.spmd
+
+as.spmd <- function(X.dmat, comm = .SPMD.CT$comm){
+  COMM.SIZE <- comm.size(comm)
+
+  ### check data.
+  all.check <- spmd.allreduce.integer(is.ddmatrix(X.dmat), integer(1),
+                   op = "sum", comm = comm) == COMM.SIZE 
+  if(!all.check){
+    stop("X.dmat is not consistent accross processors.")
+  }
+
+  ### block-cyclic in context 2.
+  bldim.new <- c(ceiling(nrow(X.dmat) / COMM.SIZE), ncol(X.dmat))
+  X.dmat <- dmat.reblock(X.dmat, bldim = bldim.new, ICTXT = 2)
+
+  ### copy to spmd.
+  if(base.ownany(dim(X.dmat), bldim(X.dmat), ICTXT = 2)){
+    X.spmd <- X.dmat@Data
+  } else{
+    X.spmd <- matrix(0, nrow = 0, ncol = 0)
+  }
+
+  X.spmd
+} # End of as.spmd().

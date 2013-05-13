@@ -1,3 +1,6 @@
+2013-05-13: Ver. 0.1-5
+  * Add high-level functions "pmclust" and "pkmeans".
+
 2013-03-25: Ver. 0.1-4
   * Add dmat_* functions/methods to fully utilize pbdR capability, only the
     k-means algorithm is working.

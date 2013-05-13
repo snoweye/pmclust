@@ -1,7 +1,9 @@
 ### This file gives initializations.
 
 initial.em.spmd <- function(PARAM, MU = NULL){
-  X.spmd <- get("X.spmd", envir = .GlobalEnv)
+  if(exists("X.spmd", envir = .pmclustEnv)){
+    X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  }
 
   if(is.null(MU)){
     ### Set semi-supervised information.

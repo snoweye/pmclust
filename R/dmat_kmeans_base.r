@@ -1,20 +1,27 @@
 ### This file provides functions for kmeans.
 
 kmeans.e.step.dmat <- function(PARAM){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(exists("X.dmat", envir = .pmclustEnv)){
+    X.dmat <- get("X.dmat", envir = .pmclustEnv)
+  }
+
   for(i.k in 1:PARAM$K){
-    B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
+    B <- sweep(X.dmat, 2, PARAM$MU[, i.k])
     .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))
   }
+
   invisible()
 } # End of kmeans.e.step.dmat().
 
 kmeans.m.step.dmat <- function(PARAM){
-  X.dmat <- get("X.dmat", envir = .GlobalEnv)
+  if(exists("X.dmat", envir = .pmclustEnv)){
+    X.dmat <- get("X.dmat", envir = .pmclustEnv)
+  }
+
   for(i.k in 1:PARAM$K){
-    tmp <- colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,])
-    PARAM$MU[, i.k] <- as.vector(tmp)
-  } 
+    PARAM$MU[, i.k] <- as.vector(colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,]))
+  }
+
   PARAM
 } # End of kmeans.m.step.dmat().
 
