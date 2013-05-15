@@ -84,7 +84,11 @@
   \code{\link{apecm.step}}, \cr
   \code{\link{apecma.step}},
   \code{\link{kmeans.step}}. \cr
-  \code{\link{kmeans.step.dmat}}.
+  \code{\link{em.step.dmat}},
+  \code{\link{aecm.step.dmat}},
+  \code{\link{apecm.step.dmat}}, \cr
+  \code{\link{apecma.step.dmat}},
+  \code{\link{kmeans.step.dmat}}. \cr
 }
 \examples{
 \dontrun{
@@ -96,6 +100,10 @@ mpiexec -np 2 Rscript -e 'demo(ex_apecm,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_apecma,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_kmeans,"pmclust",ask=F,echo=F)'
 
+mpiexec -np 2 Rscript -e 'demo(dmat_em,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_aecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_apecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(dmat_apecma,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(dmat_kmeans,"pmclust",ask=F,echo=F)'
 }
 }

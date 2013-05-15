@@ -1,6 +1,6 @@
 ### This function initializes global variables.
 set.global <- function(K = 2, X.spmd = NULL, PARAM = NULL,
-    method = c("em", "aecm", "apecm", "apecma", "kmeans"),
+    algorithm = c("em", "aecm", "apecm", "apecma", "kmeans"),
     RndEM.iter = 10){
   if(is.null(X.spmd)){
     if(exists("X.spmd", envir = .pmclustEnv)){
@@ -36,12 +36,8 @@ set.global <- function(K = 2, X.spmd = NULL, PARAM = NULL,
   }
 
   ### Set global storages.
-  .pmclustEnv$CONTROL <- list(max.iter = 1000, abs.err = 1e-4, rel.err = 1e-6,
-                              debug = 1, RndEM.iter = RndEM.iter,
-                              exp.min = log(.Machine$double.xmin),
-                              exp.max = log(.Machine$double.xmax),
-                              U.max = 1e+4,
-                              U.min = 1e-6)
+  .pmclustEnv$CONTROL <- .PMC.CT$CONTROL
+  .pmclustEnv$CONTROL$RndEM.iter <- RndEM.iter
 
   .pmclustEnv$COMM.SIZE <- spmd.comm.size()
   .pmclustEnv$COMM.RANK <- spmd.comm.rank()
@@ -56,7 +52,7 @@ set.global <- function(K = 2, X.spmd = NULL, PARAM = NULL,
 
   .pmclustEnv$U.spmd <- matrix(0.0, nrow = N.spmd, ncol = K)
   .pmclustEnv$CLASS.spmd <- rep(0, N.spmd)
-  .pmclustEnv$CHECK <- list(method = method[1], i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = algorithm[1], i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
 
   ### For semi-supervised clustering.

@@ -1,4 +1,5 @@
 \name{Set of CONTROL}
+\alias{.PMC.CT}
 \alias{CONTROL}
 \docType{data}
 \title{A Set of Controls in Model-Based Clustering.}
@@ -10,7 +11,14 @@
   A list variable contains several parameters for computing.
 }
 \details{
-  The elements of \code{.pmclustEnv$CONTROL} are
+  \code{.PMC.CT} stores all default controls for \code{pmclust} and
+  \code{pkmeans} including
+\tabular{ll}{\code{algorithm}    \tab algorithms implemented \cr
+             \code{method.own.X} \tab how \code{X} is distributed \cr
+             \code{CONTROL}      \tab a \code{CONTROL} list as in next \cr
+}
+
+  The elements of \code{CONTROL} or \code{.pmclustEnv$CONTROL} are
 \tabular{ll}{\code{max.iter}   \tab maximum number of iterations (1000) \cr
              \code{abs.err}    \tab absolute error for convergence (1e-4) \cr
              \code{rel.err}    \tab relative error for convergence (1e-6) \cr
@@ -24,6 +32,12 @@
   These elements govern the computing including number of iterations,
   convergent criteria, ill conditions, and numerical issues.
   Some of them are machine dependent.
+
+  Currently, the \code{algorithm} could be
+  \code{em}, \code{aecm}, \code{apecm}, \code{apecma}, and \code{kmeans}
+  for SPMD and ddmatrix (with \code{*.dmat}).
+  The \code{method.own.X} could be \code{spmdr}, \code{common}, \code{single},
+  and \code{ddmatrix}.
 }
 \section{Numerical Issues}{
   For example, \code{exp.min} and \code{exp.max} will control the range of

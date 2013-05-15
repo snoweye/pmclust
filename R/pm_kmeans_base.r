@@ -65,13 +65,13 @@ check.kmeans.convergence <- function(PARAM.org, PARAM.new, i.iter){
                sep = "", quiet = TRUE)
     }
 
-    list(method = .pmclustEnv$CHECK$method,
+    list(algorithm = .pmclustEnv$CHECK$algorithm,
          iter = i.iter, abs.err = abs.err, rel.err = rel.err,
          convergence = convergence)
 } # End of check.kmeans.convergence().
 
 kmeans.step.spmd <- function(PARAM.org){
-  .pmclustEnv$CHECK <- list(method = "kmeans", i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = "kmeans", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
   PARAM.org$logL <- PARAM.org$N

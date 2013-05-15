@@ -9,7 +9,7 @@ print.pmclust <- function(x, ...){
   MU <- PARAM$MU
   SIGMA <- matrix(do.call("c", PARAM$SIGMA), ncol = PARAM$K)
 
-  cat("Method: ", CHECK$method, "\n",
+  cat("Algorithm: ", CHECK$algorithm, "\n",
       "Convergence: ", CHECK$convergence,
       "  iter: ", CHECK$iter,
       "  abs.err: ", CHECK$abs.err,
@@ -35,7 +35,7 @@ print.pkmeans <- function(x, ...){
 
   MU <- PARAM$MU
 
-  cat("Method: ", CHECK$method, "\n",
+  cat("Algorithm: ", CHECK$algorithm, "\n",
       "Convergence: ", CHECK$convergence,
       "  iter: ", CHECK$iter,
       "  abs.err: ", CHECK$abs.err,

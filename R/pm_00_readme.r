@@ -30,7 +30,7 @@ cat('
 #   U.spmd: double[N.spmd, K], W.spmd plus log eta.
 #   CLASS.spmd: double[N.spmd], classification of observations.
 #   CHECK: list[4], for output.
-#     - method: string[1], "em", "aecm", "apecm", "apecma", or "kmeans".
+#     - algorithm: string[1], "em", "aecm", "apecm", "apecma", or "kmeans".
 #     - i.iter: integer[1], current iteration.
 #     - abs.err: double[1], current absolute tolerance.
 #     - rel.err: double[1], current relative tolerance.

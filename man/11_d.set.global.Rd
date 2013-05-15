@@ -13,10 +13,11 @@
 }
 \usage{
   set.global(K = 2, X.spmd = NULL, PARAM = NULL,
-      method = c("em", "aecm", "apecm", "apecma", "kmeans"),
+      algorithm = c("em", "aecm", "apecm", "apecma", "kmeans"),
       RndEM.iter = 10)
   set.global.dmat(K = 2, X.dmat = NULL, PARAM = NULL,
-      method = c("kmeans.dmat"),
+      algorithm = c("em.dmat", "aecm.dmat", "apecm.dmat",
+                    "apecma.dmat", "kmeans.dmat"),
       RndEM.iter = 10)
 }
 \arguments{
@@ -26,8 +27,8 @@
   \item{X.dmat}{an input \code{ddmatrix}.}
   \item{PARAM}{an original set of parameters generated
                by \code{set.global}.}
-  \item{method}{an original set of parameters generated
-                by \code{set.global}.}
+  \item{algorithm}{an original set of parameters generated
+                   by \code{set.global}.}
   \item{RndEM.iter}{number of RndEM iterations.}
 }
 \details{

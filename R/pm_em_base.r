@@ -137,7 +137,7 @@ check.em.convergence <- function(PARAM.org, PARAM.new, i.iter){
              sep = "", quiet = TRUE)
   }
 
-  list(method = .pmclustEnv$CHECK$method,
+  list(algorithm = .pmclustEnv$CHECK$algorithm,
        iter = i.iter, abs.err = abs.err, rel.err = rel.err,
        convergence = convergence)
 } # End of check.em.convergence().
@@ -145,7 +145,7 @@ check.em.convergence <- function(PARAM.org, PARAM.new, i.iter){
 
 ### EM-step.
 em.step.spmd <- function(PARAM.org){
-  .pmclustEnv$CHECK <- list(method = "em", i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = "em", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
   PARAM.org$logL <- -.Machine$double.xmax

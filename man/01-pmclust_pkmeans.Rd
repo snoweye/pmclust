@@ -6,20 +6,21 @@
   Parallel Model-Based Clustering and K-means
 }
 \usage{
-  pmclust(X, K,
-    algorithm = c("em", "aecm", "apecm", "apecma"),
-    MU = NULL, RndEM.iter = 10, CONTROL = list(debug = 0),
-    method.own.X = c("spmdr", "common", "single"),
+  pmclust(X, K, MU = NULL,
+    algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
+    CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
-  pkmeans(X, K, MU = NULL, CONTROL = list(debug = 0),
-    method.own.X = c("spmdr", "common", "single"),
+
+  pkmeans(X, K, MU = NULL,
+    algorithm = c("kmeans", "kmeans.dmat"),
+    CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
 }
 \arguments{
   \item{X}{a \code{ddmatrix} or a spmd row-major matrix.}
   \item{K}{number of clusters.}
-  \item{algorithm}{types of EM algorithms.}
   \item{MU}{pre-specified centers.}
+  \item{algorithm}{types of EM algorithms.}
   \item{RndEM.iter}{number of Rand-EM iterations.}
   \item{CONTROL}{a control for algorithms, see \code{\link{CONTROL}} for details.}
   \item{method.own.X}{how \code{X} is distributed.}
@@ -57,7 +58,10 @@
 \seealso{
   \code{\link{set.global}},
   \code{\link{e.step}},
-  \code{\link{m.step}}.
+  \code{\link{m.step}}. \cr
+  \code{\link{set.global.dmat}},
+  \code{\link{e.step.dmat}},
+  \code{\link{m.step.dmat}}.
 }
 \examples{
 \dontrun{

@@ -1,6 +1,7 @@
 ### This function initializes global variables.
 set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
-    method = c("kmeans.dmat"),
+    algorithm = c("em.dmat", "aecm.dmat", "apecm.dmat", "apecma.dmat",
+                  "kmeans.dmat"),
     RndEM.iter = 10){
   if(is.null(X.dmat)){
     if(exists("X.dmat", envir = .pmclustEnv)){
@@ -41,12 +42,8 @@ set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
   }
 
   ### Set global storages.
-  .pmclustEnv$CONTROL <- list(max.iter = 1000, abs.err = 1e-4, rel.err = 1e-6,
-                              debug = 1, RndEM.iter = RndEM.iter,
-                              exp.min = log(.Machine$double.xmin),
-                              exp.max = log(.Machine$double.xmax),
-                              U.max = 1e+4,
-                              U.min = 1e-6)
+  .pmclustEnv$CONTROL <- .PMC.CT$CONTROL
+  .pmclustEnv$CONTROL$RndEM.iter <- RndEM.iter
 
   .pmclustEnv$COMM.SIZE <- spmd.comm.size()
   .pmclustEnv$COMM.RANK <- spmd.comm.rank()
@@ -63,7 +60,8 @@ set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
 
   .pmclustEnv$CLASS.dmat <- ddmatrix(0, N, 1)
 
-  .pmclustEnv$CHECK <- list(method = method[1], i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = algorithm[1],
+                            i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
 
   ### For semi-supervised clustering.

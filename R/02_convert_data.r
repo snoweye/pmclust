@@ -1,6 +1,6 @@
 ### For general methods.
 
-convert.data <- function(X, method.own.X = c("spmdr", "common", "single"),
+convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
   COMM.SIZE <- spmd.comm.size(comm)
   COMM.RANK <- spmd.comm.rank(comm)
