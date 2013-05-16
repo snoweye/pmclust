@@ -1,9 +1,9 @@
 \name{pmclust and pkmeans}
 \alias{pmclust}
 \alias{pkmeans}
-\title{Parallel Model-Based Clustering and K-means}
+\title{Parallel Model-Based Clustering and Parallel K-means Algorithm}
 \description{
-  Parallel Model-Based Clustering and K-means
+  Parallel Model-Based Clustering and Parallel K-means Algorithm
 }
 \usage{
   pmclust(X, K, MU = NULL,
@@ -65,8 +65,39 @@
 }
 \examples{
 \dontrun{
-# This is a high-level function for em.step()
-# see the source code for details.
+# Save code in a file "demo.r" and run in 4 processors by
+# > mpiexec -np 4 Rscript demo.r
+
+### Setup environment.
+library(pmclust, quiet = TRUE)
+
+### Load data
+X <- as.matrix(iris[, -5])
+
+### Distribute data
+jid <- get.jid(nrow(X))
+X.spmd <- X[jid,]
+
+### Standardized
+N <- allreduce(nrow(X.spmd))
+p <- ncol(X.spmd)
+mu <- allreduce(colSums(X.spmd / N))
+X.std <- sweep(X.spmd, 2, mu, FUN = "-")
+std <- sqrt(allreduce(colSums(X.std^2 / (N - 1))))
+X.std <- sweep(X.std, 2, std, FUN = "/")
+
+### Clustering
+library(pmclust, quiet = TRUE)
+comm.set.seed(123, diff = TRUE)
+
+ret.mb1 <- pmclust(X.std, K = 3)
+comm.print(ret.mb1)
+
+ret.kms <- pkmeans(X.std, K = 3)
+comm.print(ret.kms)
+
+### Finish
+finalize()
 }
 }
 \keyword{high-level function}

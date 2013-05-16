@@ -1,5 +1,5 @@
-rm(list = ls())
-library(pbdMPI, quiet = TRUE)
+### Setup environment.
+library(pmclust, quiet = TRUE)
 
 ### Load data
 X <- as.matrix(iris[, -5])

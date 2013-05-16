@@ -3,6 +3,8 @@
 .PMC.CT <- list(
   algorithm = c("em", "aecm", "apecm", "apecma", "kmeans",
                 "em.dmat", "aecm.dmat", "apecma.dmat", "kmeans.dmat"),
+  algorithm.spmd = c("em", "aecm", "apecm", "apecma", "kmeans"),
+  algorithm.dmat = c("em.dmat", "aecm.dmat", "apecma.dmat", "kmeans.dmat"),
   method.own.X = c("spmdr", "common", "single", "ddmatrix"),
   CONTROL = list(
               max.iter = 1000,

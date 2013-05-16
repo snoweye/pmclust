@@ -1,5 +1,5 @@
-rm(list = ls())
-library(pbdMPI, quiet = TRUE)
+### Setup environment.
+library(pmclust, quiet = TRUE)
 
 X.std <- NULL
 if(comm.rank() == .SPMD.CT$rank.source){

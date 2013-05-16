@@ -28,5 +28,4 @@ mb.print <- function(PARAM, CHECK){
     }
     cat("\n")
   }
-  barrier()
 } # End of mb.print().

@@ -58,7 +58,7 @@ cm.step.dmat.SIGMA <- function(PARAM){
 
 ### AECM-step.
 aecm.step.dmat <- function(PARAM.org){
-  .pmclustEnv$CHECK <- list(method = "aecm", i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = "aecm", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
   PARAM.org$logL <- -.Machine$double.xmax

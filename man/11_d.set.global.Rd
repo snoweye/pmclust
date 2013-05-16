@@ -1,7 +1,7 @@
 \name{Set Global Variables}
+\alias{.pmclustEnv}
 \alias{set.global}
 \alias{X.spmd}
-\alias{.pmclustEnv}
 \alias{set.global.dmat}
 \alias{X.dmat}
 \title{Set Global Variables According to the global matrix X.spmd or X.dmat}
@@ -9,12 +9,13 @@
   This function will set several sets of variables globally in the
   environment \code{.pmclustEnv} according to the global matrix \code{X.spmd}.
 
-  \code{set.global.dmat} is a ddmatrix version of \code{set.global}.
+  \code{set.global.dmat} is a \code{ddmatrix} version of \code{set.global}.
 }
 \usage{
   set.global(K = 2, X.spmd = NULL, PARAM = NULL,
       algorithm = c("em", "aecm", "apecm", "apecma", "kmeans"),
       RndEM.iter = 10)
+
   set.global.dmat(K = 2, X.dmat = NULL, PARAM = NULL,
       algorithm = c("em.dmat", "aecm.dmat", "apecm.dmat",
                     "apecma.dmat", "kmeans.dmat"),

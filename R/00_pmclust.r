@@ -5,7 +5,7 @@ pmclust <- function(X, K, MU = NULL,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
 
-  if(algorithm[1] %in% c("em", "aecm", "apecm", "apecma", "kmeans")){
+  if(algorithm[1] %in% .PMC.CT$algorithm.spmd){
     ret <- pmclust.internal(X, K,
                             MU = MU,
                             algorithm = algorithm[1],
@@ -14,8 +14,7 @@ pmclust <- function(X, K, MU = NULL,
                             method.own.X = method.own.X[1],
                             rank.own.X = rank.own.X,
                             comm = comm)
-  } else if(algorithm[1] %in% c("em.dmat", "aecm.dmat", "apecm.dmat",
-                                "apecma.dmat", "kmeans.dmat")){
+  } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
     ret <- pmclust.internal.dmat(X, K,
                                  MU = MU,
                                  algorithm = algorithm[1],

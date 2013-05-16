@@ -21,9 +21,12 @@
 \title{Read Me First Function}
 \description{
   This function print the annotations of all variables used in this package.
+
+  \code{*.dmat}'s are \code{ddmatrix} versions.
 }
 \usage{
   readme()
+
   readme.dmat()
 }
 \details{

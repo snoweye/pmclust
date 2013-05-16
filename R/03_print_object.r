@@ -14,13 +14,12 @@ print.pmclust <- function(x, ...){
       "  iter: ", CHECK$iter,
       "  abs.err: ", CHECK$abs.err,
       "  rel.err: ", CHECK$rel.err, "\n", sep = "")
-  cat("N: ", PARAM$N, "  p: ", PARAM$p, "  K: ", PARAM$K,
+  cat("  N: ", PARAM$N, "  p: ", PARAM$p, "  K: ", PARAM$K,
       "  logL: ", PARAM$logL, "\n", sep = "")
-  cat("n.class:\n")
-  print(N.CLASS)
-  cat("\nETA:\n")
+  cat("n.class:", N.CLASS, "\n", sep = " ")
+  cat("ETA:\n")
   print(ETA)
-  cat("\nMU: (p by K)\n")
+  cat("MU: (p by K)\n")
   print(MU)
   # cat("\nSIGMA:\n")
   # print(SIGMA)
@@ -42,9 +41,8 @@ print.pkmeans <- function(x, ...){
       "  rel.err: ", CHECK$rel.err, "\n", sep = "")
   cat("N: ", PARAM$N, "  p: ", PARAM$p, "  K: ", PARAM$K,
       "  logL: ", PARAM$logL, "\n", sep = "")
-  cat("n.class:\n")
-  print(N.CLASS)
-  cat("\nMU: (p by K)\n")
+  cat("n.class:", N.CLASS, "\n", sep = " ")
+  cat("MU: (p by K)\n")
   print(MU)
   cat("\n")
 } # End of print.pkmeans().

@@ -101,7 +101,7 @@ logL.step.dmat <- function(){
 
 ### EM-step.
 em.step.dmat <- function(PARAM.org){
-  .pmclustEnv$CHECK <- list(method = "em", i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = "em", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
   PARAM.org$logL <- -.Machine$double.xmax

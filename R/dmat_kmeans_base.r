@@ -19,7 +19,8 @@ kmeans.m.step.dmat <- function(PARAM){
   }
 
   for(i.k in 1:PARAM$K){
-    PARAM$MU[, i.k] <- as.vector(colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,]))
+    tmp <- colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,])
+    PARAM$MU[, i.k] <- as.vector(tmp)
   }
 
   PARAM
@@ -33,7 +34,7 @@ kmeans.logL.step.dmat <- function(){
 } # End of kmeans.logL.step.dmat().
 
 kmeans.step.dmat <- function(PARAM.org){
-  .pmclustEnv$CHECK <- list(method = "kmeans", i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = "kmeans.dmat", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
   PARAM.org$logL <- PARAM.org$N

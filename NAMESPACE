@@ -9,6 +9,14 @@ export(
 ### General functions.
   "pmclust",
   "pkmeans",
+  "as.dmat",
+  "as.spmd",
+
+  ### Example functions in SPMD.
+  "generate.basic",
+  "generate.MixSim",
+  "assign.N.sample",
+  "mb.print",
 
 ### SPMD functions.
   ### Readme function.
@@ -20,7 +28,6 @@ export(
   ### Initial functions.
   "initial.em",
   "initial.RndEM",
-  "assign.N.sample",
   "initial.center",
 
   ### EM methods.
@@ -40,13 +47,8 @@ export(
   "kmeans.step",
   "kmeans.update.class",
 
-  ### Example functions.
-  "generate.basic",
-  "generate.MixSim",
-
   ### Utility functions.
   "get.N.CLASS",
-  "mb.print",
 
 ### DMAT functions.
   ### Readme function.
@@ -54,19 +56,24 @@ export(
 
   ### Global objects.
   "set.global.dmat",
-  "as.dmat",
 
   ### Initial functions.
-#  "initial.em.dmat",
-#  "initial.RndEM.dmat",
+  "initial.em.dmat",
+  "initial.RndEM.dmat",
   "initial.center.dmat",
 
   ### EM methods.
-#  "em.step.dmat",
-#  "aecm.step.dmat",
-#  "apecm.step.dmat",
-#  "apecma.step.dmat",
-#  "em.update.class.dmat",
+  "em.step.dmat",
+  "aecm.step.dmat",
+  "apecm.step.dmat",
+  "apecma.step.dmat",
+  "em.update.class.dmat",
+
+  ### EM utility functions.
+  "em.onestep.dmat",
+  "e.step.dmat",
+  "m.step.dmat",
+  "indep.logL.dmat",
   
   ### K-means.
   "kmeans.step.dmat",

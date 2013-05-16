@@ -1,13 +1,18 @@
 \name{One M-Step}
 \alias{m.step}
+\alias{m.step.dmat}
 \title{Compute One M-Step Based on Current Posterior Probabilities}
 \description{
   This function will perform one M-step based on current posterior
   probabilities.
   This is a core function of \code{\link{em.onestep}}.
+
+  \code{m.step.dmat} is a \code{ddmatrix} version of \code{m.step}.
 }
 \usage{
   m.step(PARAM)
+
+  m.step.dmat(PARAM)
 }
 \arguments{
   \item{PARAM}{a set of parameters.}

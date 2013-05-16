@@ -59,7 +59,7 @@ cm.step.dmat.MU.SIGMA.k <- function(PARAM, i.k){
 
 ### APECMa-step.
 apecma.step.dmat <- function(PARAM.org){
-  .pmclustEnv$CHECK <- list(method = "apecma", i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = "apecma", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
   PARAM.org$logL <- -.Machine$double.xmax

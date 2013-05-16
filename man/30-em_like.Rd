@@ -4,13 +4,17 @@
 \alias{apecm.step}
 \alias{apecma.step}
 \alias{kmeans.step}
+\alias{em.step.dmat}
+\alias{aecm.step.dmat}
+\alias{apecm.step.dmat}
+\alias{apecma.step.dmat}
 \alias{kmeans.step.dmat}
 \title{EM-like Steps for SPMD}
 \description{
   The EM-like algorithm for model-based clustering of finite mixture Gaussian
   models with unstructured dispersions.
 
-  \code{*.dmat}'s are ddmatrix versions.
+  \code{*.dmat}'s are \code{ddmatrix} versions.
 }
 \usage{
   em.step(PARAM.org)
@@ -18,6 +22,11 @@
   apecm.step(PARAM.org)
   apecma.step(PARAM.org)
   kmeans.step(PARAM.org)
+
+  em.step.dmat(PARAM.org)
+  aecm.step.dmat(PARAM.org)
+  apecm.step.dmat(PARAM.org)
+  apecma.step.dmat(PARAM.org)
   kmeans.step.dmat(PARAM.org)
 }
 \arguments{

@@ -1,15 +1,19 @@
-\name{as.dmat}
+\name{as functions}
 \alias{as.dmat}
-\title{Convert X.spmd to X.dmat}
+\alias{as.spmd}
+\title{Convert between X.spmd and X.dmat}
 \description{
   This function will convert a matrix of format from
-  SPDM row-major to ddmatrix.
+  SPDM row-major to ddmatrix vice versa.
 }
 \usage{
   as.dmat(X.spmd, bldim = c(2, 2), ICTXT = 0, comm = .SPMD.CT$comm)
+
+  as.spmd(X.dmat, comm = .SPMD.CT$comm)
 }
 \arguments{
   \item{X.spmd}{an input dataset of format SPMD row-major to be converted.}
+  \item{X.dmat}{an input dataset of format \code{ddmatrix} to be converted.}
   \item{bldim}{block dimension, see \pkg{pbdBASE} for details.}
   \item{ICTXT}{block context, see \pkg{pbdBASE} for details.}
   \item{comm}{communicator, see \pkg{pbdMPI} for details.}

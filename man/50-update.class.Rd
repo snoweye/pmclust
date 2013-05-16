@@ -1,5 +1,6 @@
 \name{Update Class of EM or Kmenas Results}
 \alias{em.update.class}
+\alias{em.update.class.dmat}
 \alias{kmeans.update.class}
 \alias{kmeans.update.class.dmat}
 \title{Update CLASS.spmd Based on the Final Iteration}
@@ -7,11 +8,13 @@
   Update \code{\link{CLASS.spmd}} based on the final iteration of EM-like
   algorithms.
 
-  \code{*.dmat}'s are ddmatrix versions.
+  \code{*.dmat}'s are \code{ddmatrix} versions.
 }
 \usage{
   em.update.class()
   kmeans.update.class()
+
+  em.update.class.dmat()
   kmeans.update.class.dmat()
 }
 \details{

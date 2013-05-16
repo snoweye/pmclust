@@ -87,7 +87,7 @@ ape.update.expectation.k.dmat <- function(PARAM, i.k, update.logL = TRUE){
 
 ### APECM-step.
 apecm.step.dmat <- function(PARAM.org){
-  .pmclustEnv$CHECK <- list(method = "apecm", i.iter = 0, abs.err = Inf,
+  .pmclustEnv$CHECK <- list(algorithm = "apecm", i.iter = 0, abs.err = Inf,
                             rel.err = Inf, convergence = 0)
   i.iter <- 1
   PARAM.org$logL <- -.Machine$double.xmax

@@ -13,9 +13,11 @@
 \details{
   \code{.PMC.CT} stores all default controls for \code{pmclust} and
   \code{pkmeans} including
-\tabular{ll}{\code{algorithm}    \tab algorithms implemented \cr
-             \code{method.own.X} \tab how \code{X} is distributed \cr
-             \code{CONTROL}      \tab a \code{CONTROL} list as in next \cr
+\tabular{ll}{\code{algorithm}      \tab algorithms implemented \cr
+             \code{algorithm.spmd} \tab algorithms implemented for spmd\cr
+             \code{algorithm.dmat} \tab algorithms implemented for ddmatrix\cr
+             \code{method.own.X}   \tab how \code{X} is distributed \cr
+             \code{CONTROL}        \tab a \code{CONTROL} list as in next \cr
 }
 
   The elements of \code{CONTROL} or \code{.pmclustEnv$CONTROL} are

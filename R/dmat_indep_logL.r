@@ -37,7 +37,7 @@ indep.logL.dmat <- function(PARAM){
       if(i.rank == .pmclustEnv$COMM.RANK){
         cat(.pmclustEnv$COMM.RANK, ":", sum(!is.finite(ret)), " ", sep = "")
       }
-      barrier()
+      # spmd.barrier()
     }
     comm.cat("\n", sep = "", quiet = TRUE)
   }

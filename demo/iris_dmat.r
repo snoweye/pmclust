@@ -1,5 +1,5 @@
-rm(list = ls())
-library(pbdDMAT, quiet = TRUE)
+### Setup environment.
+library(pmclust, quiet = TRUE)
 init.grid()
 
 ### Load data

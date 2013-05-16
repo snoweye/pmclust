@@ -7,10 +7,11 @@
   from all processors that the all reduced calls with the sum operation
   will be performed.
 
-  \code{get.N.CLASS.dmat} is a ddmatrix version of \code{get.N.CLASS}.
+  \code{get.N.CLASS.dmat} is a \code{ddmatrix} version of \code{get.N.CLASS}.
 }
 \usage{
   get.N.CLASS(K)
+
   get.N.CLASS.dmat(K)
 }
 \arguments{
