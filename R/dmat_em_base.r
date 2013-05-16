@@ -35,7 +35,11 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
 
   .pmclustEnv$W.dmat.rowSums <- rowSums(.pmclustEnv$Z.dmat)
 
+comm.cat("dmat_em_base update 1\n")
+comm.print(str(.pmclustEnv$Z.dmat))
+comm.print(str(.pmclustEnv$W.dmat.rowSums))
   .pmclustEnv$Z.dmat <- .pmclustEnv$Z.dmat / .pmclustEnv$W.dmat.rowSums
+comm.cat("dmat_em_base update 2\n")
   .pmclustEnv$Z.dmat.colSums <- colSums(.pmclustEnv$Z.dmat)
 
   if(update.logL){
