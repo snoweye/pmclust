@@ -1,6 +1,7 @@
 ### Convert X.spmd to X.dmat
 
-as.dmat <- function(X.spmd, bldim = c(2, 2), ICTXT = 0, comm = .SPMD.CT$comm){
+as.dmat <- function(X.spmd, bldim = .BLDIM, ICTXT = .ICTXT,
+    comm = .SPMD.CT$comm){
   X.spmd <- load.balance(X.spmd, comm = comm)
 
   N.spmd <- nrow(X.spmd)
