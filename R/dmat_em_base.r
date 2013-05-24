@@ -21,32 +21,47 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   tmp.id <- rowSums(.pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min) == K |
             rowSums(.pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max) > 0
 
+comm.print("0")
   tmp.flag <- sum(tmp.id)
   if(tmp.flag > 0){
-    tmp.dmat <- .pmclustEnv$U.dmat[tmp.id,]
+comm.print("0.1", all.rank = TRUE)
+comm.print(str(tmp.id), all.rank = TRUE)
+flush(stdout)
+Sys.sleep(1)
+barrier()
+comm.stop()
 
+    tmp.dmat <- .pmclustEnv$U.dmat[tmp.id,]
+flush(stdout)
+Sys.sleep(1)
+barrier()
+
+comm.print("0.2")
     if(tmp.flag == 1){
+comm.print("0.3")
       tmp.scale <- max(tmp.dmat) - .pmclustEnv$CONTROL$exp.max / K
     } else{
+comm.print("0.4")
       tmp.scale <- apply(tmp.dmat, 1, max) - .pmclustEnv$CONTROL$exp.max / K
     }
+comm.print("0.5")
+    tmp.scale <- as.vector(tmp.scale)
+comm.print("0.6")
+
     .pmclustEnv$Z.dmat[tmp.id,] <- exp(tmp.dmat - tmp.scale)
   }
+comm.print("1")
 
-  .pmclustEnv$W.dmat.rowSums <- rowSums(.pmclustEnv$Z.dmat)
+  .pmclustEnv$W.rowSums <- as.vector(rowSums(.pmclustEnv$Z.dmat))
 
-comm.cat("dmat_em_base update 1\n")
-comm.print(str(.pmclustEnv$Z.dmat))
-comm.print(str(.pmclustEnv$W.dmat.rowSums))
-  .pmclustEnv$Z.dmat <- .pmclustEnv$Z.dmat / .pmclustEnv$W.dmat.rowSums
-comm.cat("dmat_em_base update 2\n")
-  .pmclustEnv$Z.dmat.colSums <- colSums(.pmclustEnv$Z.dmat)
+  .pmclustEnv$Z.dmat <- .pmclustEnv$Z.dmat / .pmclustEnv$W.rowSums
+  .pmclustEnv$Z.colSums <- as.vector(colSums(.pmclustEnv$Z.dmat))
 
   if(update.logL){
-    .pmclustEnv$W.dmat.rowSums <- log(.pmclustEnv$W.dmat.rowSums)
+    .pmclustEnv$W.rowSums <- log(.pmclustEnv$W.rowSums)
     if(tmp.flag){
-      .pmclustEnv$W.dmat.rowSums[tmp.id] <-
-        .pmclustEnv$W.dmat.rowSums[tmp.id] + tmp.scale
+      .pmclustEnv$W.rowSums[tmp.id] <-
+        .pmclustEnv$W.rowSums[tmp.id] + tmp.scale
     }
   }
   invisible()
@@ -60,22 +75,22 @@ m.step.dmat <- function(PARAM){
   }
 
   ### MLE For ETA
-  PARAM$ETA <- as.vector(.pmclustEnv$Z.dmat.colSums /
-                         sum(.pmclustEnv$Z.dmat.colSums))
+  PARAM$ETA <- .pmclustEnv$Z.colSums / sum(.pmclustEnv$Z.colSums)
   PARAM$log.ETA <- log(PARAM$ETA)
 
   p <- PARAM$p
   p.2 <- p * p
   for(i.k in 1:PARAM$K){
     ### MLE for MU
-    B <- colSums(X.dmat * .pmclustEnv$Z.dmat[, i.k]) /
-         .pmclustEnv$Z.dmat.colSums[i.k]
+    B <- colSums(X.dmat * as.vector(.pmclustEnv$Z.dmat[, i.k])) /
+         .pmclustEnv$Z.colSums[i.k]
     PARAM$MU[, i.k] <- as.vector(B)
 
     ### MLE for SIGMA
     if(PARAM$U.check[[i.k]]){
-      B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
-           sqrt(.pmclustEnv$Z.dmat[, i.k] / .pmclustEnv$Z.dmat.colSums[i.k])
+      B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k])) *
+           (as.vector(sqrt(.pmclustEnv$Z.dmat[, i.k]) /
+                      .pmclustEnv$Z.colSums[i.k]))
       tmp.SIGMA <- as.matrix(crossprod(B))
       dim(tmp.SIGMA) <- c(p, p)
 
@@ -98,7 +113,7 @@ m.step.dmat <- function(PARAM){
 
 ### log likelihood.
 logL.step.dmat <- function(){
-  tmp.logL <- sum(.pmclustEnv$W.dmat.rowSums)
+  tmp.logL <- sum(.pmclustEnv$W.rowSums)
   tmp.logL
 } # End of logL.step.dmat().
 

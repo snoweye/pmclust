@@ -1,11 +1,11 @@
 ### This file contains a data generation by MixSim.
 
 generate.MixSim.spmd <- function(N, p, K, MixSim.obj = NULL,
-    BarOmega = NULL, MaxOmega = NULL, sph = FALSE, hom = FALSE){
+    MaxOmega = NULL, BarOmega = NULL, PiLow = 1.0, sph = FALSE, hom = FALSE){
   ### Obtain a set of parameters from MixSim.
   if(spmd.comm.rank() == 0){
     if(is.null(MixSim.obj)){
-      MixSim.obj <- MixSim(BarOmega, MaxOmega, K = K, p = p,
+      MixSim.obj <- MixSim(BarOmega, MaxOmega, K = K, p = p, PiLow = PiLow,
                            sph = sph, hom = hom)
     }
     if(class(MixSim.obj) != "MixSim"){

@@ -6,8 +6,8 @@
   for testing algorithms.
 }
 \usage{
-  generate.MixSim(N, p, K, MixSim.obj = NULL, BarOmega = NULL,
-                  MaxOmega = NULL, sph = FALSE, hom = FALSE)
+  generate.MixSim(N, p, K, MixSim.obj = NULL, MaxOmega = NULL,
+                  BarOmega = NULL, PiLow = 1.0, sph = FALSE, hom = FALSE)
 }
 \arguments{
   \item{N}{total sample size across all \eqn{S}{S} processors, i.e.
@@ -16,8 +16,9 @@
            i.e. \code{ncol(\link{X.spmd})}.}
   \item{K}{number of clusters.}
   \item{MixSim.obj}{an object returned from \code{\link[MixSim]{MixSim}}.}
-  \item{BarOmega}{averaged overlap as in \code{\link[MixSim]{MixSim}}.}
   \item{MaxOmega}{maximum overlap as in \code{\link[MixSim]{MixSim}}.}
+  \item{BarOmega}{averaged overlap as in \code{\link[MixSim]{MixSim}}.}
+  \item{PiLow}{lower bound of mixture proportion as in \code{\link[MixSim]{MixSim}}.}
   \item{sph}{sph as in \code{\link[MixSim]{MixSim}}.}
   \item{hom}{hom as in \code{\link[MixSim]{MixSim}}.}
 }

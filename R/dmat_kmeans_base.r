@@ -6,7 +6,7 @@ kmeans.e.step.dmat <- function(PARAM){
   }
 
   for(i.k in 1:PARAM$K){
-    B <- sweep(X.dmat, 2, PARAM$MU[, i.k])
+    B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
     .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))
   }
 

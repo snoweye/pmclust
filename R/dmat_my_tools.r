@@ -51,14 +51,10 @@ set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
   .pmclustEnv$p.times.logtwopi <- p * log(2 * pi)
 
   .pmclustEnv$Z.dmat <- ddmatrix(0, N, K)
-  .pmclustEnv$Z.colSums <- colSums(.pmclustEnv$Z.dmat)
+  .pmclustEnv$Z.colSums <- as.vector(colSums(.pmclustEnv$Z.dmat))
 
   .pmclustEnv$W.dmat <- ddmatrix(0, N, K)
-  .pmclustEnv$W.dmat.rowSums <- rowSums(.pmclustEnv$W.dmat)
-comm.cat("dmat_my_tool set.global.dmat 1\n")
-comm.print(str(.pmclustEnv$W.dmat))
-comm.print(str(.pmclustEnv$W.dmat.rowSums))
-comm.cat("dmat_my_tool set.global.dmat 2\n")
+  .pmclustEnv$W.rowSums <- as.vector(rowSums(.pmclustEnv$W.dmat))
 
   .pmclustEnv$U.dmat <- ddmatrix(0, N, K)
 
