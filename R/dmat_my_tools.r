@@ -1,7 +1,6 @@
 ### This function initializes global variables.
 set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
-    algorithm = c("em.dmat", "aecm.dmat", "apecm.dmat", "apecma.dmat",
-                  "kmeans.dmat"),
+    algorithm = c("em.dmat", "kmeans.dmat"),
     RndEM.iter = 10){
   if(is.null(X.dmat)){
     if(exists("X.dmat", envir = .pmclustEnv)){

@@ -38,9 +38,9 @@ pmclust.internal.dmat <- function(X, K, MU = NULL,
   # Update steps.
   method.step <- switch(algorithm[1],
                         "em.dmat" = em.step.dmat,
-                        "aecm.dmat" = aecm.step.dmat,
-                        "apecm.dmat" = apecm.step.dmat,
-                        "apecma.dmat" = apecma.step.dmat,
+#                        "aecm.dmat" = aecm.step.dmat,
+#                        "apecm.dmat" = apecm.step.dmat,
+#                        "apecma.dmat" = apecma.step.dmat,
                         "kmeans.dmat" = kmeans.step.dmat,
                         NULL)
   if(is.null(method.step)){

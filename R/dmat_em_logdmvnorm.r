@@ -14,24 +14,22 @@ logdmvnorm.dmat <- function(PARAM, i.k){
 #    A <- backsolve(U, B, upper.tri = TRUE, transpose = TRUE)
 #    distval <- colSums(A * A)
 
-    ### SPMD
-    # B <- W.plus.y(X.spmd, -PARAM$MU[, i.k], nrow(X.spmd), ncol(X.spmd))
-    # B <- B %*% backsolve(U, diag(1, PARAM$p))
+    ### WCC: original
+    # B <- sweep(X.dmat, 2, PARAM$MU[, i.k])
+    # C <- backsolve(U, diag(1, PARAM$p))
+    # B <- B %*% as.ddmatrix(C, bldim = bldim(B), ICTXT = ICTXT(B))
     # distval <- rowSums(B * B)
-    # .pmclustEnv$W.spmd[, i.k] <- -(.pmclustEnv$p.times.logtwopi + logdet +
+    # .pmclustEnv$W.dmat[, i.k] <- -(.pmclustEnv$p.times.logtwopi + logdet +
     #                                distval) * 0.5
-
-    ### DMAT
-    B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
-    C <- backsolve(U, diag(1, PARAM$p))
-#str(X.dmat)
-#tmp <- as.ddmatrix(C, bldim = bldim(B), ICTXT = ICTXT(B))
-#str(tmp)
-#comm.stop()
-    B <- B %*% as.ddmatrix(C, bldim = bldim(B), ICTXT = ICTXT(B))
-    distval <- rowSums(B * B)
-    .pmclustEnv$W.dmat[, i.k] <- -(.pmclustEnv$p.times.logtwopi + logdet +
-                                   distval) * 0.5
+    ### WCC: debugging
+    tmp.1 <- sweep(X.dmat, 2, PARAM$MU[, i.k])
+    tmp.2 <- backsolve(U, diag(1, PARAM$p))
+    tmp.3 <- as.ddmatrix(tmp.2, bldim = bldim(tmp.1), ICTXT = ICTXT(tmp.1))
+    tmp.4 <- tmp.1 %*% tmp.3
+    tmp.5 <- tmp.4 * tmp.4
+    tmp.6 <- rowSums(tmp.5)
+    tmp.7 <- -(.pmclustEnv$p.times.logtwopi + logdet + tmp.6) * 0.5
+    .pmclustEnv$W.dmat[, i.k] <- tmp.7
 #  }
   invisible()
 } # End of logdmvnorm.dmat().

@@ -12,7 +12,13 @@ initial.em.dmat <- function(PARAM, MU = NULL){
   if(is.null(MU)){
     N <- nrow(X.dmat)
     id <- spmd.bcast.integer(as.integer(sample(1:N, PARAM$K)))
+    ### WCC: original
     PARAM$MU <- t(as.matrix(X.dmat[id, ]))
+    ### WCC: debugging
+    # tmp.1 <- X.dmat[id,]
+    # tmp.2 <- as.matrix(tmp.1)
+    # tmp.3 <- t(tmp.2)
+    # PARAM$MU <- tmp.3
   } else{
     PARAM$MU <- MU
   }

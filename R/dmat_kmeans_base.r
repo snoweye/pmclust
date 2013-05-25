@@ -6,8 +6,15 @@ kmeans.e.step.dmat <- function(PARAM){
   }
 
   for(i.k in 1:PARAM$K){
-    B <- sweep(X.dmat, 2, as.vector(PARAM$MU[, i.k]))
-    .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))
+    ### WCC: original
+    # B <- sweep(X.dmat, 2, PARAM$MU[, i.k])
+    # .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))
+    ### WCC: debugging
+    tmp.1 <- sweep(X.dmat, 2, PARAM$MU[, i.k])
+    tmp.2 <- tmp.1 * tmp.1
+    tmp.3 <- rowSums(tmp.2)
+    tmp.4 <- sqrt(tmp.3)
+    .pmclustEnv$Z.dmat[, i.k] <- tmp.4
   }
 
   invisible()
@@ -19,17 +26,31 @@ kmeans.m.step.dmat <- function(PARAM){
   }
 
   for(i.k in 1:PARAM$K){
-    tmp <- colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,])
-    PARAM$MU[, i.k] <- as.vector(tmp)
+    ### WCC: original
+    # tmp <- as.vector(colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,]))
+    # PARAM$MU[, i.k] <- as.vector(tmp)
+    ### WCC: debugging
+    tmp.1 <- .pmclustEnv$CLASS.dmat == i.k
+    tmp.2 <- X.dmat[tmp.1,]
+    tmp.3 <- colMeans(tmp.2)
+    tmp.4 <- as.vector(tmp.3)
+    PARAM$MU[, i.k] <- tmp.4
   }
 
   PARAM
 } # End of kmeans.m.step.dmat().
 
 kmeans.logL.step.dmat <- function(){
-  tmp <- apply(.pmclustEnv$Z.dmat, 1, which.min)
-  tmp.diff <- sum(.pmclustEnv$CLASS.dmat != tmp)
-  .pmclustEnv$CLASS.dmat <- tmp
+  ### WCC: original
+  # tmp <- apply(.pmclustEnv$Z.dmat, 1, which.min)
+  # tmp.diff <- sum(.pmclustEnv$CLASS.dmat != tmp)
+  # .pmclustEnv$CLASS.dmat <- tmp
+  ### WCC: debugging
+  tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.min)
+  tmp.2 <- .pmclustEnv$CLASS.dmat != tmp.1
+  tmp.diff <- sum(tmp.2)
+  .pmclustEnv$CLASS.dmat <- tmp.1
+
   as.integer(tmp.diff)
 } # End of kmeans.logL.step.dmat().
 
@@ -115,7 +136,12 @@ kmeans.onestep.dmat <- function(PARAM){
 
 
 kmeans.update.class.dmat <- function(){
-  .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.min)
+  ### WCC: original
+  # .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.min)
+  ### WCC: debugging
+  tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.min)
+  .pmclustEnv$CLASS.dmat <- tmp.1
+
   invisible()
 } # End of kmeans.update.class.dmat().
 
