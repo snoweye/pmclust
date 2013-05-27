@@ -12,13 +12,9 @@ initial.em.dmat <- function(PARAM, MU = NULL){
   if(is.null(MU)){
     N <- nrow(X.dmat)
     id <- spmd.bcast.integer(as.integer(sample(1:N, PARAM$K)))
-    ### WCC: original
+### WCC: fake
+id <- c(1, 51, 101) + 10
     PARAM$MU <- t(as.matrix(X.dmat[id, ]))
-    ### WCC: debugging
-    # tmp.1 <- X.dmat[id,]
-    # tmp.2 <- as.matrix(tmp.1)
-    # tmp.3 <- t(tmp.2)
-    # PARAM$MU <- tmp.3
   } else{
     PARAM$MU <- MU
   }
@@ -38,7 +34,7 @@ initial.RndEM.dmat <- function(PARAM){
   PARAM.org <- PARAM
   repeat{
     PARAM <- try(initial.em.dmat(PARAM.org))
-    if(class(PARAM) == "try-error"){
+    if(comm.any(class(PARAM) == "try-error")){
       comm.cat(PARAM, "\n", quiet = TRUE)
       next
     }

@@ -9,7 +9,7 @@ kmeans.e.step.dmat <- function(PARAM){
     ### WCC: original
     # B <- sweep(X.dmat, 2, PARAM$MU[, i.k])
     # .pmclustEnv$Z.dmat[, i.k] <- sqrt(rowSums(B * B))
-    ### WCC: debugging
+    ### WCC: temp
     tmp.1 <- sweep(X.dmat, 2, PARAM$MU[, i.k])
     tmp.2 <- tmp.1 * tmp.1
     tmp.3 <- rowSums(tmp.2)
@@ -29,7 +29,7 @@ kmeans.m.step.dmat <- function(PARAM){
     ### WCC: original
     # tmp <- as.vector(colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,]))
     # PARAM$MU[, i.k] <- as.vector(tmp)
-    ### WCC: debugging
+    ### WCC: temp
     tmp.1 <- .pmclustEnv$CLASS.dmat == i.k
     tmp.2 <- X.dmat[tmp.1,]
     tmp.3 <- colMeans(tmp.2)
@@ -45,7 +45,7 @@ kmeans.logL.step.dmat <- function(){
   # tmp <- apply(.pmclustEnv$Z.dmat, 1, which.min)
   # tmp.diff <- sum(.pmclustEnv$CLASS.dmat != tmp)
   # .pmclustEnv$CLASS.dmat <- tmp
-  ### WCC: debugging
+  ### WCC: temp
   tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.min)
   tmp.2 <- .pmclustEnv$CLASS.dmat != tmp.1
   tmp.diff <- sum(tmp.2)
@@ -138,7 +138,7 @@ kmeans.onestep.dmat <- function(PARAM){
 kmeans.update.class.dmat <- function(){
   ### WCC: original
   # .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.min)
-  ### WCC: debugging
+  ### WCC: temp
   tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.min)
   .pmclustEnv$CLASS.dmat <- tmp.1
 

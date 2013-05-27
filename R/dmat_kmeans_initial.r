@@ -14,7 +14,7 @@ initial.center.dmat <- function(PARAM, MU = NULL){
     id <- spmd.bcast.integer(as.integer(sample(1:N, PARAM$K)))
     ### WCC: original
     PARAM$MU <- t(as.matrix(X.dmat[id, ]))
-    ### WCC: debugging
+    ### WCC: temp
     # tmp.1 <- X.dmat[id,]
     # tmp.2 <- as.matrix(tmp.1)
     # tmp.3 <- t(tmp.2)
@@ -27,7 +27,7 @@ initial.center.dmat <- function(PARAM, MU = NULL){
      ### WCC: original
      B <- sweep(X.dmat, 2, PARAM$MU[, i.k])
      .pmclustEnv$Z.dmat[, i.k] <- -rowSums(B * B)
-     ### WCC: debugging
+     ### WCC: temp
      # tmp.1 <- sweep(X.dmat, 2, PARAM$MU[, i.k])
      # tmp.2 <- tmp.1 * tmp.1
      # tmp.3 <- rowSums(tmp.2)
@@ -37,7 +37,7 @@ initial.center.dmat <- function(PARAM, MU = NULL){
 
   ### WCC: original
   .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
-  ### WCC: debugging
+  ### WCC: temp
   # tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.max)
   # .pmclustEnv$CLASS.dmat <- tmp.1
 

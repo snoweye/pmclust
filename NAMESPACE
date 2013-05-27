@@ -64,9 +64,9 @@ export(
 
   ### EM methods.
   "em.step.dmat",
-  "aecm.step.dmat",
-  "apecm.step.dmat",
-  "apecma.step.dmat",
+#  "aecm.step.dmat",
+#  "apecm.step.dmat",
+#  "apecma.step.dmat",
   "em.update.class.dmat",
 
   ### EM utility functions.

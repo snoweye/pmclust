@@ -80,7 +80,7 @@ apecma.step.spmd <- function(PARAM.org){
     }
 
     PARAM.new <- try(apecma.onestep.spmd(PARAM.org))
-    if(class(PARAM.new) == "try-error"){
+    if(comm.any(class(PARAM.new) == "try-error")){
       comm.cat("Results of previous iterations are returned.\n", quiet =TRUE)
       .pmclustEnv$CHECK$convergence <- 99
       PARAM.new <- PARAM.org

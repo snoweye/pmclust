@@ -63,7 +63,7 @@ initial.RndEM.spmd <- function(PARAM){
   PARAM.org <- PARAM
   repeat{
     PARAM <- try(initial.em.spmd(PARAM.org))
-    if(class(PARAM) == "try-error"){
+    if(comm.any(class(PARAM) == "try-error")){
       comm.cat(PARAM, "\n", quiet = TRUE)
       next
     }
