@@ -13,7 +13,7 @@ initial.em.dmat <- function(PARAM, MU = NULL){
     N <- nrow(X.dmat)
     id <- spmd.bcast.integer(as.integer(sample(1:N, PARAM$K)))
 ### WCC: fake
-id <- c(1, 51, 101) + 10
+#id <- c(1, 51, 101) + 20
     PARAM$MU <- t(as.matrix(X.dmat[id, ]))
   } else{
     PARAM$MU <- MU
