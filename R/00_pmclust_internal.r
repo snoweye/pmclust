@@ -1,19 +1,29 @@
 ### For general internal methods.
 
-pmclust.internal <- function(X, K, MU = NULL,
-    algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
+pmclust.internal <- function(X = NULL, K = 2, MU = NULL,
+    algorithm = .PMC.CT$algorithm.spmd, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
   # Check.
-  if(!(algorithm[1] %in% .PMC.CT$algorithm)){
-    comm.stop("The algorithm is not found.")
+  if(! (algorithm[1] %in% .PMC.CT$algorithm.spmd)){
+    comm.stop("The algorithm is not supported")
   }
-  if(!(method.own.X[1] %in% .PMC.CT$method.own.X)){
+  if(! (method.own.X[1] %in% .PMC.CT$method.own.X)){
     comm.stop("The method.own.X is not found.")
   }
 
-  # Assign X to .pmclustEnv
-  convert.data(X, method.own.X[1], rank.own.X, comm)
+  # Check X.
+  if(is.null(X)){
+    if(exists("X.dmat", envir = .GlobalEnv)){
+      # Assign X to .pmclustEnv and convert to spmdr.
+      convert.data(X.dmat, method.own.X[1], rank.own.X, comm)
+    } else{
+      # Assume X.spmd in .GlobalEnv and no need for converting or check.
+    }
+  } else{
+    # Assign X to .pmclustEnv if it is not in .GlobalEnv
+    convert.data(X, method.own.X[1], rank.own.X, comm)
+  }
 
   # Set global variables.
   PARAM.org <- set.global(K = K, RndEM.iter = RndEM.iter)
@@ -46,9 +56,6 @@ pmclust.internal <- function(X, K, MU = NULL,
                         "apecma" = apecma.step,
                         "kmeans" = kmeans.step,
                         NULL)
-  if(is.null(method.step)){
-    comm.stop("Algorithm is not found.")
-  }
   PARAM.new <- method.step(PARAM.org)
 
   # Obtain classifications.

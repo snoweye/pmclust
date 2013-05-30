@@ -1,19 +1,32 @@
 ### For general internal methods.
 
-pmclust.internal.dmat <- function(X, K, MU = NULL,
-    algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
+pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
+    algorithm = .PMC.CT$algorithm.dmat, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
   # Check.
-  if(! is.ddmatrix(X)){
-    comm.stop("A ddmatrix is required.")
+  if(! (algorithm[1] %in% .PMC.CT$algorithm.dmat)){
+    comm.stop("The algorithm is not supported.")
   }
-  if(!(algorithm[1] %in% .PMC.CT$algorithm)){
-    comm.stop("The algorithm is not found.")
+
+  # Check X.
+  if(is.null(X)){
+    if(! eval(is.ddmatrix(X.dmat), envir = .GlobalEnv)){
+      comm.stop("X.dmat is not a ddmatrix.")
+    } else{
+      # Assume X.dmat in .GlobalEnv and no need for converting.
+      PARAM.org <- set.global.dmat(K = K, RndEM.iter = RndEM.iter)
+    }
+  } else{
+    # Assign X to .pmclustEnv if it is not in .GlobalEnv
+    if(! is.ddmatrix(X)){
+      comm.stop("A ddmatrix is required.")
+    }
+    PARAM.org <- set.global.dmat(K = K, RndEM.iter = RndEM.iter, X.dmat = X)
   }
 
   # Set global variables.
-  PARAM.org <- set.global.dmat(K = K, RndEM.iter = RndEM.iter)
+  # PARAM.org <- set.global.dmat(K = K, RndEM.iter = RndEM.iter)
   if(!is.null(CONTROL)){
     tmp <- .pmclustEnv$CONTROL[!(names(.pmclustEnv$CONTROL) %in%
                                  names(CONTROL))]

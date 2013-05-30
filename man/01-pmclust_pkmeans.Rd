@@ -6,18 +6,18 @@
   Parallel Model-Based Clustering and Parallel K-means Algorithm
 }
 \usage{
-  pmclust(X, K, MU = NULL,
+  pmclust(X = NULL, K = 2, MU = NULL,
     algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
 
-  pkmeans(X, K, MU = NULL,
+  pkmeans(X = NULL, K = 2, MU = NULL,
     algorithm = c("kmeans", "kmeans.dmat"),
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
 }
 \arguments{
-  \item{X}{a \code{ddmatrix} or a spmd row-major matrix.}
+  \item{X}{a spmd row-major matrix or a \code{ddmatrix}.}
   \item{K}{number of clusters.}
   \item{MU}{pre-specified centers.}
   \item{algorithm}{types of EM algorithms.}

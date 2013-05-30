@@ -22,43 +22,42 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   ### WCC: original
   # .pmclustEnv$U.dmat <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA)
   ### WCC: temp dmat
-  tmp.1 <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA)
-  .pmclustEnv$U.dmat <- tmp.1
+  # tmp.1 <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA)
+  # .pmclustEnv$U.dmat <- tmp.1
   ### WCC: temp spmd
-  # tmp.1 <- as.matrix(.pmclustEnv$W.dmat)
-  # tmp.2 <- sweep(tmp.1, 2, PARAM$log.ETA)
-  # .pmclustEnv$U.dmat <- as.ddmatrix(tmp.2)
+  tmp.1 <- as.matrix(.pmclustEnv$W.dmat)
+  tmp.2 <- sweep(tmp.1, 2, PARAM$log.ETA)
+  .pmclustEnv$U.dmat <- as.ddmatrix(tmp.2)
 
   ### WCC: original
   # .pmclustEnv$Z.dmat <- exp(.pmclustEnv$U.dmat)
   ### WCC: temp dmat
-  tmp.1 <- exp(.pmclustEnv$U.dmat)
-  .pmclustEnv$Z.dmat <- tmp.1
+  # tmp.1 <- exp(.pmclustEnv$U.dmat)
+  # .pmclustEnv$Z.dmat <- tmp.1
   ### WCC: temp spmd
-  # tmp.1 <- as.matrix(.pmclustEnv$U.dmat)
-  # tmp.2 <- exp(tmp.1)
-  # .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
+  tmp.1 <- as.matrix(.pmclustEnv$U.dmat)
+  tmp.2 <- exp(tmp.1)
+  .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
 
   ### WCC: original
-  tmp.id <- rowSums(.pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min) == K |
-            rowSums(.pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max) > 0
-  tmp.id <- as.vector(tmp.id)
+  # tmp.id <- rowSums(.pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min) == K |
+  #           rowSums(.pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max) > 0
+  # tmp.id <- as.vector(tmp.id)
   ### WCC: temp dmat
-  # tmp.1 <- .pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min
-  #     tmp.1 <- as.matrix(tmp.1)
-  # tmp.2 <- rowSums(tmp.1)
-  # tmp.3 <- tmp.2 == K
-  # tmp.4 <- .pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max
-  #     tmp.4 <- as.matrix(tmp.4)
-  # tmp.5 <- rowSums(tmp.4)
-  # tmp.6 <- tmp.5 > 0
-  # tmp.7 <- tmp.3 | tmp.6
-  # tmp.8 <- as.vector(tmp.7)
-  # tmp.id <- tmp.8
+  tmp.1 <- .pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min
+      tmp.1 <- as.matrix(tmp.1)
+  tmp.2 <- rowSums(tmp.1)
+  tmp.3 <- tmp.2 == K
+  tmp.4 <- .pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max
+      tmp.4 <- as.matrix(tmp.4)
+  tmp.5 <- rowSums(tmp.4)
+  tmp.6 <- tmp.5 > 0
+  tmp.7 <- tmp.3 | tmp.6
+  tmp.8 <- as.vector(tmp.7)
+  tmp.id <- tmp.8
   ### WCC: bug
-comm.print(str(tmp.id), all.rank = TRUE)
-comm.stop("here")
-  # tmp.id <- as.logical(tmp.id)
+# comm.print(str(tmp.id), all.rank = TRUE)
+  tmp.id <- as.logical(tmp.id)
 
   tmp.flag <- sum(tmp.id)
   if(tmp.flag > 0){
@@ -105,21 +104,21 @@ comm.stop("here")
     # .pmclustEnv$Z.dmat[tmp.id,] <- exp(tmp.dmat - tmp.scale)
     ### WCC: temp dmat
     # tmp.1 <- exp(tmp.dmat - tmp.scale)
-    tmp.1 <- as.matrix(tmp.dmat)
-    tmp.1 <- exp(tmp.1 - tmp.scale)
+    # tmp.1 <- as.matrix(tmp.dmat)
+    # tmp.1 <- exp(tmp.1 - tmp.scale)
 
     ### WCC: bug
-    tmp.id <- which(tmp.id)
-    .pmclustEnv$Z.dmat[tmp.id,] <- tmp.1 
+    # tmp.id <- which(tmp.id)
+    # .pmclustEnv$Z.dmat[tmp.id,] <- tmp.1 
 
 ### To DMS
-comm.print(tmp.id)
-a <- as.matrix(tmp.1)
-comm.print(head(a))
-b <- as.matrix(.pmclustEnv$Z.dmat)
-comm.print(b[tmp.id,])
-c <- as.matrix(rowSums(.pmclustEnv$Z.dmat))
-comm.print(c[tmp.id])
+# comm.print(tmp.id)
+# a <- as.matrix(tmp.1)
+# comm.print(head(a))
+# b <- as.matrix(.pmclustEnv$Z.dmat)
+# comm.print(b[tmp.id,])
+# c <- as.matrix(rowSums(.pmclustEnv$Z.dmat))
+# comm.print(c[tmp.id])
 
     ### WCC: fix spmd
     Z.dmat <- as.matrix(.pmclustEnv$Z.dmat)
@@ -143,7 +142,7 @@ comm.print(c[tmp.id])
 
 
   ### bug
-  tmp.1 <- .pmclustEnv$Z.dmat / .pmclustEnv$W.rowSums
+  # tmp.1 <- .pmclustEnv$Z.dmat / .pmclustEnv$W.rowSums
   # .pmclustEnv$Z.dmat <- tmp.1
 #a <- as.matrix(tmp.1)
 #comm.print(head(a))
@@ -368,10 +367,15 @@ comm.print("em.onestep.dmat logL")
 em.update.class.dmat <- function(){
   ### WCC: original
   # .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
-  # invisible()
-  ### WCC: temp
-  tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.max)
-  .pmclustEnv$CLASS.dmat <- tmp.1 
+  ### WCC: temp dmat
+  # tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.max)
+  # .pmclustEnv$CLASS.dmat <- tmp.1 
+  ### WCC: temp spmd
+  tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
+  tmp.2 <- matrix(apply(tmp.1, 1, which.max), ncol = 1)
+  tmp.3 <- as.ddmatrix(tmp.2)
+  .pmclustEnv$CLASS.dmat <- tmp.3
+
   invisible()
 } # End of em.update.class.dmat().
 

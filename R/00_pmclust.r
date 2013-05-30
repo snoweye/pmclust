@@ -1,9 +1,38 @@
 ### For general methods.
 
-pmclust <- function(X, K, MU = NULL,
+pmclust <- function(X = NULL, K = 2, MU = NULL,
     algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
+  if(is.null(X)){
+    # Check global matrix.
+    A <- exists("X.spmd", envir = .GlobalEnv)
+    B <- exists("X.dmat", envir = .GlobalEnv)
+    if((!A) & (!B)){
+      if(! algorithm[1] %in% .PMC.CT$algorithm.spmd){
+        comm.stop("A global X.spmd is required in .GlobalEnv.")
+      }
+      if(! algorithm[1] %in% .PMC.CT$algorithm.dmat){
+        comm.stop("A global X.dmat is required in .GlobalEnv.")
+      }
+    }
+    if(A & B){
+      comm.stop("Both X.spmd and X.dmat are in .GlobalEnv.")
+    }
+    # Check matrix type if dmat algorithm is used.
+    if(B & algorithm[1] %in% .PMC.CT$algorithm.dmat){
+      if(! eval(is.ddmatrix(X.dmat), envir = .GlobalEnv)){
+        comm.stop("X.dmat is not a ddmatrix.")
+      }
+    }
+  } else{
+    # Check matrix type if dmat algorithm is used.
+    if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
+      if(! is.ddmatrix(X)){
+        comm.stop("X is not a ddmatrix.")
+      }
+    }
+  }
 
   if(algorithm[1] %in% .PMC.CT$algorithm.spmd){
     ret <- pmclust.internal(X, K,
@@ -36,10 +65,39 @@ pmclust <- function(X, K, MU = NULL,
 } # end of pmclust().
 
 
-pkmeans <- function(X, K, MU = NULL,
+pkmeans <- function(X = NULL, K = 2, MU = NULL,
     algorithm = c("kmeans", "kmeans.dmat"),
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
+  if(is.null(X)){
+    # Check global matrix.
+    A <- exists("X.spmd", envir = .GlobalEnv)
+    B <- exists("X.dmat", envir = .GlobalEnv)
+    if((!A) & (!B)){
+      if(! algorithm[1] %in% .PMC.CT$algorithm.spmd){
+        comm.stop("A global X.spmd is required in .GlobalEnv.")
+      }
+      if(! algorithm[1] %in% .PMC.CT$algorithm.dmat){
+        comm.stop("A global X.dmat is required in .GlobalEnv.")
+      }
+    }
+    if(A & B){
+      comm.stop("Both X.spmd and X.dmat are in .GlobalEnv.")
+    }
+    # Check matrix type if dmat algorithm is used.
+    if(B & algorithm[1] %in% .PMC.CT$algorithm.dmat){
+      if(! eval(is.ddmatrix(X.dmat), envir = .GlobalEnv)){
+        comm.stop("X.dmat is not a ddmatrix.")
+      }
+    }
+  } else{
+    # Check matrix type if dmat algorithm is used.
+    if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
+      if(! is.ddmatrix(X)){
+        comm.stop("X is not a ddmatrix.")
+      }
+    }
+  }
 
   if(algorithm[1] == "kmeans"){
     ret <- pmclust.internal(X, K,
