@@ -100,7 +100,7 @@ ape.update.expectation.k <- function(PARAM, i.k, update.logL = TRUE){
 
   if(update.logL){
     .pmclustEnv$W.spmd.rowSums <- log(.pmclustEnv$W.spmd.rowSums)
-    if(tmp.flag){
+    if(tmp.flag > 0){
       .pmclustEnv$W.spmd.rowSums[tmp.id] <- .pmclustEnv$W.spmd.rowSums[tmp.id] +
                                             tmp.scale
     }

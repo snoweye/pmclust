@@ -31,7 +31,7 @@ set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
                   U.check = rep(TRUE, K),
                   logL = NULL,
                   min.N.CLASS = min(c((p + 1) * p * 0.5 + 1, N / K * 0.2)))
-    PARAM$ETA <- rep(1/K, K)
+    PARAM$ETA <- rep(1 / K, K)
     PARAM$log.ETA <- rep(-log(K), K) 
     PARAM$MU <- matrix(0, p, K)
     PARAM$SIGMA <- rep(list(diag(1.0, p)), K)
