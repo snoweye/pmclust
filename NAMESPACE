@@ -49,6 +49,7 @@ export(
 
   ### Utility functions.
   "get.N.CLASS",
+  "get.CLASS",
 
 ### DMAT functions.
   ### Readme function.

@@ -1,6 +1,7 @@
 \name{get.N.CLASS}
 \alias{get.N.CLASS}
 \alias{get.N.CLASS.dmat}
+\alias{get.CLASS}
 \title{Obtain Total Elements for Every Clusters}
 \description{
   This function will collect the total elements for every clusters
@@ -8,11 +9,15 @@
   will be performed.
 
   \code{get.N.CLASS.dmat} is a \code{ddmatrix} version of \code{get.N.CLASS}.
+
+  The \code{get.CLASS} returns class ids.
 }
 \usage{
   get.N.CLASS(K)
 
   get.N.CLASS.dmat(K)
+
+  get.CLASS()
 }
 \arguments{
   \item{K}{the total number of clusters.}

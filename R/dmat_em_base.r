@@ -20,13 +20,13 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   K <- PARAM$K
 
   ### WCC: original
-  .pmclustEnv$U.dmat <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA)
+  .pmclustEnv$U.dmat <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA, FUN = "+")
   ### WCC: temp dmat
-  # tmp.1 <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA)
+  # tmp.1 <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA, FUN = "+")
   # .pmclustEnv$U.dmat <- tmp.1
   ### WCC: temp spmd
   # tmp.1 <- as.matrix(.pmclustEnv$W.dmat)
-  # tmp.2 <- sweep(tmp.1, 2, PARAM$log.ETA)
+  # tmp.2 <- sweep(tmp.1, 2, PARAM$log.ETA, FUN = "+")
   # .pmclustEnv$U.dmat <- as.ddmatrix(tmp.2)
 
   ### WCC: original
@@ -60,53 +60,53 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   tmp.flag <- sum(tmp.id)
   if(tmp.flag > 0){
     ### WCC: original
-    tmp.dmat <- .pmclustEnv$U.dmat[tmp.id,]
+    # tmp.dmat <- .pmclustEnv$U.dmat[tmp.id,]
     ### WCC: temp spmd
-    # tmp.1 <- as.matrix(.pmclustEnv$U.dmat)
-    # tmp.2 <- tmp.1[tmp.id,]
-    # if(tmp.flag == 1){
-    #   tmp.2 <- matrix(tmp.2, nrow = 1)
-    # }
-    # tmp.dmat <- as.ddmatrix(tmp.2)
+    tmp.1 <- as.matrix(.pmclustEnv$U.dmat)
+    tmp.2 <- tmp.1[tmp.id,]
+    if(tmp.flag == 1){
+      tmp.2 <- matrix(tmp.2, nrow = 1)
+    }
+    tmp.dmat <- as.ddmatrix(tmp.2)
 
     if(tmp.flag == 1){
       ### WCC: original
-      tmp.scale <- max(tmp.dmat) - .pmclustEnv$CONTROL$exp.max / K
-      tmp.scale <- as.vector(tmp.scale) 
+      # tmp.scale <- max(tmp.dmat) - .pmclustEnv$CONTROL$exp.max / K
+      # tmp.scale <- as.vector(tmp.scale) 
       ### WCC: temp dmat
       # tmp.1 <- max(tmp.dmat)
       # tmp.2 <- tmp.1 - .pmclustEnv$CONTROL$exp.max / K
       # tmp.3 <- as.vector(tmp.2)
       # tmp.scale <- tmp.3
       ### WCC: temp spmd
-      # tmp.1 <- as.vector(tmp.dmat)
-      # tmp.scale <- max(tmp.1) - .pmclustEnv$CONTROL$exp.max / K
+      tmp.1 <- as.vector(tmp.dmat)
+      tmp.scale <- max(tmp.1) - .pmclustEnv$CONTROL$exp.max / K
     } else{
       ### WCC: original
-      tmp.scale <- apply(tmp.dmat, 1, max) - .pmclustEnv$CONTROL$exp.max / K
-      tmp.scale <- as.vector(tmp.scale) 
+      # tmp.scale <- apply(tmp.dmat, 1, max) - .pmclustEnv$CONTROL$exp.max / K
+      # tmp.scale <- as.vector(tmp.scale) 
       ### WCC: temp dmat
       # tmp.1 <- apply(tmp.dmat, 1, max)
       # tmp.2 <- tmp.1 - .pmclustEnv$CONTROL$exp.max / K
       # tmp.3 <- as.vector(tmp.2)
       # tmp.scale <- tmp.3
       ### WCC: temp spmd
-      # tmp.1 <- as.matrix(tmp.dmat)
-      # tmp.scale <- unlist(apply(tmp.1, 1, max)) -
-      #              .pmclustEnv$CONTROL$exp.max / K
+      tmp.1 <- as.matrix(tmp.dmat)
+      tmp.scale <- unlist(apply(tmp.1, 1, max)) -
+                   .pmclustEnv$CONTROL$exp.max / K
     }
     ### WCC: original
-    .pmclustEnv$Z.dmat[tmp.id,] <- exp(tmp.dmat - tmp.scale)
+    # .pmclustEnv$Z.dmat[tmp.id,] <- exp(tmp.dmat - tmp.scale)
     ### WCC: temp dmat
     # tmp.1 <- exp(tmp.dmat - tmp.scale)
     # .pmclustEnv$Z.dmat[tmp.id,] <- tmp.1 
     ### WCC: temp spmd
-    # tmp.1 <- as.matrix(tmp.dmat)
-    # tmp.1 <- exp(tmp.1 - tmp.scale)
-    # tmp.id <- which(tmp.id)
-    # tmp.2 <- as.matrix(.pmclustEnv$Z.dmat)
-    # tmp.2[tmp.id,] <- tmp.1
-    # .pmclustEnv$Z.dmat <- as.ddmatrix(Z.dmat)
+    tmp.1 <- as.matrix(tmp.dmat)
+    tmp.1 <- exp(tmp.1 - tmp.scale)
+    tmp.id <- which(tmp.id)
+    tmp.2 <- as.matrix(.pmclustEnv$Z.dmat)
+    tmp.2[tmp.id,] <- tmp.1
+    .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
   }
 
   ### WCC: original
@@ -133,14 +133,14 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   # }
 
   ### WCC: original
-  .pmclustEnv$Z.colSums <- as.vector(colSums(.pmclustEnv$Z.dmat))
+  # .pmclustEnv$Z.colSums <- as.vector(colSums(.pmclustEnv$Z.dmat))
   ### WCC: temp dmat
   # tmp.1 <- colSums(.pmclustEnv$Z.dmat)
   # tmp.2 <- as.vector(tmp.1)
   # .pmclustEnv$Z.colSums <- tmp.2
   ### WCC: temp spmd
-  # tmp.1 <- as.matrix(.pmclustEnv$Z.dmat) 
-  # .pmclustEnv$Z.colSums <- colSums(tmp.1)
+  tmp.1 <- as.matrix(.pmclustEnv$Z.dmat) 
+  .pmclustEnv$Z.colSums <- colSums(tmp.1)
 
   if(update.logL){
     .pmclustEnv$W.rowSums <- log(.pmclustEnv$W.rowSums)
@@ -149,6 +149,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
         .pmclustEnv$W.rowSums[tmp.id] + tmp.scale
     }
   }
+
   invisible()
 } # End of update.expectation.dmat().
 
@@ -166,18 +167,6 @@ m.step.dmat <- function(PARAM){
   p <- PARAM$p
   p.2 <- p * p
   for(i.k in 1:PARAM$K){
-
-### Bug?
-B <- X.dmat * as.vector(.pmclustEnv$Z.dmat[, i.k])
-B <- as.matrix(B)
-comm.print(head(B))
-
-tmp.1 <- as.matrix(X.dmat)
-tmp.2 <- as.matrix(.pmclustEnv$Z.dmat)
-B <- tmp.1 * tmp.2[, i.k]
-comm.print(head(B))
-comm.stop("bug here")
-
     ### MLE for MU
     ### WCC: original
     # B <- colSums(X.dmat * as.vector(.pmclustEnv$Z.dmat[, i.k])) /
@@ -317,16 +306,13 @@ em.onestep.dmat <- function(PARAM){
 #    Rprof(filename = "em.Rprof", append = TRUE)
 #  }
 
-comm.print("em.onestep.dmat m")
   PARAM <- m.step.dmat(PARAM)
-comm.print("em.onestep.dmat e")
   e.step.dmat(PARAM)
 
 #  if(.pmclustEnv$COMM.RANK == 0){
 #    Rprof(NULL)
 #  }
 
-comm.print("em.onestep.dmat logL")
   PARAM$logL <- logL.step.dmat()
 
   if(.pmclustEnv$CONTROL$debug > 0){

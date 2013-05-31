@@ -17,6 +17,15 @@ initial.em.dmat <- function(PARAM, MU = NULL){
     PARAM$MU <- MU
   }
 
+### For iris example.
+# PARAM$MU <- c(
+# -0.8976739, 1.3968289, 0.5514857,
+#  1.0156020, 0.3273175, 0.5567457,
+# -1.3357516, 0.5336209, 1.2700404,
+# -1.3110521, 0.2632600, 1.7063794
+# )
+# PARAM$MU <- matrix(PARAM$MU, nrow = 4)
+
   e.step.dmat(PARAM)
   PARAM <- em.onestep.dmat(PARAM)
   PARAM$logL <- logL.step.dmat()
