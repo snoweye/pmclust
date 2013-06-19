@@ -39,6 +39,15 @@ logdmvnorm.dmat <- function(PARAM, i.k){
     tmp.3 <- as.matrix(.pmclustEnv$W.dmat)
     tmp.3[, i.k] <- tmp.2
     .pmclustEnv$W.dmat <- as.ddmatrix(tmp.3)
+
+    # B <- sweep(X.dmat, 2, PARAM$MU[, i.k])
+    # C <- backsolve(U, diag(1, PARAM$p))
+    # B <- B %*% as.ddmatrix(C)
+    # distval <- rowSums(B * B)
+    # distval <- as.vector(distval)
+    # .pmclustEnv$W.dmat[, i.k] <- -(.pmclustEnv$p.times.logtwopi + logdet +
+    #                                distval) * 0.5
+
 #  }
   invisible()
 } # End of logdmvnorm.dmat().

@@ -20,42 +20,42 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   K <- PARAM$K
 
   ### WCC: original
-  .pmclustEnv$U.dmat <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA, FUN = "+")
+  # .pmclustEnv$U.dmat <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA, FUN = "+")
   ### WCC: temp dmat
   # tmp.1 <- sweep(.pmclustEnv$W.dmat, 2, PARAM$log.ETA, FUN = "+")
   # .pmclustEnv$U.dmat <- tmp.1
   ### WCC: temp spmd
-  # tmp.1 <- as.matrix(.pmclustEnv$W.dmat)
-  # tmp.2 <- sweep(tmp.1, 2, PARAM$log.ETA, FUN = "+")
-  # .pmclustEnv$U.dmat <- as.ddmatrix(tmp.2)
+  tmp.1 <- as.matrix(.pmclustEnv$W.dmat)
+  tmp.2 <- sweep(tmp.1, 2, PARAM$log.ETA, FUN = "+")
+  .pmclustEnv$U.dmat <- as.ddmatrix(tmp.2)
 
   ### WCC: original
-  .pmclustEnv$Z.dmat <- exp(.pmclustEnv$U.dmat)
+  # .pmclustEnv$Z.dmat <- exp(.pmclustEnv$U.dmat)
   ### WCC: temp dmat
   # tmp.1 <- exp(.pmclustEnv$U.dmat)
   # .pmclustEnv$Z.dmat <- tmp.1
   ### WCC: temp spmd
-  # tmp.1 <- as.matrix(.pmclustEnv$U.dmat)
-  # tmp.2 <- exp(tmp.1)
-  # .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
+  tmp.1 <- as.matrix(.pmclustEnv$U.dmat)
+  tmp.2 <- exp(tmp.1)
+  .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
 
   ### WCC: original
-  tmp.id <- rowSums(.pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min) == K |
-            rowSums(.pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max) > 0
-  tmp.id <- as.logical(as.vector(tmp.id))
+  # tmp.id <- rowSums(.pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min) == K |
+  #           rowSums(.pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max) > 0
+  # tmp.id <- as.logical(as.vector(tmp.id))
   ### WCC: temp dmat
-  # tmp.1 <- .pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min
-  #     tmp.1 <- as.matrix(tmp.1)
-  # tmp.2 <- rowSums(tmp.1)
-  # tmp.3 <- tmp.2 == K
-  # tmp.4 <- .pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max
-  #     tmp.4 <- as.matrix(tmp.4)
-  # tmp.5 <- rowSums(tmp.4)
-  # tmp.6 <- tmp.5 > 0
-  # tmp.7 <- tmp.3 | tmp.6
-  # tmp.8 <- as.vector(tmp.7)
-  # tmp.id <- tmp.8
-  # tmp.id <- as.logical(tmp.id)
+  tmp.1 <- .pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min
+      tmp.1 <- as.matrix(tmp.1)
+  tmp.2 <- rowSums(tmp.1)
+  tmp.3 <- tmp.2 == K
+  tmp.4 <- .pmclustEnv$U.dmat > .pmclustEnv$CONTROL$exp.max
+      tmp.4 <- as.matrix(tmp.4)
+  tmp.5 <- rowSums(tmp.4)
+  tmp.6 <- tmp.5 > 0
+  tmp.7 <- tmp.3 | tmp.6
+  tmp.8 <- as.vector(tmp.7)
+  tmp.id <- tmp.8
+  tmp.id <- as.logical(tmp.id)
 
   tmp.flag <- sum(tmp.id)
   if(tmp.flag > 0){
