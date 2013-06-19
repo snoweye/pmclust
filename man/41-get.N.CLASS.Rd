@@ -17,10 +17,11 @@
 
   get.N.CLASS.dmat(K)
 
-  get.CLASS()
+  get.CLASS(PARAM)
 }
 \arguments{
   \item{K}{the total number of clusters.}
+  \item{PARAM}{a set of parameters.}
 }
 \details{
   The final results are distributed in all processors including the total

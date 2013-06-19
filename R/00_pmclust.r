@@ -21,7 +21,7 @@ pmclust <- function(X = NULL, K = 2, MU = NULL,
     }
     # Check matrix type if dmat algorithm is used.
     if(B & algorithm[1] %in% .PMC.CT$algorithm.dmat){
-      if(! eval(is.ddmatrix(X.dmat), envir = .GlobalEnv)){
+      if(! is.ddmatrix(.GlobalEnv$X.dmat)){
         comm.stop("X.dmat is not a ddmatrix.")
       }
     }
@@ -86,7 +86,7 @@ pkmeans <- function(X = NULL, K = 2, MU = NULL,
     }
     # Check matrix type if dmat algorithm is used.
     if(B & algorithm[1] %in% .PMC.CT$algorithm.dmat){
-      if(! eval(is.ddmatrix(X.dmat), envir = .GlobalEnv)){
+      if(! is.ddmatrix(.GlobalEnv$X.dmat)){
         comm.stop("X.dmat is not a ddmatrix.")
       }
     }

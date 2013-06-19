@@ -85,9 +85,6 @@
   \code{\link{apecma.step}},
   \code{\link{kmeans.step}}. \cr
   \code{\link{em.step.dmat}},
-  \code{\link{aecm.step.dmat}},
-  \code{\link{apecm.step.dmat}}, \cr
-  \code{\link{apecma.step.dmat}},
   \code{\link{kmeans.step.dmat}}. \cr
 }
 \examples{

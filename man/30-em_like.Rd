@@ -5,9 +5,6 @@
 \alias{apecma.step}
 \alias{kmeans.step}
 \alias{em.step.dmat}
-\alias{aecm.step.dmat}
-\alias{apecm.step.dmat}
-\alias{apecma.step.dmat}
 \alias{kmeans.step.dmat}
 \title{EM-like Steps for SPMD}
 \description{
@@ -24,9 +21,6 @@
   kmeans.step(PARAM.org)
 
   em.step.dmat(PARAM.org)
-  aecm.step.dmat(PARAM.org)
-  apecm.step.dmat(PARAM.org)
-  apecma.step.dmat(PARAM.org)
   kmeans.step.dmat(PARAM.org)
 }
 \arguments{

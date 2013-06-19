@@ -11,7 +11,7 @@ pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
 
   # Check X.
   if(is.null(X)){
-    if(! eval(is.ddmatrix(X.dmat), envir = .GlobalEnv)){
+    if(! is.ddmatrix(.GlobalEnv$X.dmat)){
       comm.stop("X.dmat is not a ddmatrix.")
     } else{
       # Assume X.dmat in .GlobalEnv and no need for converting.

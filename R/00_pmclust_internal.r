@@ -16,7 +16,7 @@ pmclust.internal <- function(X = NULL, K = 2, MU = NULL,
   if(is.null(X)){
     if(exists("X.dmat", envir = .GlobalEnv)){
       # Assign X to .pmclustEnv and convert to spmdr.
-      convert.data(X.dmat, method.own.X[1], rank.own.X, comm)
+      convert.data(.GlobalEnv$X.dmat, method.own.X[1], rank.own.X, comm)
     } else{
       # Assume X.spmd in .GlobalEnv and no need for converting or check.
     }
