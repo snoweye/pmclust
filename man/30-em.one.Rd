@@ -1,7 +1,7 @@
 \name{One Step of EM algorithm}
 \alias{em.onestep}
 \alias{em.onestep.dmat}
-\title{One EM Step for SPMD}
+\title{One EM Step for GBD}
 \description{
   One EM step only for model-based clustering of finite mixture Gaussian
   models with unstructured dispersions.

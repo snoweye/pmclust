@@ -6,7 +6,7 @@ ex_kmeans	pmclust		An example of K-means algorithm.
 ex_MixSim	pmclust		An example of utilizing MixSim.
 dmat_em		pmclust		A ddmatrix example of EM algorithm.
 dmat_kmeans	pmclust		A ddmatrix example of K-means algorithm.
-iris_spmdr	pmclust		iris example in SPMD row-major format.
+iris_gbdr	pmclust		iris example in GBD row-major format.
 iris_common	pmclust		iris example in common on all processors.
 iris_single	pmclust		iris example in a single processor.
 iris_dmat	pmclust		iris example in ddmatrix.

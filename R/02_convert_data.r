@@ -9,16 +9,16 @@ convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
   if(is.ddmatrix(X)){
     # For a ddmatrix.
 
-    .pmclustEnv$X.spmd <- as.spmd(X, comm = comm)
+    .pmclustEnv$X.spmd <- as.gbd(X, comm = comm)
   } else{
-    # for a spmd matrix.
+    # for a GBD matrix.
 
     if(is.null(X)){
       X <- matrix(0, nrow = 0, ncol = 0)
     }
 
-    if(method.own.X[1] == "spmdr"){
-      # For spmd row-major
+    if(method.own.X[1] == "gbdr"){
+      # For GBD row-major
 
       p <- ncol(X)
       p.all <- spmd.allgather.integer(p, integer(COMM.SIZE), comm = comm)

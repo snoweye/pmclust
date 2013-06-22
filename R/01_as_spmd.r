@@ -23,3 +23,5 @@ as.spmd <- function(X.dmat, comm = .SPMD.CT$comm){
 
   X.spmd
 } # End of as.spmd().
+
+as.gbd <- as.spmd

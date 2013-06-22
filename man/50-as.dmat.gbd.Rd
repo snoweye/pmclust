@@ -1,27 +1,28 @@
 \name{as functions}
 \alias{as.dmat}
-\alias{as.spmd}
-\title{Convert between X.spmd and X.dmat}
+\alias{as.gbd}
+\title{Convert between X.gbd and X.dmat}
 \description{
   This function will convert a matrix of format from
   SPDM row-major to ddmatrix vice versa.
 }
 \usage{
-  as.dmat(X.spmd, bldim = .BLDIM, ICTXT = .ICTXT, comm = .SPMD.CT$comm)
-
+  as.dmat(X.gbd, bldim = .BLDIM, ICTXT = .ICTXT, comm = .SPMD.CT$comm)
   as.spmd(X.dmat, comm = .SPMD.CT$comm)
+
+  as.gbd(X.dmat, comm = .SPMD.CT$comm)
 }
 \arguments{
-  \item{X.spmd}{an input dataset of format SPMD row-major to be converted.}
+  \item{X.gbd}{an input dataset of format GBD row-major to be converted.}
   \item{X.dmat}{an input dataset of format \code{ddmatrix} to be converted.}
   \item{bldim}{block dimension, see \pkg{pbdBASE} and \pkg{pbdDMAT} for details.}
   \item{ICTXT}{block context, see \pkg{pbdBASE} and \pkg{pbdDMAT} for details.}
   \item{comm}{communicator, see \pkg{pbdMPI} for details.}
 }
 \details{
-  This function will provide a quick conversion to the input data \code{X.spmd}
+  This function will provide a quick conversion to the input data \code{X.gbd}
   which is a default dataset to be clustered in \pkg{pmclust}. Usually, this
-  matrix is distributed in SPMD row-major format. For fully utilizing
+  matrix is distributed in GBD row-major format. For fully utilizing
   \pkg{pbdBASE} and \pkg{pbdDMAT}, it need to be converted to \code{ddmatrix}
   format.
 }

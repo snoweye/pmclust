@@ -72,7 +72,7 @@ There are four quick examples utilizing {\it iris} dataset~\citep{Fisher1936}
 in different data distributed format to demonstrate several algorithms
 including parallel model-based clustering and parallel K-means.
 \begin{Command}
-mpiexec -np 2 Rscript -e "demo(iris_spmdr,'pmclust',ask=F,echo=F)"
+mpiexec -np 2 Rscript -e "demo(iris_gbdr,'pmclust',ask=F,echo=F)"
 mpiexec -np 2 Rscript -e "demo(iris_common,'pmclust',ask=F,echo=F)"
 mpiexec -np 2 Rscript -e "demo(iris_single,'pmclust',ask=F,echo=F)"
 mpiexec -np 2 Rscript -e "demo(iris_dmat,'pmclust',ask=F,echo=F)"
@@ -83,11 +83,11 @@ Algorithm details are in Sections~\ref{sec:example} and~\ref{sec:algorithm}.
 
 Each of these commands will run \code{pmclust()} and \code{pkmeans()} on
 a matrix \code{X.std} in four formats.
-\code{spmdr} is SPMD row-major format,
+\code{gbdr} is GBD row-major format,
 \code{common} assumes \code{X.std} commonly exists on all processors,
 \code{single} assumes \code{X.std} only exists on rank 0 by default, and
 \code{dmat} assumes \code{X.std} is a \code{ddmatrix}.
 See \pkg{pbdDEMO}~\citep{Schmidt2013pbdDEMOpackage} and it's
 vignette~\citep{Schmidt2013pbdDEMOvignette}
-for more details of \code{spmdr} and \code{ddmatrix}.
+for more details of \code{gbdr} and \code{ddmatrix}.
 

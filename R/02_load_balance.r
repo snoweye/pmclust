@@ -1,7 +1,7 @@
 ### This file contains functions to load balance of data X.spmd.
 
 balance.info <- function(X.spmd, comm = .SPMD.CT$comm,
-    spmd.major = 1, method = c("block.cyclic", "block0")){
+    gbd.major = 1, method = c("block.cyclic", "block0")){
   COMM.SIZE <- spmd.comm.size(comm)
   COMM.RANK <- spmd.comm.rank(comm)
 
@@ -9,12 +9,12 @@ balance.info <- function(X.spmd, comm = .SPMD.CT$comm,
     X.spmd <- as.matrix(X.spmd)
   }
 
-  if(spmd.major == 1){
+  if(gbd.major == 1){
     N.spmd <- nrow(X.spmd)
-  } else if(spmd.major == 2){
+  } else if(gbd.major == 2){
     N.spmd <- ncol(X.spmd)
   } else{
-    stop("spmd.major = 1 or 2.")
+    stop("gbd.major = 1 or 2.")
   }
   N.allspmd <- spmd.allgather.integer(as.integer(N.spmd), integer(COMM.SIZE),
                                       comm = comm)
@@ -60,31 +60,31 @@ balance.info <- function(X.spmd, comm = .SPMD.CT$comm,
                           belong = rank.belong[rank.belong == COMM.RANK])
 
   list(send = send.info, recv = recv.info, N.allspmd = N.allspmd,
-       new.N.allspmd = new.N.allspmd, spmd.major = spmd.major)
+       new.N.allspmd = new.N.allspmd, gbd.major = gbd.major)
 } # End of balance.info()
 
 
 load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
-    spmd.major = 1){
+    gbd.major = 1){
   COMM.RANK <- spmd.comm.rank(comm)
   if(is.null(bal.info)){
-    bal.info <- balance.info(X.spmd, comm = comm, spmd.major = spmd.major)
+    bal.info <- balance.info(X.spmd, comm = comm, gbd.major = gbd.major)
   }
 
   if(!is.matrix(X.spmd)){
     X.spmd <- as.matrix(X.spmd)
   }
-  if(spmd.major == 1){
+  if(gbd.major == 1){
     p <- ncol(X.spmd)
-  } else if(spmd.major == 2){
+  } else if(gbd.major == 2){
     p <- nrow(X.spmd)
   } else{
-    stop("spmd.major = 1 or 2.")
+    stop("gbd.major = 1 or 2.")
   }
 
   send.to <- as.integer(unique(bal.info$send$belong))
   if(length(send.to) > 0){
-    if(spmd.major == 1){
+    if(gbd.major == 1){
       for(i in send.to){
         if(i != COMM.RANK){
           tmp <- matrix(X.spmd[bal.info$send$belong == i,], ncol = p)
@@ -104,7 +104,7 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
   recv.from <- as.integer(unique(bal.info$recv$org))
   if(length(recv.from) > 0){
     ret <- NULL
-    if(spmd.major == 1){
+    if(gbd.major == 1){
       for(i in recv.from){
         if(i != COMM.RANK){
           tmp <- recv(rank.source = i, tag = i, comm = comm)
@@ -130,7 +130,7 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
   }
 
   if(bal.info$new.N.allspmd[spmd.comm.rank(comm) + 1] == 0){
-    if(spmd.major == 1){
+    if(gbd.major == 1){
       ret <- matrix(0, nrow = 0, ncol = p)
     } else{
       ret <- matrix(0, nrow = p, ncol = 0)
@@ -148,7 +148,7 @@ unload.balance <- function(new.X.spmd, bal.info, comm = .SPMD.CT$comm){
                                          belong = bal.info$send$org),
                        N.allspmd = bal.info$new.N.allspmd,
                        new.N.allspmd = bal.info$N.allspmd,
-                       spmd.major = bal.info$spmd.major)
+                       gbd.major = bal.info$gbd.major)
   load.balance(new.X.spmd, bal.info = rev.bal.info, comm = comm)
 } # End of unload.balance().
 

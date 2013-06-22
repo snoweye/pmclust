@@ -6,7 +6,7 @@
 \alias{kmeans.step}
 \alias{em.step.dmat}
 \alias{kmeans.step.dmat}
-\title{EM-like Steps for SPMD}
+\title{EM-like Steps for GBD}
 \description{
   The EM-like algorithm for model-based clustering of finite mixture Gaussian
   models with unstructured dispersions.

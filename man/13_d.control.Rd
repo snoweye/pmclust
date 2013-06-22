@@ -37,7 +37,7 @@
 
   Currently, the \code{algorithm} could be
   \code{em}, \code{aecm}, \code{apecm}, \code{apecma}, and \code{kmeans}
-  for SPMD and ddmatrix (with \code{*.dmat}).
+  for GBD and ddmatrix (with \code{*.dmat}).
   The \code{method.own.X} could be \code{spmdr}, \code{common}, \code{single},
   and \code{ddmatrix}.
 }
