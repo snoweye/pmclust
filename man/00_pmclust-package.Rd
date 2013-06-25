@@ -27,7 +27,8 @@
   The main function is \code{\link{pmclust}} implementing the
   parallel EM algorithm for mixture multivariate Gaussian models
   with unstructured dispersions. This function groups a data matrix
-  \code{\link{X.spmd}} into \code{K} clusters where \code{\link{X.spmd}} is
+  \code{\link{X.gbd}} or \code{\link{X.spmd}}
+  into \code{K} clusters where \code{\link{X.gbd}} or \code{\link{X.spmd}} is
   potentially huge and taken from the global environment \code{.GlobalEnv}
   or \code{\link{.pmclustEnv}}.
 
@@ -91,6 +92,12 @@
 \dontrun{
 ### Under command mode, run the demo with 2 processors by
 ### (Use Rscript.exe for windows system)
+mpiexec -np 2 Rscript -e 'demo(gbd_em,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_aecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_apecm,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_apecma,"pmclust",ask=F,echo=F)'
+mpiexec -np 2 Rscript -e 'demo(gbd_kmeans,"pmclust",ask=F,echo=F)'
+
 mpiexec -np 2 Rscript -e 'demo(ex_em,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_aecm,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_apecm,"pmclust",ask=F,echo=F)'
@@ -98,9 +105,6 @@ mpiexec -np 2 Rscript -e 'demo(ex_apecma,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_kmeans,"pmclust",ask=F,echo=F)'
 
 mpiexec -np 2 Rscript -e 'demo(dmat_em,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(dmat_aecm,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(dmat_apecm,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(dmat_apecma,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(dmat_kmeans,"pmclust",ask=F,echo=F)'
 }
 }

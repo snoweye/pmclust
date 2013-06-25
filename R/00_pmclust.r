@@ -4,12 +4,12 @@ pmclust <- function(X = NULL, K = 2, MU = NULL,
     algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
-  if(is.null(X)){
+  if(comm.all(is.null(X))){
     # Check global matrix.
     A <- exists("X.spmd", envir = .GlobalEnv)
     B <- exists("X.dmat", envir = .GlobalEnv)
     if((!A) & (!B)){
-      if(! algorithm[1] %in% .PMC.CT$algorithm.spmd){
+      if(! algorithm[1] %in% .PMC.CT$algorithm.gbd){
         comm.stop("A global X.spmd is required in .GlobalEnv.")
       }
       if(! algorithm[1] %in% .PMC.CT$algorithm.dmat){
@@ -34,7 +34,7 @@ pmclust <- function(X = NULL, K = 2, MU = NULL,
     }
   }
 
-  if(algorithm[1] %in% .PMC.CT$algorithm.spmd){
+  if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
     ret <- pmclust.internal(X, K,
                             MU = MU,
                             algorithm = algorithm[1],
@@ -69,12 +69,12 @@ pkmeans <- function(X = NULL, K = 2, MU = NULL,
     algorithm = c("kmeans", "kmeans.dmat"),
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
-  if(is.null(X)){
+  if(comm.all(is.null(X))){
     # Check global matrix.
     A <- exists("X.spmd", envir = .GlobalEnv)
     B <- exists("X.dmat", envir = .GlobalEnv)
     if((!A) & (!B)){
-      if(! algorithm[1] %in% .PMC.CT$algorithm.spmd){
+      if(! algorithm[1] %in% .PMC.CT$algorithm.gbd){
         comm.stop("A global X.spmd is required in .GlobalEnv.")
       }
       if(! algorithm[1] %in% .PMC.CT$algorithm.dmat){

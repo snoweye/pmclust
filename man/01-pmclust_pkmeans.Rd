@@ -17,7 +17,7 @@
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
 }
 \arguments{
-  \item{X}{a spmd row-major matrix or a \code{ddmatrix}.}
+  \item{X}{a GBD row-major matrix or a \code{ddmatrix}.}
   \item{K}{number of clusters.}
   \item{MU}{pre-specified centers.}
   \item{algorithm}{types of EM algorithms.}
@@ -32,10 +32,10 @@
   including: data distribution, setting global environment \code{.pmclustEnv},
   initializations, algorithm selection, etc.
 
-  The input \code{X} is either in \code{ddmatrix} or \code{spmd}. It will
-  be converted in \code{spmd} row-major format and copied into
+  The input \code{X} is either in \code{ddmatrix} or \code{gbd}. It will
+  be converted in \code{gbd} row-major format and copied into
   \code{.pmclustEnv} for computation. By default, \pkg{pmclust} uses a
-  spmd row-major format (\code{spmdr}). While \code{common} means that
+  GBD row-major format (\code{gbdr}). While \code{common} means that
   \code{X} is identical on all processors, and \code{single} means that
   \code{X} only exist on one processor \code{rank.own.X}.
 }
@@ -76,13 +76,13 @@ X <- as.matrix(iris[, -5])
 
 ### Distribute data
 jid <- get.jid(nrow(X))
-X.spmd <- X[jid,]
+X.gbd <- X[jid,]
 
 ### Standardized
-N <- allreduce(nrow(X.spmd))
-p <- ncol(X.spmd)
-mu <- allreduce(colSums(X.spmd / N))
-X.std <- sweep(X.spmd, 2, mu, FUN = "-")
+N <- allreduce(nrow(X.gbd))
+p <- ncol(X.gbd)
+mu <- allreduce(colSums(X.gbd / N))
+X.std <- sweep(X.gbd, 2, mu, FUN = "-")
 std <- sqrt(allreduce(colSums(X.std^2 / (N - 1))))
 X.std <- sweep(X.std, 2, std, FUN = "/")
 

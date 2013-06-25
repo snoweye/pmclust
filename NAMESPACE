@@ -82,7 +82,11 @@ export(
   "kmeans.update.class.dmat",
 
   ### Utility functions.
-  "get.N.CLASS.dmat"
+  "get.N.CLASS.dmat",
+
+### GBD functions.
+  ### Global objects.
+  "set.global.gbd"
 )
 
 S3method(print, pmclust)

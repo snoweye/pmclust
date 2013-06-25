@@ -1,11 +1,11 @@
 ### For general internal methods.
 
 pmclust.internal <- function(X = NULL, K = 2, MU = NULL,
-    algorithm = .PMC.CT$algorithm.spmd, RndEM.iter = .PMC.CT$RndEM.iter,
+    algorithm = .PMC.CT$algorithm.gbd, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
   # Check.
-  if(! (algorithm[1] %in% .PMC.CT$algorithm.spmd)){
+  if(! (algorithm[1] %in% .PMC.CT$algorithm.gbd)){
     comm.stop("The algorithm is not supported")
   }
   if(! (method.own.X[1] %in% .PMC.CT$method.own.X)){
@@ -13,9 +13,9 @@ pmclust.internal <- function(X = NULL, K = 2, MU = NULL,
   }
 
   # Check X.
-  if(is.null(X)){
+  if(comm.all(is.null(X))){
     if(exists("X.dmat", envir = .GlobalEnv)){
-      # Assign X to .pmclustEnv and convert to gbdr.
+      # Assign X to .pmclustEnv and convert to spmdr.
       convert.data(.GlobalEnv$X.dmat, method.own.X[1], rank.own.X, comm)
     } else{
       # Assume X.spmd in .GlobalEnv and no need for converting or check.
@@ -27,14 +27,14 @@ pmclust.internal <- function(X = NULL, K = 2, MU = NULL,
 
   # Set global variables.
   PARAM.org <- set.global(K = K, RndEM.iter = RndEM.iter)
-  if(!is.null(CONTROL)){
+  if(! comm.all(is.null(CONTROL))){
     tmp <- .pmclustEnv$CONTROL[!(names(.pmclustEnv$CONTROL) %in%
                                  names(CONTROL))]
     .pmclustEnv$CONTROL <- c(tmp, CONTROL)
   }
 
   # Initialization for algorithms.
-  if(! is.null(MU)){
+  if(! comm.all(is.null(MU))){
     if(algorithm[1] != "kmeans"){
       PARAM.org <- initial.em(PARAM.org, MU = MU)
     } else{

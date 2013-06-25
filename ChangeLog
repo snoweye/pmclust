@@ -1,7 +1,8 @@
-2013-05-13: Ver. 0.1-5
+2013-06-24: Ver. 0.1-5
   * Add high-level functions "pmclust" and "pkmeans".
   * Add man page and vignettes.
   * Add PiLow to generate.MixSim.
+  * Add GBD data type.
 
 2013-03-25: Ver. 0.1-4
   * Add dmat_* functions/methods to fully utilize pbdR capability, only the

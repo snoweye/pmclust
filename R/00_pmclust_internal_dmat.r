@@ -10,7 +10,7 @@ pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
   }
 
   # Check X.
-  if(is.null(X)){
+  if(comm.all(is.null(X))){
     if(! is.ddmatrix(.GlobalEnv$X.dmat)){
       comm.stop("X.dmat is not a ddmatrix.")
     } else{
@@ -27,14 +27,14 @@ pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
 
   # Set global variables.
   # PARAM.org <- set.global.dmat(K = K, RndEM.iter = RndEM.iter)
-  if(!is.null(CONTROL)){
+  if(! comm.all(is.null(CONTROL))){
     tmp <- .pmclustEnv$CONTROL[!(names(.pmclustEnv$CONTROL) %in%
                                  names(CONTROL))]
     .pmclustEnv$CONTROL <- c(tmp, CONTROL)
   }
 
   # Initialization for algorithms.
-  if(! is.null(MU)){
+  if(! comm.all(is.null(MU))){
     if(algorithm[1] != "kmeans.dmat"){
       PARAM.org <- initial.em.dmat(PARAM.org, MU = MU)
     } else{
@@ -56,7 +56,7 @@ pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
 #                        "apecma.dmat" = apecma.step.dmat,
                         "kmeans.dmat" = kmeans.step.dmat,
                         NULL)
-  if(is.null(method.step)){
+  if(comm.all(is.null(method.step))){
     comm.stop("Algorithm is not found.")
   }
   PARAM.new <- method.step(PARAM.org)

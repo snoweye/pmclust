@@ -1,25 +1,25 @@
 ### This function initializes global variables.
-set.global <- function(K = 2, X.spmd = NULL, PARAM = NULL,
+set.global.gbd <- function(K = 2, X.gbd = NULL, PARAM = NULL,
     algorithm = c("em", "aecm", "apecm", "apecma", "kmeans"),
     RndEM.iter = 10){
-  if(is.null(X.spmd)){
-    if(exists("X.spmd", envir = .pmclustEnv)){
-      X.spmd <- get("X.spmd", envir = .pmclustEnv)
+  if(is.null(X.gbd)){
+    if(exists("X.gbd", envir = .pmclustEnv)){
+      .pmclustEnv$X.spmd <- X.gbd
     } else{
-      A <- exists("X.spmd", envir = .GlobalEnv)
-      B <- exists("X.gbd", envir = .GlobalEnv)
+      A <- exists("X.gbd", envir = .GlobalEnv)
+      B <- exists("X.spmd", envir = .GlobalEnv)
       if(A){
-        # It is default and does not thing.
+        .pmclustEnv$X.spmd <- get("X.gbd", envir = .GlobalEnv)
       } else if(B){
-        .pmclustEnv$X.spmd <- X.gbd
-        X.spmd <- X.gbd
+        .pmclustEnv$X.spmd <- get("X.spmd", envir = .GlobalEnv)
       } else{
-        comm.stop("A global X.spmd or X.gbd does not exist.")
+        comm.stop("A global X.gbd or X.spmd does not exist.")
       }
     }
   } else{
-    .pmclustEnv$X.spmd <- X.spmd
+    .pmclustEnv$X.spmd <- X.gbd
   }
+  X.spmd <- .pmclustEnv$X.spmd
 
   ### Get data information.
   N.spmd <- nrow(X.spmd)
@@ -72,4 +72,4 @@ set.global <- function(K = 2, X.spmd = NULL, PARAM = NULL,
   }
 
   PARAM
-} # End of set.global().
+} # End of set.global.gbd().

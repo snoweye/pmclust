@@ -9,16 +9,16 @@ convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
   if(is.ddmatrix(X)){
     # For a ddmatrix.
 
-    .pmclustEnv$X.spmd <- as.gbd(X, comm = comm)
+    .pmclustEnv$X.spmd <- as.spmd(X, comm = comm)
   } else{
-    # for a GBD matrix.
+    # for a spmd matrix.
 
     if(is.null(X)){
       X <- matrix(0, nrow = 0, ncol = 0)
     }
 
-    if(method.own.X[1] == "gbdr"){
-      # For GBD row-major
+    if(method.own.X[1] %in% c("gbdr", "spmdr")){
+      # For spmd row-major
 
       p <- ncol(X)
       p.all <- spmd.allgather.integer(p, integer(COMM.SIZE), comm = comm)
@@ -57,7 +57,7 @@ convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
       p <- spmd.bcast.integer(as.integer(p), rank.source = rank.own.X,
                               comm = comm)
       if(p == -1){
-        comm.stop("X should be a matrix in rank 0.")
+        comm.stop("X should be a matrix in rank.own.X.")
       } else{
         if(COMM.RANK != rank.own.X){
           X <- matrix(0, nrow = 0, ncol = p)
