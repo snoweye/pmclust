@@ -337,10 +337,11 @@ em.onestep.dmat <- function(PARAM){
 ### Obtain classifications.
 em.update.class.dmat <- function(){
   ### WCC: original
-  .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
+  # .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
   ### WCC: temp dmat
-  # tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.max)
-  # .pmclustEnv$CLASS.dmat <- tmp.1 
+  tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
+  tmp.2 <- unlist(apply(tmp.1, 1, which.max))
+  .pmclustEnv$CLASS <- tmp.2	# This is not a ddmatrix
   ### WCC: temp spmd
   # tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
   # tmp.2 <- matrix(apply(tmp.1, 1, which.max), ncol = 1)

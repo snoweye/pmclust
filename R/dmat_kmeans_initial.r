@@ -36,10 +36,10 @@ initial.center.dmat <- function(PARAM, MU = NULL){
   }
 
   ### WCC: original
-  .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
+  # .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.max)
   ### WCC: temp
-  # tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.max)
-  # .pmclustEnv$CLASS.dmat <- tmp.1
+  tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
+  .pmclustEnv$CLASS <- unlist(apply(tmp.1, 1, which.max))
 
   PARAM
 } # End of initial.center.dmat().

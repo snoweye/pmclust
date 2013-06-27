@@ -58,7 +58,7 @@ set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
   .pmclustEnv$U.dmat <- ddmatrix(0, N, K)
 
   # .pmclustEnv$CLASS.dmat <- ddmatrix(0, N, 1)
-  .pmclustEnv$CLASS.dmat <- rep(0, N) 
+  .pmclustEnv$CLASS <- rep(0, N)	# This is not a ddmatrix.
 
   .pmclustEnv$CHECK <- list(algorithm = algorithm[1],
                             i.iter = 0, abs.err = Inf,

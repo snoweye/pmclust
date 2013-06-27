@@ -27,7 +27,7 @@ cat('
 #   W.dmat: double ddmatrix[N, K], conditional log posterior probability.
 #   W.dmat.rowSums: double ddmatrix[N, 1], log density for each observations.
 #   U.dmat: double ddmatrix[N, K], W.spmd plus log eta.
-#   CLASS.dmat: double ddmatrix[N, 1], classification of observations.
+#   CLASS: double ddmatrix[N, 1], classification of observations.
 #   CHECK: list[4], for output.
 #     - algorithm: string[1], "em.dmat" or "kmeans.dmat".
 #     - i.iter: integer[1], current iteration.
@@ -56,7 +56,7 @@ cat('
 
 ### Output: 
 # (different)
-#   CLASS.dmat
+#   CLASS
 # (rank = 0, only, identical)
 #   PARAM, CHECK
 ')

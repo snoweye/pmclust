@@ -30,7 +30,7 @@ kmeans.m.step.dmat <- function(PARAM){
     # tmp <- as.vector(colMeans(X.dmat[.pmclustEnv$CLASS.dmat == i.k,]))
     # PARAM$MU[, i.k] <- as.vector(tmp)
     ### WCC: temp
-    tmp.1 <- .pmclustEnv$CLASS.dmat == i.k
+    tmp.1 <- .pmclustEnv$CLASS == i.k	# This is not a ddmatrix.
     tmp.2 <- X.dmat[tmp.1,]
     tmp.3 <- colMeans(tmp.2)
     tmp.4 <- as.vector(tmp.3)
@@ -46,10 +46,11 @@ kmeans.logL.step.dmat <- function(){
   # tmp.diff <- sum(.pmclustEnv$CLASS.dmat != tmp)
   # .pmclustEnv$CLASS.dmat <- tmp
   ### WCC: temp
-  tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.min)
-  tmp.2 <- .pmclustEnv$CLASS.dmat != tmp.1
-  tmp.diff <- sum(tmp.2)
-  .pmclustEnv$CLASS.dmat <- tmp.1
+  tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
+  tmp.2 <- unlist(apply(tmp.1, 1, which.min))
+  tmp.3 <- .pmclustEnv$CLASS != tmp.2	# This is not a ddmatrix.
+  tmp.diff <- sum(tmp.3)
+  .pmclustEnv$CLASS <- tmp.2
 
   as.integer(tmp.diff)
 } # End of kmeans.logL.step.dmat().
@@ -139,8 +140,9 @@ kmeans.update.class.dmat <- function(){
   ### WCC: original
   # .pmclustEnv$CLASS.dmat <- apply(.pmclustEnv$Z.dmat, 1, which.min)
   ### WCC: temp
-  tmp.1 <- apply(.pmclustEnv$Z.dmat, 1, which.min)
-  .pmclustEnv$CLASS.dmat <- tmp.1
+  tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
+  tmp.2 <- unlist(apply(tmp.1, 1, which.min))
+  .pmclustEnv$CLASS <- tmp.2	# This is not a ddmatrix
 
   invisible()
 } # End of kmeans.update.class.dmat().

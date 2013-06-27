@@ -6,9 +6,10 @@ as.dmat <- function(X.spmd, bldim = .BLDIM, ICTXT = .ICTXT,
 
   N.spmd <- nrow(X.spmd)
   p <- ncol(X.spmd)
-  N <- spmd.allreduce.integer(N.spmd, integer(1), op = "sum")
-
-  X.dmat <- ddmatrix(0, N, p, bldim = c(N.spmd, p), CTXT = 2)
+  N <- spmd.allreduce.integer(N.spmd, integer(1), op = "sum", comm = comm)
+  N.block.row <- spmd.allreduce.integer(N.spmd, integer(1), op = "max",
+                                        comm = comm)
+  X.dmat <- ddmatrix(0, N, p, bldim = c(N.block.row, p), ICTXT = 2)
   X.dmat@Data <- X.spmd
   X.dmat <- redistribute(X.dmat, bldim = bldim, ICTXT = ICTXT)
 
