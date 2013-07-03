@@ -1,6 +1,6 @@
 Package: pmclust
-Version: 0.1-5
-Date: 2013-06-24
+Version: 0.1-6
+Date: 2013-07-03
 Title: Parallel Model-Based Clustering
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
@@ -25,7 +25,7 @@ URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
-Packaged: 2013-07-02 17:42:56 UTC; snoweye
+Packaged: 2013-07-03 17:57:53 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   George Ostrouchov [aut]
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
