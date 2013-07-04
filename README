@@ -1,0 +1,9 @@
+pmclust is an R package providing parallel model-based clustering
+in SPMD parallel programming style.
+
+pmclust requires
+  - pbdR packages.
+
+More information about pmclust can be found in
+  1. pmclust vignette at 'pmclust/inst/doc/pmclust-guide.pdf'.
+  2. 'http://r-pbd.org/'.
