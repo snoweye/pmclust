@@ -108,6 +108,7 @@ pkmeans <- function(X = NULL, K = 2, MU = NULL,
                             rank.own.X = rank.own.X,
                             comm = comm)
   } else if(algorithm[1] == "kmeans.dmat"){
+    assign("X.dmat", X, envir=.pmclustEnv)
     ret <- pmclust.internal.dmat(X, K,
                                  MU = MU,
                                  algorithm = algorithm[1],
