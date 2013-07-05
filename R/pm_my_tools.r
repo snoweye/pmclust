@@ -11,7 +11,7 @@ set.global <- function(K = 2, X.spmd = NULL, PARAM = NULL,
       if(A){
         # It is default and does not thing.
       } else if(B){
-        X.spmd <- get("X.gbd", envir = .pmclustEnv)
+        X.spmd <- get("X.gbd", envir = .GlobalEnv)
         .pmclustEnv$X.spmd <- X.spmd
       } else{
         comm.stop("A global X.spmd or X.gbd does not exist.")
