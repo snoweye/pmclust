@@ -1,6 +1,5 @@
-2013-07-05: Ver. 0.1-6
+2013-07-03: Ver. 0.1-6
   * Move inst/doc/vignettes/ to vignettes/.
-  * Avoid isend() in load.balance().
 
 2013-07-02: Ver. 0.1-5
   * Add high-level functions "pmclust" and "pkmeans".
