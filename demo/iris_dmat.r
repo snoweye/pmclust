@@ -1,5 +1,6 @@
 ### Setup environment.
-library(pmclust, quiet = TRUE)
+library(pbdDMAT, quietly = TRUE)
+library(pmclust, quietly = TRUE)
 init.grid()
 
 ### Load data
@@ -12,7 +13,7 @@ X.dmat <- as.ddmatrix(X)
 X.std <- scale(X.dmat)
 
 ### Clustering
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 comm.set.seed(123, diff = TRUE)
 
 ret.mb1 <- pmclust(X.std, K = 3)

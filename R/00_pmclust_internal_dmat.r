@@ -11,7 +11,7 @@ pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
 
   # Check X.
   if(comm.all(is.null(X))){
-    if(! is.ddmatrix(.GlobalEnv$X.dmat)){
+    if(! pbdDMAT::is.ddmatrix(.GlobalEnv$X.dmat)){
       comm.stop("X.dmat is not a ddmatrix.")
     } else{
       # Assume X.dmat in .GlobalEnv and no need for converting.
@@ -19,7 +19,7 @@ pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
     }
   } else{
     # Assign X to .pmclustEnv if it is not in .GlobalEnv
-    if(! is.ddmatrix(X)){
+    if(! pbdDMAT::is.ddmatrix(X)){
       comm.stop("A ddmatrix is required.")
     }
     PARAM.org <- set.global.dmat(K = K, RndEM.iter = RndEM.iter, X.dmat = X)

@@ -14,10 +14,10 @@ set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
     .pmclustEnv$X.dmat <- X.dmat
   }
 
-  if(! is.ddmatrix(X.dmat)){
+  if(! pbdDMAT::is.ddmatrix(X.dmat)){
     stop("X.dmat is not a ddmatrix.")
   }
-  CTXT <- ICTXT(X.dmat)
+  CTXT <- pbdDMAT::ICTXT(X.dmat)
 
   ### Get data information.
   N <- nrow(X.dmat)
@@ -49,15 +49,15 @@ set.global.dmat <- function(K = 2, X.dmat = NULL, PARAM = NULL,
 
   .pmclustEnv$p.times.logtwopi <- p * log(2 * pi)
 
-  .pmclustEnv$Z.dmat <- ddmatrix(0, N, K)
+  .pmclustEnv$Z.dmat <- pbdDMAT::ddmatrix(0, N, K)
   .pmclustEnv$Z.colSums <- as.vector(colSums(.pmclustEnv$Z.dmat))
 
-  .pmclustEnv$W.dmat <- ddmatrix(0, N, K)
+  .pmclustEnv$W.dmat <- pbdDMAT::ddmatrix(0, N, K)
   .pmclustEnv$W.rowSums <- as.vector(rowSums(.pmclustEnv$W.dmat))
 
-  .pmclustEnv$U.dmat <- ddmatrix(0, N, K)
+  .pmclustEnv$U.dmat <- pbdDMAT::ddmatrix(0, N, K)
 
-  # .pmclustEnv$CLASS.dmat <- ddmatrix(0, N, 1)
+  # .pmclustEnv$CLASS.dmat <- pbdDMAT::ddmatrix(0, N, 1)
   .pmclustEnv$CLASS <- rep(0, N)	# This is not a ddmatrix.
 
   .pmclustEnv$CHECK <- list(algorithm = algorithm[1],

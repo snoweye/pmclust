@@ -1,6 +1,6 @@
 ### Convert X.spmd to X.dmat
 
-as.dmat <- function(X.spmd, bldim = .BLDIM, ICTXT = .ICTXT,
+as.dmat <- function(X.spmd, bldim = pbdDMAT::.BLDIM, ICTXT = pbdDMAT::.ICTXT,
     comm = .SPMD.CT$comm){
   X.spmd <- load.balance(X.spmd, comm = comm)
 
@@ -9,9 +9,9 @@ as.dmat <- function(X.spmd, bldim = .BLDIM, ICTXT = .ICTXT,
   N <- spmd.allreduce.integer(N.spmd, integer(1), op = "sum", comm = comm)
   N.block.row <- spmd.allreduce.integer(N.spmd, integer(1), op = "max",
                                         comm = comm)
-  X.dmat <- ddmatrix(0, N, p, bldim = c(N.block.row, p), ICTXT = 2)
+  X.dmat <- pbdDMAT::ddmatrix(0, N, p, bldim = c(N.block.row, p), ICTXT = 2)
   X.dmat@Data <- X.spmd
-  X.dmat <- redistribute(X.dmat, bldim = bldim, ICTXT = ICTXT)
+  X.dmat <- pbdDMAT::redistribute(X.dmat, bldim = bldim, ICTXT = ICTXT)
 
   X.dmat
 } # End of as.dmat().

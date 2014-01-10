@@ -5,8 +5,8 @@ generate.MixSim.spmd <- function(N, p, K, MixSim.obj = NULL,
   ### Obtain a set of parameters from MixSim.
   if(spmd.comm.rank() == 0){
     if(is.null(MixSim.obj)){
-      MixSim.obj <- MixSim:::MixSim(BarOmega, MaxOmega, K = K, p = p,
-                                    PiLow = PiLow, sph = sph, hom = hom)
+      MixSim.obj <- MixSim::MixSim(BarOmega, MaxOmega, K = K, p = p,
+                                   PiLow = PiLow, sph = sph, hom = hom)
     }
     if(class(MixSim.obj) != "MixSim"){
       stop("MixSim.obj is not a MixSim class.")
@@ -20,7 +20,8 @@ generate.MixSim.spmd <- function(N, p, K, MixSim.obj = NULL,
   N.allspmds <- unlist(lapply(get.jid(N, all = TRUE), length),
                        use.names = FALSE)
   N.spmd <- N.allspmds[spmd.comm.rank() + 1]
-  ret.dataset <- MixSim:::simdataset(N.spmd, MixSim.obj$Pi, MixSim.obj$Mu, MixSim.obj$S)
+  ret.dataset <- MixSim::simdataset(N.spmd, MixSim.obj$Pi, MixSim.obj$Mu,
+                                    MixSim.obj$S)
 
   data.simu <- ret.dataset$X
   data.class <- ret.dataset$id

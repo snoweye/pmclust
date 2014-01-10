@@ -116,7 +116,7 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
         } else{
           tmp <- matrix(X.spmd[bal.info$send$belong == i,], ncol = p)
         }
-        ret <- base:::rbind(ret, tmp)
+        ret <- base::rbind(ret, tmp)
       }
     } else{
       for(i in recv.from){
@@ -128,7 +128,7 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
         } else{
           tmp <- matrix(X.spmd[, bal.info$send$belong == i], nrow = p)
         }
-        ret <- base:::cbind(ret, tmp)
+        ret <- base::cbind(ret, tmp)
       }
     }
   } else{

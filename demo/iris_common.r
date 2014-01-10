@@ -1,5 +1,5 @@
 ### Setup environment.
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 
 ### Load data
 X <- as.matrix(iris[, -5])
@@ -8,7 +8,7 @@ X <- as.matrix(iris[, -5])
 X.std <- scale(X)
 
 ### Clustering
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 comm.set.seed(123, diff = TRUE)
 
 ret.mb1 <- pmclust(X.std, K = 3, method.own.X = "common")

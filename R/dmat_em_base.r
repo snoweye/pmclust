@@ -27,7 +27,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   ### WCC: temp spmd
   tmp.1 <- as.matrix(.pmclustEnv$W.dmat)
   tmp.2 <- sweep(tmp.1, 2, PARAM$log.ETA, FUN = "+")
-  .pmclustEnv$U.dmat <- as.ddmatrix(tmp.2)
+  .pmclustEnv$U.dmat <- pbdDMAT::as.ddmatrix(tmp.2)
 
   ### WCC: original
   # .pmclustEnv$Z.dmat <- exp(.pmclustEnv$U.dmat)
@@ -37,7 +37,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   ### WCC: temp spmd
   tmp.1 <- as.matrix(.pmclustEnv$U.dmat)
   tmp.2 <- exp(tmp.1)
-  .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
+  .pmclustEnv$Z.dmat <- pbdDMAT::as.ddmatrix(tmp.2)
 
   ### WCC: original
   # tmp.id <- rowSums(.pmclustEnv$U.dmat < .pmclustEnv$CONTROL$exp.min) == K |
@@ -67,7 +67,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
     if(tmp.flag == 1){
       tmp.2 <- matrix(tmp.2, nrow = 1)
     }
-    tmp.dmat <- as.ddmatrix(tmp.2)
+    tmp.dmat <- pbdDMAT::as.ddmatrix(tmp.2)
 
     if(tmp.flag == 1){
       ### WCC: original
@@ -106,7 +106,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
     tmp.id <- which(tmp.id)
     tmp.2 <- as.matrix(.pmclustEnv$Z.dmat)
     tmp.2[tmp.id,] <- tmp.1
-    .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
+    .pmclustEnv$Z.dmat <- pbdDMAT::as.ddmatrix(tmp.2)
   }
 
   ### WCC: original
@@ -124,7 +124,7 @@ update.expectation.dmat <- function(PARAM, update.logL = TRUE){
   ### WCC: temp spmd
   tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
   tmp.2 <- tmp.1 / .pmclustEnv$W.rowSums
-  .pmclustEnv$Z.dmat <- as.ddmatrix(tmp.2)
+  .pmclustEnv$Z.dmat <- pbdDMAT::as.ddmatrix(tmp.2)
 
 
   ### For semi-supervised clustering.
@@ -345,7 +345,7 @@ em.update.class.dmat <- function(){
   ### WCC: temp spmd
   # tmp.1 <- as.matrix(.pmclustEnv$Z.dmat)
   # tmp.2 <- matrix(apply(tmp.1, 1, which.max), ncol = 1)
-  # tmp.3 <- as.ddmatrix(tmp.2)
+  # tmp.3 <- pbdDMAT::as.ddmatrix(tmp.2)
   # .pmclustEnv$CLASS.dmat <- tmp.3
 
   invisible()
