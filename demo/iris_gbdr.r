@@ -1,5 +1,5 @@
 ### Setup environment.
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 
 ### Load data
 X <- as.matrix(iris[, -5])
@@ -17,7 +17,7 @@ std <- sqrt(allreduce(colSums(X.std^2 / (N - 1))))
 X.std <- sweep(X.std, 2, std, FUN = "/")
 
 ### Clustering
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 comm.set.seed(123, diff = TRUE)
 
 ret.mb1 <- pmclust(X.std, K = 3)

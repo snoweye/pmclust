@@ -6,7 +6,7 @@ convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
   COMM.RANK <- spmd.comm.rank(comm)
 
   # Assign X to .pmclustEnv
-  if(is.ddmatrix(X)){
+  if(pbdDMAT::is.ddmatrix(X)){
     # For a ddmatrix.
 
     .pmclustEnv$X.spmd <- as.spmd(X, comm = comm)

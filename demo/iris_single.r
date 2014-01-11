@@ -1,5 +1,5 @@
 ### Setup environment.
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 
 X.std <- NULL
 if(comm.rank() == .SPMD.CT$rank.source){
@@ -11,7 +11,7 @@ if(comm.rank() == .SPMD.CT$rank.source){
 }
 
 ### Clustering
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 comm.set.seed(123, diff = TRUE)
 
 ret.mb1 <- pmclust(X.std, K = 3, method.own.X = "single")

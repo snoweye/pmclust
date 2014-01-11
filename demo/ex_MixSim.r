@@ -1,5 +1,5 @@
 ### Setup environment.
-library(pmclust, quiet = TRUE)
+library(pmclust, quietly = TRUE)
 comm.set.seed(123, diff = TRUE)
 
 ### Generate an example data.

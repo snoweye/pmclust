@@ -82,20 +82,22 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
     stop("spmd.major = 1 or 2.")
   }
 
+  storage.mode(X.spmd) <- "double"
+
   send.to <- as.integer(unique(bal.info$send$belong))
   if(length(send.to) > 0){
     if(spmd.major == 1){
       for(i in send.to){
         if(i != COMM.RANK){
           tmp <- matrix(X.spmd[bal.info$send$belong == i,], ncol = p)
-          isend(tmp, rank.dest = i, tag = COMM.RANK, comm = comm)
+          spmd.isend.double(tmp, rank.dest = i, tag = COMM.RANK, comm = comm)
         }
       }
     } else{
       for(i in send.to){
         if(i != COMM.RANK){
           tmp <- matrix(X.spmd[, bal.info$send$belong == i], nrow = p)
-          isend(tmp, rank.dest = i, tag = COMM.RANK, comm = comm)
+          spmd.isend.double(tmp, rank.dest = i, tag = COMM.RANK, comm = comm)
         }
       }
     }
@@ -107,22 +109,26 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
     if(spmd.major == 1){
       for(i in recv.from){
         if(i != COMM.RANK){
-          tmp <- recv(rank.source = i, tag = i, comm = comm)
-          dim(tmp) <- c(length(tmp) / p, p)
+          total.row <- sum(bal.info$recv$org == i)
+          tmp <- spmd.recv.double(double(total.row * p),
+                                  rank.source = i, tag = i, comm = comm)
+          dim(tmp) <- c(total.row, p)
         } else{
           tmp <- matrix(X.spmd[bal.info$send$belong == i,], ncol = p)
         }
-        ret <- base:::rbind(ret, tmp)
+        ret <- base::rbind(ret, tmp)
       }
     } else{
       for(i in recv.from){
         if(i != COMM.RANK){
-          tmp <- recv(rank.source = i, tag = i, comm = comm)
-          dim(tmp) <- c(p, length(tmp) / p)
+          total.column <- sum(bal.info$recv$org == i)
+          tmp <- spmd.recv.double(double(total.column * p),
+                                  rank.source = i, tag = i, comm = comm)
+          dim(tmp) <- c(p, total.column)
         } else{
           tmp <- matrix(X.spmd[, bal.info$send$belong == i], nrow = p)
         }
-        ret <- base:::cbind(ret, tmp)
+        ret <- base::cbind(ret, tmp)
       }
     }
   } else{
@@ -136,6 +142,8 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
       ret <- matrix(0, nrow = p, ncol = 0)
     }
   }
+
+  spmd.wait()
 
   ret
 } # End of load.balance().
