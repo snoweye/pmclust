@@ -1,6 +1,6 @@
 useDynLib(pmclust)
 
-import(methods, rlecuyer, pbdMPI)
+import(methods, rlecuyer, pbdMPI, MASS)
 
 # exportPattern("^[[:alpha:]]+")
 # exportPattern("^[\\.]")

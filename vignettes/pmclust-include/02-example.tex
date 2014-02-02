@@ -1,6 +1,6 @@
-\section[Examples]{Example}
+\section[Examples]{Examples}
 \label{sec:example}
-\addcontentsline{toc}{section}{\thesection. Example}
+\addcontentsline{toc}{section}{\thesection. Examples}
 
 The \pkg{pmclust} is a package of \proglang{R}~\citep{Rcore} and
 designed in the single program multiple data (SPMD)
@@ -217,4 +217,30 @@ em.step.dmat     & em.step     & EM        \\
 kmeans.step.dmat & kmeans.step & Kmeans    \\ \hline \hline
 \end{tabular}
 \end{table}
+
+
+
+
+\subsection[Input and Output via CSV Files]{Input and Output via CSV Files}
+\label{sec:data_io}
+\addcontentsline{toc}{subsection}{\thesubsection. Input and Output via CSV Files}
+
+Since \pkg{pbdMPI} version 0.2-2, there are serveral simple data input
+and output methods implemented either for text or csv files in distributed
+manner (spmd/gbd). Therefore, through csv files, we may simply read data from
+disk and dump clustering results for further analysis. A demo example is
+in \pkg{pmclust} as next.
+\begin{Command}
+mpiexec -np 4 Rscript -e "demo(io_csv,'pmclust',ask=F,echo=F)"
+\end{Command}
+
+We use four processors to generate 400 samples (100 per processor)
+in two dimension and two clusters by
+\pkg{MixSim}~\citep{Melnykov2012}. The fake data with true classification IDs
+are dump to a csv file named \code{toy_org.csv}.
+Then, we read data from the file back to memory, use \pkg{pmclust} to
+cluster them, and dump the data with new classification IDs to a new csv
+file named \code{toy_new.csv}.
+Similar input and output process can be replaced by other file formats,
+data streams, or databases.
 
