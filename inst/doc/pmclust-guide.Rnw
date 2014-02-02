@@ -2,7 +2,6 @@
 
 \documentclass[article,shortnames,nojss]{pmclust-include/jss}
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% declarations for jss.cls %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -15,9 +14,9 @@ Wei-Chen Chen$^1$ and George Ostrouchov$^{1,2}$
 \end{minipage}
 \\
 \\
-$^1$Computer Science and Mathematics Division, \\
-Oak Ridge National Laboratory, \\
-Oak Ridge, TN, USA \\
+$^1$Department of Ecology and Evolutionary Biology, \\
+University of Tennessee, \\
+Knoxville, TN, USA \\
 \\
 $^2$Remote Data Analysis and Visualization Center,\\
 University of Tennessee, \\

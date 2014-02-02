@@ -17,3 +17,4 @@ gbd_kmeans      pmclust         An GBD example of K-means algorithm.
 iris_dmat       pmclust         iris example in ddmatrix.
 iris_gbdr       pmclust         iris example in GBD row-major format.
 
+io_csv          pmclust         An example of simple data input and output.
