@@ -5,8 +5,7 @@ Title: Parallel Model-Based Clustering
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
 Depends: R (>= 3.0.0), methods, rlecuyer, pbdMPI (>= 0.2-3), MASS
-Enhances: MixSim, pbdSLAP (>= 0.1-9), pbdBASE (>= 0.3-0), pbdDMAT (>=
-        0.3-0)
+Enhances: MixSim, pbdSLAP, pbdBASE, pbdDMAT
 LazyLoad: yes
 LazyData: yes
 Description: The pmclust aims to utilize model-based clustering (unsupervised)
