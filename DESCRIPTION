@@ -1,12 +1,12 @@
 Package: pmclust
-Version: 0.1-6
-Date: 2014-02-02
+Version: 0.1-7
+Date: 2014-05-24
 Title: Parallel Model-Based Clustering
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
-Depends: R (>= 3.0.0), methods, rlecuyer, pbdMPI (>= 0.2-2), MASS
-Enhances: MixSim, pbdSLAP (>= 0.1-7), pbdBASE (>= 0.3-0), pbdDMAT (>=
-        0.2-4)
+Depends: R (>= 3.0.0), methods, rlecuyer, pbdMPI (>= 0.2-3), MASS
+Enhances: MixSim, pbdSLAP (>= 0.1-9), pbdBASE (>= 0.3-0), pbdDMAT (>=
+        0.3-0)
 LazyLoad: yes
 LazyData: yes
 Description: The pmclust aims to utilize model-based clustering (unsupervised)
