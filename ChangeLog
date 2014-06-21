@@ -1,6 +1,7 @@
 2014-06-21: Ver. 0.1-7
   * Migrate to MS-MPI.
   * Get rid of jss.cls and jss.bst.
+  * Add pbdSLAP, pbdBASE, pbdDMAT back to dependent and import.
 
 2014-02-02: Ver. 0.1-6
   * Add I/O demo to read data and dump clustering results.
