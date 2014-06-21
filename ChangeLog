@@ -1,5 +1,6 @@
-2014-05-31: Ver. 0.1-7
+2014-06-21: Ver. 0.1-7
   * Migrate to MS-MPI.
+  * Get rid of jss.cls and jss.bst.
 
 2014-02-02: Ver. 0.1-6
   * Add I/O demo to read data and dump clustering results.
