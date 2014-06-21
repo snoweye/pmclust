@@ -5,8 +5,7 @@ Title: Parallel Model-Based Clustering
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
 Depends: R (>= 3.0.0), methods, rlecuyer, pbdMPI (>= 0.2-3), MASS,
-        pbdSLAP (>= 0.1-9), SEXPtools (>= 0.1-0), pbdBASE (>= 0.3-0),
-        pbdDMAT (>= 0.3-0)
+        pbdSLAP (>= 0.1-9), pbdBASE (>= 0.3-0), pbdDMAT (>= 0.3-0)
 Enhances: MixSim
 LazyLoad: yes
 LazyData: yes
@@ -26,7 +25,7 @@ URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
-Packaged: 2014-06-21 19:26:18 UTC; snoweye
+Packaged: 2014-06-21 20:28:51 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   George Ostrouchov [aut]
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
