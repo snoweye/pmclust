@@ -3,7 +3,7 @@
 pmclust.internal.dmat <- function(X = NULL, K = 2, MU = NULL,
     algorithm = .PMC.CT$algorithm.dmat, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
-    rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm){
   # Check.
   if(! (algorithm[1] %in% .PMC.CT$algorithm.dmat)){
     comm.stop("The algorithm is not supported.")

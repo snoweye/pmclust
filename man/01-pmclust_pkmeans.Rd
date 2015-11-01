@@ -9,12 +9,12 @@
   pmclust(X = NULL, K = 2, MU = NULL,
     algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
-    rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm)
 
   pkmeans(X = NULL, K = 2, MU = NULL,
     algorithm = c("kmeans", "kmeans.dmat"),
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
-    rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm)
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm)
 }
 \arguments{
   \item{X}{a GBD row-major matrix or a \code{ddmatrix}.}

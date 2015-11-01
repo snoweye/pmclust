@@ -1,6 +1,6 @@
 ### This file contains functions to load balance of data X.spmd.
 
-balance.info <- function(X.spmd, comm = .SPMD.CT$comm,
+balance.info <- function(X.spmd, comm = .pbd_env$SPMD.CT$comm,
     spmd.major = 1, method = c("block.cyclic", "block0")){
   COMM.SIZE <- spmd.comm.size(comm)
   COMM.RANK <- spmd.comm.rank(comm)
@@ -64,7 +64,7 @@ balance.info <- function(X.spmd, comm = .SPMD.CT$comm,
 } # End of balance.info()
 
 
-load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
+load.balance <- function(X.spmd, bal.info = NULL, comm = .pbd_env$SPMD.CT$comm,
     spmd.major = 1){
   COMM.RANK <- spmd.comm.rank(comm)
   if(is.null(bal.info)){
@@ -149,7 +149,7 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .SPMD.CT$comm,
 } # End of load.balance().
 
 
-unload.balance <- function(new.X.spmd, bal.info, comm = .SPMD.CT$comm){
+unload.balance <- function(new.X.spmd, bal.info, comm = .pbd_env$SPMD.CT$comm){
   rev.bal.info <- list(send = data.frame(org = bal.info$recv$belong,
                                          belong = bal.info$recv$org),
                        recv = data.frame(org = bal.info$send$belong,

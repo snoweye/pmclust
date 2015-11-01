@@ -1,7 +1,7 @@
 ### For general methods.
 
 convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
-    rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm){
   COMM.SIZE <- spmd.comm.size(comm)
   COMM.RANK <- spmd.comm.rank(comm)
 

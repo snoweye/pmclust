@@ -27,7 +27,7 @@ Oak Ridge National Laboratory, \\
 Oak Ridge, TN, USA
 }
 %\\ \today}
-\title{A Quick Guide for the \pkg{pmclust} Package {\small (Ver. \pmclustversion)}}
+\title{A Quick Guide for the \pkg{pmclust} Package}
 %\\
 %\vspace{0.2cm} \large (Based on Version 0.1-2)}
 

@@ -9,10 +9,10 @@
 }
 \usage{
   as.dmat(X.spmd, bldim = pbdDMAT::.BLDIM, ICTXT = pbdDMAT::.ICTXT,
-          comm = .SPMD.CT$comm)
+          comm = .pbd_env$SPMD.CT$comm)
 
-  as.gbd(X.dmat, comm = .SPMD.CT$comm)
-  as.spmd(X.dmat, comm = .SPMD.CT$comm)
+  as.gbd(X.dmat, comm = .pbd_env$SPMD.CT$comm)
+  as.spmd(X.dmat, comm = .pbd_env$SPMD.CT$comm)
 }
 \arguments{
   \item{X.spmd}{an input dataset of format GBD/SPMD row-major to be converted.}

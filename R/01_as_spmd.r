@@ -1,6 +1,6 @@
 ### Convert X.dmat to X.spmd
 
-as.spmd <- function(X.dmat, comm = .SPMD.CT$comm){
+as.spmd <- function(X.dmat, comm = .pbd_env$SPMD.CT$comm){
   COMM.SIZE <- comm.size(comm)
 
   ### check data.
@@ -12,7 +12,7 @@ as.spmd <- function(X.dmat, comm = .SPMD.CT$comm){
 
   ### block-cyclic in context 2.
   bldim.new <- c(ceiling(nrow(X.dmat) / COMM.SIZE), ncol(X.dmat))
-  X.dmat <- pbdDMAT::dmat.reblock(X.dmat, bldim = bldim.new, ICTXT = 2)
+  X.dmat <- pbdDMAT::reblock(X.dmat, bldim = bldim.new, ICTXT = 2)
 
   ### copy to spmd.
   if(pbdBASE::base.ownany(dim(X.dmat), pbdDMAT::bldim(X.dmat), ICTXT = 2)){

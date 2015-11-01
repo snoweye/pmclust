@@ -2,7 +2,7 @@
 library(pmclust, quietly = TRUE)
 
 X.std <- NULL
-if(comm.rank() == .SPMD.CT$rank.source){
+if(comm.rank() == .pbd_env$SPMD.CT$rank.source){
   ### Load data
   X <- as.matrix(iris[, -5])
 

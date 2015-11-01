@@ -3,7 +3,7 @@
 pmclust <- function(X = NULL, K = 2, MU = NULL,
     algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
-    rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm){
   if(comm.all(is.null(X))){
     # Check global matrix.
     A <- exists("X.spmd", envir = .GlobalEnv)
@@ -68,7 +68,7 @@ pmclust <- function(X = NULL, K = 2, MU = NULL,
 pkmeans <- function(X = NULL, K = 2, MU = NULL,
     algorithm = c("kmeans", "kmeans.dmat"),
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
-    rank.own.X = .SPMD.CT$rank.source, comm = .SPMD.CT$comm){
+    rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm){
   if(comm.all(is.null(X))){
     # Check global matrix.
     A <- exists("X.spmd", envir = .GlobalEnv)
