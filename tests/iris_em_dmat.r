@@ -2,7 +2,7 @@
 # Run: mpiexec -np 4 Rscript iris_dmat.r
 
 rm(list = ls())                                       # Clean environment
-library(pbdDMAT, quietly = TRUE)                      # Load library
+suppressMessages(library(pbdDMAT, quietly = TRUE))                      # Load library
 init()
 init.grid()
 
@@ -17,7 +17,7 @@ X.dmat <- as.ddmatrix(X)
 X.std <- scale(X.dmat)
 
 ### Clustering
-library(pmclust, quietly = TRUE)
+suppressMessages(library(pmclust, quietly = TRUE))
 comm.set.seed(123, diff = TRUE)
 
 X.dmat <- X.std

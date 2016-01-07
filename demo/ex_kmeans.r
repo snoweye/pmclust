@@ -1,5 +1,5 @@
 ### Setup mpi environment.
-library(pmclust, quietly = TRUE)
+suppressMessages(library(pmclust, quietly = TRUE))
 comm.set.seed(123, diff = TRUE)
 
 ### Generate an example data.

@@ -1,5 +1,5 @@
 ### Setup environment.
-library(pmclust, quietly = TRUE)
+suppressMessages(library(pmclust, quietly = TRUE))
 comm.set.seed(123, diff = TRUE)
 if(comm.size() != 4){
   comm.stop("4 processors are needed.")

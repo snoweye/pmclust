@@ -1,6 +1,6 @@
 ### Convert X.spmd to X.dmat
 
-as.dmat <- function(X.spmd, bldim = pbdDMAT::.BLDIM, ICTXT = pbdDMAT::.ICTXT,
+as.dmat <- function(X.spmd, bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT,
     comm = .pbd_env$SPMD.CT$comm){
   X.spmd <- load.balance(X.spmd, comm = comm)
 

@@ -1,6 +1,6 @@
 ### Setup mpi environment.
-library(pbdDMAT, quietly = TRUE)
-library(pmclust, quietly = TRUE)
+suppressMessages(library(pbdDMAT, quietly = TRUE))
+suppressMessages(library(pmclust, quietly = TRUE))
 init.grid()
 comm.set.seed(123, diff = TRUE)
 

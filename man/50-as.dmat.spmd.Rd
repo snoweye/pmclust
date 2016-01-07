@@ -8,7 +8,7 @@
   GBD row-major to ddmatrix vice versa.
 }
 \usage{
-  as.dmat(X.spmd, bldim = pbdDMAT::.BLDIM, ICTXT = pbdDMAT::.ICTXT,
+  as.dmat(X.spmd, bldim = .pbd_env$BLDIM, ICTXT = .pbd_env$ICTXT,
           comm = .pbd_env$SPMD.CT$comm)
 
   as.gbd(X.dmat, comm = .pbd_env$SPMD.CT$comm)
