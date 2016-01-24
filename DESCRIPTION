@@ -1,7 +1,9 @@
 Package: pmclust
 Version: 0.1-7
 Date: 2016-06-07
-Title: Parallel Model-Based Clustering
+Title: Parallel Model-Based Clustering using
+        Expectation-Gathering-Maximization Algorithm for Finite Mixture
+        Gaussian Model
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
 Depends: R (>= 3.0.0), pbdMPI (>= 0.3-1), pbdBASE (>= 0.4-3), pbdDMAT
@@ -10,16 +12,17 @@ Imports: methods, MASS
 Enhances: MixSim
 LazyLoad: yes
 LazyData: yes
-Description: The pmclust aims to utilize model-based clustering (unsupervised)
+Description: Aims to utilize model-based clustering (unsupervised)
         for high dimensional and ultra large data, especially in a distributed
-        manner. The package employs Rmpi to perform a
-        expectation-gathering-maximization (EGM) algorithm
+        manner. The code employs pbdMPI to perform a
+        expectation-gathering-maximization algorithm
         for finite mixture Gaussian
-        models. The unstructured dispersion matrices are assumed in the Gaussian
-        models. The implementation is default in the single program multiple
-        data (SPMD) programming model. The code can be executed through Rmpi and
-        independent to most MPI applications. See the High Performance
-        Statistical Computing (HPSC) website for more information, documents
+        models. The unstructured dispersion matrices are assumed in the
+        Gaussian models. The implementation is default in the single program
+        multiple data programming model. The code can be executed
+        through pbdMPI and independent to most MPI applications.
+        See the High Performance
+        Statistical Computing website for more information, documents
         and examples.
 License: GPL (>= 2)
 URL: http://r-pbd.org/
@@ -27,7 +30,7 @@ BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
-Packaged: 2016-01-24 16:48:25 UTC; snoweye
+Packaged: 2016-01-24 20:10:34 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   George Ostrouchov [aut]
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>

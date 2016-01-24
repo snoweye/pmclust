@@ -1,6 +1,7 @@
 useDynLib(pmclust)
 
 import(methods, MASS, pbdBASE, pbdDMAT)
+importFrom(stats,rnorm)
 importFrom(pbdMPI,spmd.allgather.integer)
 importFrom(pbdMPI,spmd.allgather.object)
 importFrom(pbdMPI,spmd.allreduce.integer)
