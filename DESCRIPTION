@@ -1,6 +1,6 @@
 Package: pmclust
-Version: 0.1-7
-Date: 2016-06-07
+Version: 0.1-8
+Date: 2016-09-20
 Title: Parallel Model-Based Clustering using
         Expectation-Gathering-Maximization Algorithm for Finite Mixture
         Gaussian Model
