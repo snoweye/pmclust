@@ -6,8 +6,8 @@ citEntry(
   author = personList(as.person("W.-C. Chen"), as.person("G. Ostrouchov")),
   year = "2012",
   note = "R Package",
-  url = "http://cran.r-project.org/package=pmclust",
-  textVersion = "W.-C. Chen, G. Ostrouchov (2012). pmclust: Parallel Model-Based Clustering. R Package, URL http://cran.r-project.org/package=pmclust",
+  url = "https://cran.r-project.org/package=pmclust",
+  textVersion = "W.-C. Chen, G. Ostrouchov (2012). pmclust: Parallel Model-Based Clustering. R Package, URL https://cran.r-project.org/package=pmclust",
   key = "Chen2012pmclustpackage"
 )
 
@@ -17,8 +17,8 @@ citEntry(
   author = personList(as.person("W.-C. Chen"), as.person("G. Ostrouchov")),
   year = "2012",
   note = "R Vignette",
-  url = "http://cran.r-project.org/package=pmclust",
-  textVersion = "W.-C. Chen, G. Ostrouchov (2014). A Quick Guide for the pmclust Package. R Vignette, URL http://cran.r-project.org/package=pmclust",
+  url = "https://cran.r-project.org/package=pmclust",
+  textVersion = "W.-C. Chen, G. Ostrouchov (2014). A Quick Guide for the pmclust Package. R Vignette, URL https://cran.r-project.org/package=pmclust",
   key = "Chen2012pmclustvignette"
 )
 

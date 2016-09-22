@@ -32,8 +32,8 @@
   A \code{ddmatrix} is returned.
 }
 \references{
-  High Performance Statistical Computing (HPSC) Website:
-  \url{http://thirteen-01.stat.iastate.edu/snoweye/hpsc/}
+  % High Performance Statistical Computing (HPSC) Website:
+  % \url{http://thirteen-01.stat.iastate.edu/snoweye/hpsc/}
 
   Programming with Big Data in R Website:
   \url{http://r-pbd.org/}

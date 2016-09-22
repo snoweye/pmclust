@@ -1,6 +1,6 @@
 Package: pmclust
 Version: 0.1-8
-Date: 2016-09-20
+Date: 2016-09-21
 Title: Parallel Model-Based Clustering using
         Expectation-Gathering-Maximization Algorithm for Finite Mixture
         Gaussian Model
@@ -30,7 +30,7 @@ BugReports: http://group.r-pbd.org/
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes
-Packaged: 2016-01-24 20:10:34 UTC; snoweye
+Packaged: 2016-09-22 00:25:36 UTC; snoweye
 Author: Wei-Chen Chen [aut, cre],
   George Ostrouchov [aut]
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>
