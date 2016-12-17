@@ -47,9 +47,6 @@
   See \code{\link{CONTROL}} for details about constrains on E- and M-steps.
 }
 \references{
-  % High Performance Statistical Computing (HPSC) Website:
-  % \url{http://thirteen-01.stat.iastate.edu/snoweye/hpsc/}
-
   Programming with Big Data in R Website:
   \url{http://r-pbd.org/}
 }
