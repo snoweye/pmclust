@@ -21,9 +21,9 @@ Description: Aims to utilize model-based clustering (unsupervised)
         Gaussian models. The implementation is default in the single program
         multiple data programming model. The code can be executed
         through pbdMPI and independent to most MPI applications.
-        See the High Performance
-        Statistical Computing website for more information, documents
-        and examples.
+        See the High Performance Statistical Computing website
+	<https://snoweye.github.io/hpsc/>
+	for more information, documents and examples.
 License: GPL (>= 2)
 URL: http://r-pbd.org/
 BugReports: http://group.r-pbd.org/
