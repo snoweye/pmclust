@@ -87,17 +87,25 @@ m.step.spmd <- function(PARAM){
            sqrt(.pmclustEnv$Z.spmd[, i.k] / .pmclustEnv$Z.colSums[i.k])
       tmp.SIGMA <- crossprod(B)
       tmp.SIGMA <- spmd.allreduce.double(tmp.SIGMA, double(p.2), op = "sum") 
-      dim(tmp.SIGMA) <- c(p, p)
 
-      tmp.U <- decompsigma(tmp.SIGMA)
-      PARAM$U.check[[i.k]] <- tmp.U$check
-      if(tmp.U$check){
-        PARAM$U[[i.k]] <- tmp.U$value
-        PARAM$SIGMA[[i.k]] <- tmp.SIGMA
+      if(!any(is.nan(tmp.SIGMA))){
+        dim(tmp.SIGMA) <- c(p, p)
+
+        tmp.U <- decompsigma(tmp.SIGMA)
+        PARAM$U.check[[i.k]] <- tmp.U$check
+        if(tmp.U$check){
+          PARAM$U[[i.k]] <- tmp.U$value
+          PARAM$SIGMA[[i.k]] <- tmp.SIGMA
+        }
+      } else{
+        PARAM$U.check[[i.k]] <- FALSE
+        if(.pmclustEnv$CONTROL$debug > 2){
+          comm.cat("  SIGMA[[", i.k, "]] has NaN. Updating is skipped.\n", sep = "", quiet = TRUE)
+        }
       }
     } else{
       if(.pmclustEnv$CONTROL$debug > 2){
-        comm.cat("  SIGMA[[", i.k, "]] is fixed.\n", sep = "", quiet = TRUE)
+        comm.cat("  SIGMA[[", i.k, "]] is fixed. Updating is skipped.\n", sep = "", quiet = TRUE)
       }
     }
   }
