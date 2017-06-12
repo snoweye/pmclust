@@ -26,6 +26,7 @@ importFrom(pbdMPI,get.jid)
 export(
 ### General functions.
   "pmclust",
+  "pmclust.reduceK",
   "pkmeans",
   "as.dmat",
   "as.spmd",
