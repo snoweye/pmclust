@@ -58,7 +58,7 @@ cm.step.spmd.SIGMA <- function(PARAM){
 
         .pmclustEnv$FAIL.i.k <- i.k    # i.k is failed to update.
         if(.pmclustEnv$CONTROL$stop.at.fail){
-          stop(paste("NaN occurs at", i.k))
+          stop(paste("NaN occurs at i.k=", i.k, sep = ""))
         }
       }
     } else{
