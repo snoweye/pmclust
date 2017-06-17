@@ -4,6 +4,10 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
     algorithm = .PMC.CT$algorithm, RndEM.iter = .PMC.CT$RndEM.iter,
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm){
+  if(algorithm[1] == "kmeans"){
+    stop("kmeans/pkmeans is not supported in reduceK.")
+  }
+
   ### Run through original pmclust().
   ret <- pmclust(X = X, K = K, MU = MU, algorithm = algorithm,
                  RndEM.iter = RndEM.iter, CONTROL = CONTROL,
@@ -43,22 +47,25 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
       PARAM.org$MU <- matrix(PARAM.new$MU[, -i.k], ncol = K)
       PARAM.org$SIGMA <- PARAM.new$SIGMA[-i.k]
 
+      if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
+        e.step.spmd(PARAM.org)
+      } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
+        e.step.dmat(PARAM.org)
+      } else{
+        comm.stop("The algorithm is not found.")
+      }
+
       # Update steps.
       method.step <- switch(algorithm[1],
                             "em" = em.step,
                             "aecm" = aecm.step,
                             "apecm" = apecm.step,
                             "apecma" = apecma.step,
-                            "kmeans" = kmeans.step,
                             NULL)
       PARAM.new <- method.step(PARAM.org)
 
       # Obtain classifications.
-      if(algorithm[1] == "kmeans"){
-        kmeans.update.class()
-      } else{
-        em.update.class()
-      }
+      em.update.class()
 
       # Get class numbers.
       if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
