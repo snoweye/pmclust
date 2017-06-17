@@ -29,7 +29,7 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
       K <- K - length(i.k)
 
       ### Initial global storage.
-      PARAM.org <- set.global(K = K, RndEM.iter = 0)
+      PARAM.org <- set.global(K = K)
 
       ### Replacing PARAM.org by previous PARAM.new.
       PARAM.org$K <- K
