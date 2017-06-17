@@ -29,10 +29,15 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
       K <- K - length(i.k)
 
       ### Initial global storage.
-      PARAM.org <- set.global(K = K)
+      if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
+        PARAM.org <- set.global(K = K)
+      } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
+        PARAM.org <- set.global.dmat(K = K)
+      } else{
+        comm.stop("The algorithm is not found.")
+      }
 
       ### Replacing PARAM.org by previous PARAM.new.
-      PARAM.org$K <- K
       PARAM.org$ETA <- PARAM.new$ETA[-i.k] / sum(PARAM.org$ETA[-i.k])
       PARAM.org$log.ETA <- log(PARAM.org$ETA)
       PARAM.org$MU <- matrix(PARAM.new$MU[, -i.k], ncol = K)

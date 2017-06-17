@@ -138,7 +138,7 @@ apecm.step.spmd <- function(PARAM.org){
 
     ### Start APECM here.
     PARAM.new <- try(apecm.onestep.spmd(PARAM.org))
-    if(any(class(PARAM.new) == "try-error") || is.nan(PARAM.new$logL)){
+    if(class(PARAM.new) == "try-error" || is.nan(PARAM.new$logL)){
       comm.cat("Results of previous iterations are returned.\n", quiet = TRUE)
       .pmclustEnv$CHECK$convergence <- 99
       PARAM.new <- PARAM.org
