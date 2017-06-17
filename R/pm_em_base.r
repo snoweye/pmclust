@@ -105,7 +105,7 @@ m.step.spmd <- function(PARAM){
 
         .pmclustEnv$FAIL.i.k <- i.k    # i.k is failed to update.
         if(.pmclustEnv$CONTROL$stop.at.fail){
-          stop(paste("NaN occurs at", i.k))
+          comm.stop(paste("NaN occurs at", i.k))
         }
       }
     } else{
