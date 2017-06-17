@@ -102,6 +102,11 @@ m.step.spmd <- function(PARAM){
         if(.pmclustEnv$CONTROL$debug > 2){
           comm.cat("  SIGMA[[", i.k, "]] has NaN. Updating is skipped.\n", sep = "", quiet = TRUE)
         }
+
+        .pmclustEnv$FAIL.i.k <- i.k    # i.k is failed to update.
+        if(.pmclustEnv$CONTROL$stop.at.fail){
+          stop(paste("NaN occurs at", i.k))
+        }
       }
     } else{
       if(.pmclustEnv$CONTROL$debug > 2){
@@ -175,6 +180,10 @@ em.step.spmd <- function(PARAM.org){
       time.start <- proc.time()
     }
 
+    ### This is used to record which i.k may be failed to update.
+    .pmclustEnv$FAIL.i.k <- 0
+
+    ### Start EM here.
     PARAM.new <- try(em.onestep.spmd(PARAM.org))
     if(comm.any(class(PARAM.new) == "try-error")){
       comm.cat("Results of previous iterations are returned.\n", quiet = TRUE)

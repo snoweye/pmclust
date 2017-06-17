@@ -13,11 +13,16 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
   ### Repeat if error occurs.
   repeat{
     if(ret$check$convergence == 99 && K > 1){
-      ### Drop the smallest class or
+      ### Drop specific i.k if available or
+      ### drop the smallest class or
       ### drop the class with the smallest eta among all small classes or
       ### drop all classes with 0 elements.
       PARAM.new <- ret$param
-      i.k <- which(ret$n.class == min(ret$n.class))
+      if(.pmclustEnv$CONTROL$stop.at.fail && .pmclustEnv$FAIL.i.k > 0){
+        i.k <- .pmclustEnv$FAIL.i.k
+      } else{
+        i.k <- which(ret$n.class == min(ret$n.class))
+      }
       if(i.k > 1 && min(ret$n.class) > 0){
         i.k <- i.k[which.min(PARAM.new$ETA[i.k])]
       }

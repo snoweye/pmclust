@@ -15,7 +15,8 @@
               exp.min = log(.Machine$double.xmin),
               exp.max = log(.Machine$double.xmax),
               U.max = 1e+4,
-              U.min = 1e-6
+              U.min = 1e-6,
+              stop.at.fail = TRUE
             )
 )
 

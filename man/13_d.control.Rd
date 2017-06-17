@@ -30,6 +30,7 @@
              \code{exp.max}    \tab maximum exponent (\code{log(.Machine$double.xmax)}) \cr
              \code{U.min}      \tab minimum of diagonal of \code{\link[base]{chol}} \cr
              \code{U.max}      \tab maximum of diagonal of \code{\link[base]{chol}} \cr
+             \code{stop.at.fail} \tab stop iterations when fails such as NaN \cr
 }
   These elements govern the computing including number of iterations,
   convergent criteria, ill conditions, and numerical issues.
