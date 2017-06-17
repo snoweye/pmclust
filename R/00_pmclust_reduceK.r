@@ -33,8 +33,7 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
 
       ### Replacing PARAM.org by previous PARAM.new.
       PARAM.org$K <- K
-      PARAM.org$ETA <- PARAM.new$ETA[-i.k]
-      PARAM.org$ETA <- PARAM.org$ETA / sum(PARAM.org$ETA)
+      PARAM.org$ETA <- PARAM.new$ETA[-i.k] / sum(PARAM.org$ETA[-i.k])
       PARAM.org$log.ETA <- log(PARAM.org$ETA)
       PARAM.org$MU <- matrix(PARAM.new$MU[, -i.k], ncol = K)
       PARAM.org$SIGMA <- PARAM.new$SIGMA[-i.k]
