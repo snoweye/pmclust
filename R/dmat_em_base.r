@@ -284,7 +284,7 @@ em.step.dmat <- function(PARAM.org){
     PARAM.new <- try(em.onestep.dmat(PARAM.org))
     ### WCC: temp
     # PARAM.new <- em.onestep.dmat(PARAM.org)
-    if(comm.any(class(PARAM.new) == "try-error")){
+    if(comm.any(class(PARAM.new) == "try-error") || is.nan(PARAM.new$logL)){
       comm.cat("Results of previous iterations are returned.\n", quiet = TRUE)
       .pmclustEnv$CHECK$convergence <- 99
       PARAM.new <- PARAM.org
