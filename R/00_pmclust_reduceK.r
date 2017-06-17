@@ -61,7 +61,14 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
       }
 
       # Get class numbers.
-      N.CLASS <- get.N.CLASS(K)
+      if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
+        N.CLASS <- get.N.CLASS(K)
+      } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
+        N.CLASS <- get.N.CLASS.dmat(K)
+      } else{
+        comm.stop("The algorithm is not found.")
+      }
+
 
       # For return.
       ret <- list(algorithm = algorithm[1],
