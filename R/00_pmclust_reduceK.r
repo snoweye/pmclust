@@ -8,19 +8,19 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
     stop("kmeans/pkmeans is not supported in reduceK.")
   }
 
-  ### Run through original pmclust().
+  # Run through original pmclust().
   ret <- pmclust(X = X, K = K, MU = MU, algorithm = algorithm,
                  RndEM.iter = RndEM.iter, CONTROL = CONTROL,
                  method.own.X = method.own.X, rank.own.X = rank.own.X,
                  comm = comm)
 
-  ### Repeat if error occurs.
+  # Repeat if error occurs.
   repeat{
     if(ret$check$convergence == 99 && K > 1){
-      ### Drop specific i.k if available or
-      ### drop the smallest class or
-      ### drop the class with the smallest eta among all small classes or
-      ### drop all classes with 0 elements.
+      # Drop specific i.k if available or
+      # drop the smallest class or
+      # drop the class with the smallest eta among all small classes or
+      # drop all classes with 0 elements.
       PARAM.new <- ret$param
       if(.pmclustEnv$CONTROL$stop.at.fail && .pmclustEnv$FAIL.i.k > 0){
         i.k <- .pmclustEnv$FAIL.i.k
@@ -32,7 +32,7 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
       }
       K <- K - length(i.k)
 
-      ### Initial global storage.
+      # Initial global storage.
       if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
         PARAM.org <- set.global(K = K)
       } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
@@ -41,12 +41,13 @@ pmclust.reduceK <- function(X = NULL, K = 2, MU = NULL,
         comm.stop("The algorithm is not found.")
       }
 
-      ### Replacing PARAM.org by previous PARAM.new.
+      # Replacing PARAM.org by previous PARAM.new.
       PARAM.org$ETA <- PARAM.new$ETA[-i.k] / sum(PARAM.org$ETA[-i.k])
       PARAM.org$log.ETA <- log(PARAM.org$ETA)
       PARAM.org$MU <- matrix(PARAM.new$MU[, -i.k], ncol = K)
       PARAM.org$SIGMA <- PARAM.new$SIGMA[-i.k]
 
+      # Need one e-step to initial storage.
       if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
         e.step.spmd(PARAM.org)
       } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
