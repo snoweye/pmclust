@@ -3,13 +3,13 @@
 pmclust.reduceK.dmat <- function(K = 2, algorithm = .PMC.CT$algorithm){
   # Get an initial start.
   PARAM.org <- set.global.dmat(K = K)
-  PARAM.org <- try(initial.em.dmat(PARAM.org))
+  PARAM.org <- try(initial.em.dmat(PARAM.org), silent = TRUE)
 
   # Ensure the initial is good. Warning: This may take forever to run!
   repeat{
     if(class(PARAM.org) == "try-error"){
       PARAM.org <- set.global.dmat(K = K)
-      PARAM.org <- try(initial.em.dmat(PARAM.org))
+      PARAM.org <- try(initial.em.dmat(PARAM.org), silent = TRUE)
     } else{
       break
     }
@@ -25,7 +25,7 @@ pmclust.reduceK.dmat <- function(K = 2, algorithm = .PMC.CT$algorithm){
   if(comm.all(is.null(method.step))){
     comm.stop("Algorithm is not found.")
   }
-  PARAM.new <- try(method.step(PARAM.org))
+  PARAM.new <- try(method.step(PARAM.org), silent = TRUE)
   em.update.class.dmat()
   N.CLASS <- get.N.CLASS.dmat(K)
 
@@ -61,7 +61,7 @@ pmclust.reduceK.dmat <- function(K = 2, algorithm = .PMC.CT$algorithm){
 
       # Update steps.
       e.step.dmat(PARAM.org)
-      PARAM.new <- try(method.step(PARAM.org))
+      PARAM.new <- try(method.step(PARAM.org), silent = TRUE)
       em.update.class.dmat()
       N.CLASS <- get.N.CLASS.dmat(K)
     } else{
