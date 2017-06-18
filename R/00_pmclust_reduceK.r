@@ -19,7 +19,7 @@ pmclust.reduceK <- function(K = 2, algorithm = .PMC.CT$algorithm){
 } # End of pmclust.reduceK().
 
 
-pmclust.reduce.spmd <- function(K = 2, algorithm = .PMC.CT$algorithm){
+pmclust.reduceK.spmd <- function(K = 2, algorithm = .PMC.CT$algorithm){
   # Get an initial start.
   PARAM.org <- set.global(K = K)
   PARAM.org <- try(initial.em(PARAM.org))

@@ -1,6 +1,6 @@
 ### A dmat version for automatically reducing K methods.
 
-pmclust.reduce.dmat <- function(K = 2, algorithm = .PMC.CT$algorithm){
+pmclust.reduceK.dmat <- function(K = 2, algorithm = .PMC.CT$algorithm){
   # Get an initial start.
   PARAM.org <- set.global.dmat(K = K)
   PARAM.org <- try(initial.em.dmat(PARAM.org))
