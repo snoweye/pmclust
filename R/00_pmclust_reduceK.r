@@ -8,9 +8,9 @@ pmclust.reduceK <- function(K = 2, algorithm = .PMC.CT$algorithm){
   }
 
   if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
-    ret <- pmclust.reduceK.spmd(X = X, K = K, algorithm = algorithm)
+    ret <- pmclust.reduceK.spmd(K = K, algorithm = algorithm)
   } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
-    ret <- pmclust.reduceK.dmat(X = X, K = K, algorithm = algorithm)
+    ret <- pmclust.reduceK.dmat(K = K, algorithm = algorithm)
   } else{
     comm.stop("The algorithm is not found.")
   }
