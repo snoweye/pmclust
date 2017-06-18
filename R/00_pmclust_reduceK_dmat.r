@@ -17,10 +17,10 @@ pmclust.reduceK.dmat <- function(K = 2, algorithm = .PMC.CT$algorithm){
 
   # Update steps.
   method.step <- switch(algorithm[1],
-                        "em.dmat" = em.step,
-                        # "aecm.dmat" = aecm.step,
-                        # "apecm.dmat" = apecm.step,
-                        # "apecma.dmat" = apecma.step,
+                        "em.dmat" = em.step.dmat,
+                        # "aecm.dmat" = aecm.step.dmat,
+                        # "apecm.dmat" = apecm.step.dmat,
+                        # "apecma.dmat" = apecma.step.dmat,
                         NULL)
   if(comm.all(is.null(method.step))){
     comm.stop("Algorithm is not found.")
