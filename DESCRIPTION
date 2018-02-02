@@ -14,13 +14,14 @@ LazyLoad: yes
 LazyData: yes
 Description: Aims to utilize model-based clustering (unsupervised)
         for high dimensional and ultra large data, especially in a distributed
-        manner. The code employs pbdMPI to perform a
+        manner. The code employs 'pbdMPI' to perform a
         expectation-gathering-maximization algorithm
         for finite mixture Gaussian
         models. The unstructured dispersion matrices are assumed in the
         Gaussian models. The implementation is default in the single program
         multiple data programming model. The code can be executed
-        through pbdMPI and independent to most MPI applications.
+        through 'pbdMPI' and MPI' implementations such as 'OpenMPI'
+        and 'MPICH'.
         See the High Performance Statistical Computing website
 	<https://snoweye.github.io/hpsc/>
 	for more information, documents and examples.
