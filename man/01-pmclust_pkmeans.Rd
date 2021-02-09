@@ -12,12 +12,12 @@
     rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm)
 
   pkmeans(X = NULL, K = 2, MU = NULL,
-    algorithm = c("kmeans", "kmeans.dmat"),
+    algorithm = c("kmeans"),
     CONTROL = .PMC.CT$CONTROL, method.own.X = .PMC.CT$method.own.X,
     rank.own.X = .pbd_env$SPMD.CT$rank.source, comm = .pbd_env$SPMD.CT$comm)
 }
 \arguments{
-  \item{X}{a GBD row-major matrix or a \code{ddmatrix}.}
+  \item{X}{a GBD row-major matrix.}
   \item{K}{number of clusters.}
   \item{MU}{pre-specified centers.}
   \item{algorithm}{types of EM algorithms.}
@@ -32,7 +32,7 @@
   including: data distribution, setting global environment \code{.pmclustEnv},
   initializations, algorithm selection, etc.
 
-  The input \code{X} is either in \code{ddmatrix} or \code{gbd}. It will
+  The input \code{X} is in \code{gbd}. It will
   be converted in \code{gbd} row-major format and copied into
   \code{.pmclustEnv} for computation. By default, \pkg{pmclust} uses a
   GBD row-major format (\code{gbdr}). While \code{common} means that
@@ -47,7 +47,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 }
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com} and George Ostrouchov.
@@ -55,10 +55,7 @@
 \seealso{
   \code{\link{set.global}},
   \code{\link{e.step}},
-  \code{\link{m.step}}. \cr
-  \code{\link{set.global.dmat}},
-  \code{\link{e.step.dmat}},
-  \code{\link{m.step.dmat}}.
+  \code{\link{m.step}}.
 }
 \examples{
 \dontrun{

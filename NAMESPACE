@@ -1,6 +1,6 @@
 useDynLib(pmclust)
 
-import(methods, MASS, pbdBASE, pbdDMAT)
+import(methods, MASS)
 importFrom(stats,rnorm)
 importFrom(pbdMPI,spmd.allgather.integer)
 importFrom(pbdMPI,spmd.allgather.object)
@@ -28,9 +28,6 @@ export(
   "pmclust",
   "pmclust.reduceK",
   "pkmeans",
-  "as.dmat",
-  "as.spmd",
-  "as.gbd",
 
   ### Example functions in SPMD.
   "generate.basic",
@@ -70,38 +67,6 @@ export(
   ### Utility functions.
   "get.N.CLASS",
   "get.CLASS",
-
-### DMAT functions.
-  ### Readme function.
-  "readme.dmat",
-
-  ### Global objects.
-  "set.global.dmat",
-
-  ### Initial functions.
-  "initial.em.dmat",
-  "initial.RndEM.dmat",
-  "initial.center.dmat",
-
-  ### EM methods.
-  "em.step.dmat",
-#  "aecm.step.dmat",
-#  "apecm.step.dmat",
-#  "apecma.step.dmat",
-  "em.update.class.dmat",
-
-  ### EM utility functions.
-  "em.onestep.dmat",
-  "e.step.dmat",
-  "m.step.dmat",
-  "indep.logL.dmat",
-  
-  ### K-means.
-  "kmeans.step.dmat",
-  "kmeans.update.class.dmat",
-
-  ### Utility functions.
-  "get.N.CLASS.dmat",
 
 ### GBD functions.
   ### Global objects.

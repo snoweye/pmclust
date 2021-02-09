@@ -1,16 +1,14 @@
 ### For automatically reducing K methods.
 
-### X should be in spmd, gbd, or dmat and set at .pmclustEnv or so, as used
+### X should be in spmd or gbd and set at .pmclustEnv or so, as used
 ### in pmclust().
 pmclust.reduceK <- function(K = 2, algorithm = .PMC.CT$algorithm){
-  if(any(algorithm[1] %in% c("kmeans", "kmeans.dmat"))){
+  if(any(algorithm[1] %in% c("kmeans"))){
     stop("kmeans/pkmeans is not supported in reduceK.")
   }
 
   if(algorithm[1] %in% .PMC.CT$algorithm.gbd){
     ret <- pmclust.reduceK.spmd(K = K, algorithm = algorithm)
-  } else if(algorithm[1] %in% .PMC.CT$algorithm.dmat){
-    ret <- pmclust.reduceK.dmat(K = K, algorithm = algorithm)
   } else{
     comm.stop("The algorithm is not found.")
   }

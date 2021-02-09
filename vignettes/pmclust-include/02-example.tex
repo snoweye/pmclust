@@ -197,10 +197,12 @@ mpiexec -np 4 Rscript -e "demo(ex_MixSim,'pmclust',ask=F,echo=F)"
 \end{Command}
 More performance comparison can be found in~\citet{Chen2012a}.
 
-Further, \code{X.spmd} may be replaced by \code{X.dmat} in a \code{ddmatrix}
+Further, \code{X.spmd} may be replaced by
+\code{X.dmat}\footnote{Retired from pmclust} in a \code{ddmatrix}
 format (block-cyclic) for larger datasets and gaining performance
 improvement. The main corresponding functions are given in the
-Table~\ref{tab:dmat}. The details of block-cyclic (\code{X.dmat}) can be found
+Table~\ref{tab:dmat}\footnote{Retired from pmclust}.
+The details of block-cyclic (\code{X.dmat}) can be found
 in the pbdR
 vignettes~\citep{Chen2012pbdSLAPvignette,Schmidt2012pbdBASEvignette,
 Schmidt2012pbdDMATvignette}.

@@ -41,8 +41,7 @@ balance.info <- function(X.spmd, comm = .pbd_env$SPMD.CT$comm,
     rank.org <- rep(0:(COMM.SIZE - 1), N.allspmd)
     rank.belong <- rep(0:(COMM.SIZE - 1), new.N.allspmd) 
   } else if(method[1] == "block0"){
-    ### Try block0 method which is a better way to balance data. However,
-    ### this is not necessary in block-cyclic, so useless for ddmatrix.
+    ### Try block0 method which is a better way to balance data.
     n <- floor(N / COMM.SIZE)
     n.residual <- N %% COMM.SIZE
     new.N.allspmd <- rep(n, COMM.SIZE) +

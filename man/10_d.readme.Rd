@@ -12,30 +12,18 @@
 \alias{Z.colSums}
 \alias{Z.spmd}
 \alias{p.times.logtwopi}
-\alias{readme.dmat}
-\alias{CLASS.dmat}
-\alias{U.dmat}
-\alias{W.dmat}
-\alias{W.dmat.rowSums}
-\alias{Z.dmat}
 \title{Read Me First Function}
 \description{
   This function print the annotations of all variables used in this package.
-
-  \code{*.dmat}'s are \code{ddmatrix} versions.
 }
 \usage{
   readme()
-
-  readme.dmat()
 }
 \details{
   This package is optimized in the way by pre-specifying several global
   variables in \code{.pmclustEnv}.
   These variables will be overwrote by EM algorithms. Users should
   use these names to access the results and utilize them with cautions.
-
-  \code{readme.dmat} is a ddmatrix version of \code{readme}.
 }
 \value{
   A readme message will print on screen by default and explain the global
@@ -81,19 +69,17 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 }
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com} and George Ostrouchov.
 }
 \seealso{
-  \code{\link{set.global}},
-  \code{\link{set.global.dmat}}.
+  \code{\link{set.global}}.
 }
 \examples{
 \dontrun{
 readme()
-readme.dmat()
 }
 }
 \keyword{global variables}

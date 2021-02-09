@@ -16,13 +16,13 @@ mb.print <- function(PARAM, CHECK){
         "  rel.err: ", CHECK$rel.err, "\n", sep = "")
     cat("logL: ", PARAM$logL, "\n", sep = "")
     cat("K: ", PARAM$K, "\n", sep = "")
-    if(!(CHECK$algorithm %in% c("kmeans", "kmeans.dmat"))){
+    if(!(CHECK$algorithm %in% c("kmeans"))){
       cat("\nETA:\n")
       print(ETA)
     }
     cat("\nMU:\n")
     print(MU)
-    if(!(CHECK$algorithm %in% c("kmeans", "kmeans.dmat"))){
+    if(!(CHECK$algorithm %in% c("kmeans"))){
       cat("\nSIGMA:\n")
       print(SIGMA)
     }

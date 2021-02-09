@@ -44,7 +44,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 
   Chen, W.-C. and Maitra, R. (2011)
   \dQuote{Model-based clustering of regression time series data via
@@ -82,8 +82,6 @@
   \code{\link{apecm.step}}, \cr
   \code{\link{apecma.step}},
   \code{\link{kmeans.step}}. \cr
-  \code{\link{em.step.dmat}},
-  \code{\link{kmeans.step.dmat}}. \cr
 }
 \examples{
 \dontrun{
@@ -100,9 +98,6 @@ mpiexec -np 2 Rscript -e 'demo(ex_aecm,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_apecm,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_apecma,"pmclust",ask=F,echo=F)'
 mpiexec -np 2 Rscript -e 'demo(ex_kmeans,"pmclust",ask=F,echo=F)'
-
-mpiexec -np 2 Rscript -e 'demo(dmat_em,"pmclust",ask=F,echo=F)'
-mpiexec -np 2 Rscript -e 'demo(dmat_kmeans,"pmclust",ask=F,echo=F)'
 }
 }
 \keyword{package}

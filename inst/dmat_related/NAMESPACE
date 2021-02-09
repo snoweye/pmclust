@@ -1,0 +1,112 @@
+useDynLib(pmclust)
+
+import(methods, MASS, pbdBASE, pbdDMAT)
+importFrom(stats,rnorm)
+importFrom(pbdMPI,spmd.allgather.integer)
+importFrom(pbdMPI,spmd.allgather.object)
+importFrom(pbdMPI,spmd.allreduce.integer)
+importFrom(pbdMPI,spmd.allreduce.double)
+importFrom(pbdMPI,spmd.bcast.integer)
+importFrom(pbdMPI,spmd.bcast.object)
+importFrom(pbdMPI,spmd.comm.rank)
+importFrom(pbdMPI,spmd.comm.size)
+importFrom(pbdMPI,spmd.isend.double)
+importFrom(pbdMPI,spmd.recv.double)
+importFrom(pbdMPI,spmd.wait)
+importFrom(pbdMPI,comm.all)
+importFrom(pbdMPI,comm.any)
+importFrom(pbdMPI,comm.cat)
+importFrom(pbdMPI,comm.size)
+importFrom(pbdMPI,comm.stop)
+importFrom(pbdMPI,get.jid)
+
+# exportPattern("^[[:alpha:]]+")
+# exportPattern("^[\\.]")
+
+export(
+### General functions.
+  "pmclust",
+  "pmclust.reduceK",
+  "pkmeans",
+  "as.dmat",
+  "as.spmd",
+  "as.gbd",
+
+  ### Example functions in SPMD.
+  "generate.basic",
+  "generate.MixSim",
+  "assign.N.sample",
+  "mb.print",
+
+### SPMD functions.
+  ### Readme function.
+  "readme",
+
+  ### Global objects.
+  "set.global",
+
+  ### Initial functions.
+  "initial.em",
+  "initial.RndEM",
+  "initial.center",
+
+  ### EM methods.
+  "em.step",
+  "aecm.step",
+  "apecm.step",
+  "apecma.step",
+  "em.update.class",
+  
+  ### EM utility functions.
+  "em.onestep",
+  "e.step",
+  "m.step",
+  "indep.logL",
+
+  ### K-means.
+  "kmeans.step",
+  "kmeans.update.class",
+
+  ### Utility functions.
+  "get.N.CLASS",
+  "get.CLASS",
+
+### DMAT functions.
+  ### Readme function.
+  "readme.dmat",
+
+  ### Global objects.
+  "set.global.dmat",
+
+  ### Initial functions.
+  "initial.em.dmat",
+  "initial.RndEM.dmat",
+  "initial.center.dmat",
+
+  ### EM methods.
+  "em.step.dmat",
+#  "aecm.step.dmat",
+#  "apecm.step.dmat",
+#  "apecma.step.dmat",
+  "em.update.class.dmat",
+
+  ### EM utility functions.
+  "em.onestep.dmat",
+  "e.step.dmat",
+  "m.step.dmat",
+  "indep.logL.dmat",
+  
+  ### K-means.
+  "kmeans.step.dmat",
+  "kmeans.update.class.dmat",
+
+  ### Utility functions.
+  "get.N.CLASS.dmat",
+
+### GBD functions.
+  ### Global objects.
+  "set.global.gbd"
+)
+
+S3method(print, pmclust)
+S3method(print, pkmeans)

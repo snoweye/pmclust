@@ -1,18 +1,13 @@
 \name{One Step of EM algorithm}
 \alias{em.onestep}
-\alias{em.onestep.dmat}
 \title{One EM Step for GBD}
 \description{
   One EM step only for model-based clustering of finite mixture Gaussian
   models with unstructured dispersions.
   This is a core function of \code{\link{em.step}}.
-
-  \code{em.onestep.dmat} is a \code{ddmatrix} version of \code{em.onestep}.
 }
 \usage{
   em.onestep(PARAM)
-
-  em.onestep.dmat(PARAM)
 }
 \arguments{
   \item{PARAM}{an original set of parameters generated
@@ -41,7 +36,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 }
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com} and George Ostrouchov.

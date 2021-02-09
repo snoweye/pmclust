@@ -1,3 +1,6 @@
+2021-02-08: Ver. 0.2-1
+  * Move DMAT related functions to inst/R_dmat/.
+
 2018-02-01: Ver. 0.2-0
   * Add ‘R_registerRoutines’, ‘R_useDynamicSymbols’.
 

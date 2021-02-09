@@ -1,13 +1,12 @@
 Package: pmclust
-Version: 0.2-0
-Date: 2018-02-01
+Version: 0.2-1
+Date: 2021-02-08
 Title: Parallel Model-Based Clustering using
         Expectation-Gathering-Maximization Algorithm for Finite Mixture
         Gaussian Model
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
-Depends: R (>= 3.0.0), pbdMPI (>= 0.3-1), pbdBASE (>= 0.4-3), pbdDMAT
-        (>= 0.4-0)
+Depends: R (>= 3.0.0), pbdMPI (>= 0.3-1)
 Imports: methods, MASS
 Enhances: MixSim
 LazyLoad: yes
@@ -27,7 +26,7 @@ Description: Aims to utilize model-based clustering (unsupervised)
 	for more information, documents and examples.
 License: GPL (>= 2)
 URL: http://r-pbd.org/
-BugReports: http://group.r-pbd.org/
+BugReports: https://github.com/snoweye/pmclust/issues
 MailingList: Please send questions and comments regarding pbdR to
         RBigData@gmail.com
 NeedsCompilation: yes

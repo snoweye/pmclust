@@ -1,17 +1,12 @@
 \name{One E-Step}
 \alias{e.step}
-\alias{e.step.dmat}
 \title{Compute One E-step and Log Likelihood Based on Current Parameters}
 \description{
   This function will perform one E-step based on current parameters.
   This is a core function of \code{\link{em.onestep}}.
-
-  \code{e.step.dmat} is a \code{ddmatrix} version of \code{e.step}.
 }
 \usage{
   e.step(PARAM, update.logL = TRUE)
-
-  e.step.dmat(PARAM, update.logL = TRUE)
 }
 \arguments{
   \item{PARAM}{a set of parameters.}
@@ -48,7 +43,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 }
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com} and George Ostrouchov.

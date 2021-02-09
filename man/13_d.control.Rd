@@ -15,7 +15,6 @@
   \code{pkmeans} including
 \tabular{ll}{\code{algorithm}      \tab algorithms implemented \cr
              \code{algorithm.gbd} \tab algorithms implemented for gbd/spmd\cr
-             \code{algorithm.dmat} \tab algorithms implemented for ddmatrix\cr
              \code{method.own.X}   \tab how \code{X} is distributed \cr
              \code{CONTROL}        \tab a \code{CONTROL} list as in next \cr
 }
@@ -38,9 +37,9 @@
 
   Currently, the \code{algorithm} could be
   \code{em}, \code{aecm}, \code{apecm}, \code{apecma}, and \code{kmeans}
-  for GBD and ddmatrix (with \code{*.dmat}).
-  The \code{method.own.X} could be \code{gbdr}, \code{common},
-  \code{single}, and \code{ddmatrix}.
+  for GBD.
+  The \code{method.own.X} could be \code{gbdr}, \code{common}, and
+  \code{single}.
 }
 \section{Numerical Issues}{
   For example, \code{exp.min} and \code{exp.max} will control the range of
@@ -65,14 +64,13 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 }
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com} and George Ostrouchov.
 }
 \seealso{
-  \code{\link{set.global.gbd}},
-  \code{\link{set.global.dmat}}, and
+  \code{\link{set.global.gbd}}, and
   \code{\link{set.global}}.
 }
 \examples{

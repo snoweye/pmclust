@@ -1,0 +1,20 @@
+ex_em		pmclust		An example of EM algorithm.
+ex_aecm		pmclust		An example of AECM algorithm.
+ex_apecm	pmclust		An example of APECM algorithm.
+ex_apecma	pmclust		An example of APECMa algorithm.
+ex_kmeans	pmclust		An example of K-means algorithm.
+ex_MixSim	pmclust		An example of utilizing MixSim.
+iris_common	pmclust		iris example in common on all processors.
+iris_single	pmclust		iris example in a single processor.
+
+dmat_em         pmclust         A ddmatrix example of EM algorithm.
+dmat_kmeans     pmclust         A ddmatrix example of K-means algorithm.
+gbd_em          pmclust         An GBD example of EM algorithm.
+gbd_aecm        pmclust         An GBD example of AECM algorithm.
+gbd_apecm       pmclust         An GBD example of APECM algorithm.
+gbd_apecma      pmclust         An GBD example of APECMa algorithm.
+gbd_kmeans      pmclust         An GBD example of K-means algorithm.
+iris_dmat       pmclust         iris example in ddmatrix.
+iris_gbdr       pmclust         iris example in GBD row-major format.
+
+io_csv          pmclust         An example of simple data input and output.

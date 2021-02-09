@@ -75,6 +75,27 @@ get.N.CLASS <- function(K){
   spmd.allreduce.integer(as.integer(tmp.n.class), integer(K), op = "sum")
 } # End of get.N.CLASS().
 
+get.CLASS <- function(PARAM){
+  A <- exists("CLASS", envir = .pmclustEnv)
+  B <- exists("CLASS.spmd", envir = .pmclustEnv)
+
+  if(A & B){
+    comm.stop("CLASS and CLASS.spmd both exist in .pmclustEnv")
+  } else{
+    if(A){
+      ret <- spmd.allgather.integer(as.integer(.pmclustEnv$CLASS.spmd),
+                                    integer(PARAM$N))
+      ret <- unlist(ret)
+    } else if(B){
+      ret <- as.integer(.pmclustEnv$CLASS)
+    } else{
+      comm.stop("CLASS and CLASS.spmd do not exist in .pmclustEnv")
+    }
+  }
+
+  ret
+} # End of get.CLASS().
+
 
 ### Copy from dmvnorm() in mvtnorm package.
 #logdmvnorm <- function(x, mean, sigma){

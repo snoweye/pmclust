@@ -1,17 +1,12 @@
 \name{Independent logL}
 \alias{indep.logL}
-\alias{indep.logL.dmat}
 \title{Independent Function for Log Likelihood}
 \description{
   This function is for debugging only and for checking if the observed data
   log likelihood is consistent for each EM iteration.
-
-  \code{indep.logL.dmat} is a \code{ddmatrix} version of \code{indep.logL}.
 }
 \usage{
   indep.logL(PARAM)
-
-  indep.logL.dmat(PARAM)
 }
 \arguments{
   \item{PARAM}{a set of parameters.}
@@ -33,7 +28,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 }
 \author{
   Wei-Chen Chen \email{wccsnow@gmail.com} and George Ostrouchov.

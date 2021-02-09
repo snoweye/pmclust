@@ -18,7 +18,7 @@ citEntry(
   year = "2012",
   note = "R Vignette",
   url = "https://cran.r-project.org/package=pmclust",
-  textVersion = "W.-C. Chen, G. Ostrouchov (2014). A Quick Guide for the pmclust Package. R Vignette, URL https://cran.r-project.org/package=pmclust",
+  textVersion = "W.-C. Chen, G. Ostrouchov (2012). A Quick Guide for the pmclust Package. R Vignette, URL https://cran.r-project.org/package=pmclust",
   key = "Chen2012pmclustvignette"
 )
 

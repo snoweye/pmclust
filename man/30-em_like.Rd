@@ -4,14 +4,10 @@
 \alias{apecm.step}
 \alias{apecma.step}
 \alias{kmeans.step}
-\alias{em.step.dmat}
-\alias{kmeans.step.dmat}
 \title{EM-like Steps for GBD}
 \description{
   The EM-like algorithm for model-based clustering of finite mixture Gaussian
   models with unstructured dispersions.
-
-  \code{*.dmat}'s are \code{ddmatrix} versions.
 }
 \usage{
   em.step(PARAM.org)
@@ -19,9 +15,6 @@
   apecm.step(PARAM.org)
   apecma.step(PARAM.org)
   kmeans.step(PARAM.org)
-
-  em.step.dmat(PARAM.org)
-  kmeans.step.dmat(PARAM.org)
 }
 \arguments{
   \item{PARAM.org}{an original set of parameters generated
@@ -51,7 +44,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 
   Chen, W.-C. and Maitra, R. (2011)
   \dQuote{Model-based clustering of regression time series data via
@@ -85,8 +78,7 @@
 }
 \seealso{
   \code{\link{set.global}},
-  \code{\link{mb.print}},
-  \code{\link{set.global.dmat}}.
+  \code{\link{mb.print}}.
 }
 \examples{
 \dontrun{

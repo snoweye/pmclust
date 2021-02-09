@@ -6,11 +6,6 @@ convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
   COMM.RANK <- spmd.comm.rank(comm)
 
   # Assign X to .pmclustEnv
-  if(pbdDMAT::is.ddmatrix(X)){
-    # For a ddmatrix.
-
-    .pmclustEnv$X.spmd <- as.spmd(X, comm = comm)
-  } else{
     # for a spmd matrix.
 
     if(is.null(X)){
@@ -68,7 +63,6 @@ convert.data <- function(X, method.own.X = .PMC.CT$method.own.X,
     } else{
       comm.stop("method.own.X is not found.")
     }
-  }
 
   invisible()
 } # End of convert.data().
