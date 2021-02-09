@@ -25,9 +25,8 @@ Description: Aims to utilize model-based clustering (unsupervised)
 	<https://snoweye.github.io/hpsc/>
 	for more information, documents and examples.
 License: GPL (>= 2)
-URL: http://r-pbd.org/
+URL: https://pbdr.org/
 BugReports: https://github.com/snoweye/pmclust/issues
-MailingList: Please send questions and comments regarding pbdR to
-        RBigData@gmail.com
+MailingList: Please send questions and comments to wccsnow@gmail.com
 NeedsCompilation: yes
 Maintainer: Wei-Chen Chen <wccsnow@gmail.com>

@@ -44,7 +44,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 
   Chen, W.-C. and Maitra, R. (2011)
   \dQuote{Model-based clustering of regression time series data via

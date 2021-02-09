@@ -68,7 +68,7 @@
 }
 \references{
   Programming with Big Data in R Website:
-  \url{http://r-pbd.org/}
+  \url{https://pbdr.org/}
 
   Maitra, R. (2009)
   \dQuote{Initializing partition-optimization algorithms},
