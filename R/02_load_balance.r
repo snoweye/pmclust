@@ -110,7 +110,8 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .pbd_env$SPMD.CT$comm,
         if(i != COMM.RANK){
           total.row <- sum(bal.info$recv$org == i)
           tmp <- spmd.recv.double(double(total.row * p),
-                                  rank.source = i, tag = i, comm = comm)
+                                  rank.source = i, tag = i, comm = comm,
+                                  check.type = FALSE)
           dim(tmp) <- c(total.row, p)
         } else{
           tmp <- matrix(X.spmd[bal.info$send$belong == i,], ncol = p)
@@ -122,7 +123,8 @@ load.balance <- function(X.spmd, bal.info = NULL, comm = .pbd_env$SPMD.CT$comm,
         if(i != COMM.RANK){
           total.column <- sum(bal.info$recv$org == i)
           tmp <- spmd.recv.double(double(total.column * p),
-                                  rank.source = i, tag = i, comm = comm)
+                                  rank.source = i, tag = i, comm = comm,
+                                  check.type = FALSE)
           dim(tmp) <- c(p, total.column)
         } else{
           tmp <- matrix(X.spmd[, bal.info$send$belong == i], nrow = p)

@@ -6,7 +6,7 @@ Title: Parallel Model-Based Clustering using
         Gaussian Model
 Authors@R: c(person("Wei-Chen", "Chen", role = c("aut", "cre"), email =
         "wccsnow@gmail.com"), person("George", "Ostrouchov", role = "aut"))
-Depends: R (>= 3.0.0), pbdMPI (>= 0.3-1)
+Depends: R (>= 3.0.0), pbdMPI (>= 0.4-2)
 Imports: methods, MASS
 Enhances: MixSim
 LazyLoad: yes
