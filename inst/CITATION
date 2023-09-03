@@ -1,7 +1,7 @@
 citHeader("To cite pmclust in a publication use:")
 
 bibentry(
-  entry = "Misc",
+  bibtype = "Misc",
   title = "{pmclust}: Parallel Model-Based Clustering",
   author = c("Wei-Chen Chen",
              "George Ostrouchov"),
@@ -13,7 +13,7 @@ bibentry(
 )
 
 bibentry(
-  entry = "Manual",
+  bibtype = "Manual",
   title = "A Quick Guide to the {pmclust} Package",
   author = c("Wei-Chen Chen",
              "George Ostrouchov"),
