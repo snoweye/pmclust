@@ -8,7 +8,7 @@ generate.MixSim.spmd <- function(N, p, K, MixSim.obj = NULL,
       MixSim.obj <- MixSim::MixSim(BarOmega, MaxOmega, K = K, p = p,
                                    PiLow = PiLow, sph = sph, hom = hom)
     }
-    if(class(MixSim.obj) != "MixSim"){
+    if(!inherits(MixSim.obj, "MixSim")){
       stop("MixSim.obj is not a MixSim class.")
     }
   } else{

@@ -1,9 +1,10 @@
 citHeader("To cite pmclust in a publication use:")
 
-citEntry(
+bibentry(
   entry = "Misc",
   title = "{pmclust}: Parallel Model-Based Clustering",
-  author = personList(as.person("W.-C. Chen"), as.person("G. Ostrouchov")),
+  author = c("Wei-Chen Chen",
+             "George Ostrouchov"),
   year = "2012",
   note = "R Package",
   url = "https://cran.r-project.org/package=pmclust",
@@ -11,10 +12,11 @@ citEntry(
   key = "Chen2012pmclustpackage"
 )
 
-citEntry(
+bibentry(
   entry = "Manual",
   title = "A Quick Guide to the {pmclust} Package",
-  author = personList(as.person("W.-C. Chen"), as.person("G. Ostrouchov")),
+  author = c("Wei-Chen Chen",
+             "George Ostrouchov"),
   year = "2012",
   note = "R Vignette",
   url = "https://cran.r-project.org/package=pmclust",

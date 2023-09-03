@@ -24,7 +24,7 @@ pmclust.reduceK.spmd <- function(K = 2, algorithm = .PMC.CT$algorithm){
 
   # Ensure the initial is good. Warning: This may take forever to run!
   repeat{
-    if(class(PARAM.org) == "try-error"){
+    if(inherits(PARAM.org, "try-error")){
       PARAM.org <- set.global(K = K)
       PARAM.org <- try(initial.em(PARAM.org), silent = TRUE)
     } else{
@@ -49,7 +49,7 @@ pmclust.reduceK.spmd <- function(K = 2, algorithm = .PMC.CT$algorithm){
 
   # Reduce K if error occurs.
   repeat{
-    if((class(PARAM.new) == "try-error" ||
+    if((inherits(PARAM.new, "try-error") ||
         .pmclustEnv$CHECK$convergence == 99) &&
        K > 1){
       # Drop specific i.k if available or

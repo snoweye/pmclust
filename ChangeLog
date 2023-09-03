@@ -1,5 +1,7 @@
 2023-09-03: Ver. 0.2-2
   * Remove the meta table from the doc.
+  * Modify CITATION.
+  * Change class() check with inherits().
 
 2021-02-08: Ver. 0.2-1
   * Move DMAT related functions to inst/R_dmat/.
