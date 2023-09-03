@@ -15,15 +15,6 @@
   website for more information, documents and examples.
 }
 \details{
-\tabular{ll}{
-  Package: \tab pmclust\cr
-  Type: \tab Package\cr
-%  Version: \tab 0.1-2\cr
-%  Date: \tab 2010-02-18\cr
-  License: \tab GPL\cr
-  LazyLoad: \tab yes\cr
-}
-
   The main function is \code{\link{pmclust}} implementing the
   parallel EM algorithm for mixture multivariate Gaussian models
   with unstructured dispersions. This function groups a data matrix
